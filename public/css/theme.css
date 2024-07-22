@@ -1,0 +1,14 @@
+:root {
+    --nav-background-color: #101820;
+    --first-gradient-color: #101820;
+    --second-gradient-color: #FEE715;
+    --button-primary-background-color: #1F51FF;
+    --button-danger-background-color: #800000;
+    --button-text-color: #f5f5f5;
+    --nav-text-color: #ffffff;
+
+    font-size: 15px;
+    transition: font-size 0.3s;
+}
+
+

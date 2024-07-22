@@ -1,0 +1,66 @@
+
+.svg-sm{
+    width:11px;
+    height:11px;
+}
+
+.svg{
+    width:13px;
+    height:13px;
+}
+.svg{
+    width:13px;
+    height:13px;
+}
+
+.svg-xl {
+    width: 35px; /* Set your initial width */
+    height: 35px; /* Set your initial height */
+    transition: width 0.2s ease, height 0.2s ease; /* Add a smooth transition effect */
+}
+
+.svg-xxl{
+    width:60px;
+    height:60px;
+}
+.svg-lg{
+    width:30px;
+    height:30px;
+}
+.svg-md{
+    width:21px;
+    height:21px;
+
+}
+.svg-18px{
+    width:18px;
+    height:18px;
+
+}
+img.svg-md{
+    border-radius: 50%;
+}
+
+.svg-nav{
+    background-color: white;
+    border-radius: 50%;
+    padding: 6px;
+    width:30px;
+    height:30px;
+    color: var(--second-gradient-color);
+}
+
+.svg-nav:hover{
+    background-color: var(--second-gradient-color);
+    color: var(--first-gradient-color);
+}
+
+.svg-nav.active-svg{
+    background-color: var(--second-gradient-color);
+    color: var(--first-gradient-color);
+}
+
+.nav-profile-size{
+    width:30px;
+    height:30px;
+}

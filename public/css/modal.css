@@ -1,0 +1,10 @@
+.fullInfo{
+    overflow: scroll;
+}
+
+.fullInfoRequestModal{
+    position: relative;
+    /* left: -3000px; */
+    width: 1050px;
+    background-color: white;
+}
