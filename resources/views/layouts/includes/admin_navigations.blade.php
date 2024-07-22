@@ -1,6 +1,6 @@
 <nav class="bg-primary shadow-sm fixed-top">
     <div class="container d-flex flex-column flex-md-row justify-content-md-between py-1 py-md-3">
-        <a class="fw-bold text-white d-flex align-items-start flex-column gap-2 bebas-font fs-1" href="{{ url('/') }}">
+        <a class="fw-bold text-white d-flex align-items-start flex-column gap-2 bebas-font fs-2" href="{{ url('/') }}">
             <span style="height:50px">
                 <img src="{{ asset('logos/bayan_ng_paniqui.png') }}"  class="h-100 w-auto rounded-circle">
                 <img src="{{ asset('logos/para_sa_bayan.png') }}" class="h-100 w-auto rounded-circle">

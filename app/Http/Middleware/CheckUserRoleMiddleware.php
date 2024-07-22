@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckUserRoleMiddleware
@@ -19,6 +20,12 @@ class CheckUserRoleMiddleware
         $user = Auth::user();
 
         if (in_array($user->role, $roles)) {
+
+            // if(Hash::check('P@ssword123', $user->password)){
+            //     return redirect("/passwords")
+            //         ->with('default', 'Please Change Your Default Password');
+            // }
+
             return $next($request);
         }
 

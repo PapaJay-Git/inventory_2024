@@ -136,4 +136,8 @@ return [
 
     'scripts_version' => '1.0.0.6',
 
+    /**
+     * Default password for all barangay accounts
+     */
+    'default_password' => 'P@ssword123'
 ];

@@ -23,7 +23,7 @@
         @auth
             @if (Auth::user()->role == 'admin')
                 @include('layouts.includes.admin_navigations')
-            @elseif (Auth::user()->role == 'barangay')
+            @elseif (Auth::user()->role == 'barangay_account')
                 @include('layouts.includes.barangay_navigations')
             @endif
         @endauth

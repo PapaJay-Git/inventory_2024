@@ -1,12 +1,12 @@
 <nav class="bg-primary shadow-sm fixed-top">
     <div class="container d-flex flex-column flex-md-row justify-content-md-between py-1 py-md-3">
-        <a class="fw-bold text-white d-flex align-items-start flex-column gap-2 bebas-font fs-1" href="{{ url('/') }}">
+        <a class="fw-bold text-white d-flex align-items-start flex-column gap-2 bebas-font fs-2" href="{{ url('/') }}">
             <span style="height:50px">
                 <img src="{{ asset('logos/bayan_ng_paniqui.png') }}"  class="h-100 w-auto rounded-circle">
                 <img src="{{ asset('logos/para_sa_bayan.png') }}" class="h-100 w-auto rounded-circle">
                 <img src="{{ asset('logos/dswd.png') }}" class="h-100 w-auto">
             </span>
-            ADMIN
+            BARANGAY {{ Auth::user()->name }}
         </a>
 
         <div class="px-2 px-md-0 pt-4 pt-md-0">
@@ -19,11 +19,27 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link fw-bold text-white d-flex justify-content-center align-items-center flex-column" href="{{ url('/barangays') }}">
-                        <img src="{{ asset('svgs/accounts.svg') }}" alt="BARANGAY ACCOUNTS"  class="svg-nav" id="barangay-svg" />
-
-                        <small>BRGY ACCOUNTS</small>
+                    <a id="navbarDropdown" class="nav-link  fw-bold text-white d-flex justify-content-center align-items-center flex-column" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <img src="{{ asset('svgs/forms.svg') }}" alt="FORMS"  class="svg-nav" id="forms-svg" />
+                        <small>FORMS</small>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-primary px-2" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/daycare">
+                            Daycare
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/Kabataan">
+                            Kababaihan
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/solo-parent">
+                            Solo - Parent
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/pwd">
+                            Person with Disability (Pwd)
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/dafac">
+                            Disaster Assistance Family Car (DAFAC)
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown ">
                     <a id="navbarDropdown" class="nav-link  fw-bold text-white d-flex justify-content-center align-items-center flex-column" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

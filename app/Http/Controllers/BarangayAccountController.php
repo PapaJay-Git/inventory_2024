@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class BarangayAccountController extends Controller
 {
@@ -11,8 +13,9 @@ class BarangayAccountController extends Controller
      */
     public function index()
     {
+        $barangays = User::where('role', 'barangay_account')->get();
 
-        return view('users.admin.barangay-accounts.index');
+        return view('users.admin.barangay-accounts.index', compact('barangays'));
     }
 
     /**
@@ -28,7 +31,24 @@ class BarangayAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // Validate the request
+        $request->validate([
+            'barangay_name' => ['required', 'string', 'unique:users,name'],
+            'username' => ['required', 'string', 'unique:users,username'],
+            'psgc_barangay' => ['required', 'string', 'unique:users,psgc_barangay'],
+        ]);
+
+        // Create a new garden and save it to the database
+        User::create([
+            'name' => $request['barangay_name'],
+            'username' => $request['username'],
+            'psgc_barangay' => $request['psgc_barangay'],
+            'role' => 'barangay_account',
+            'password' => Hash::make(config('app.default_password'))
+        ]);
+
+        return redirect("/barangay-accounts/create")->with('status', 'Barangay account created successfully');
     }
 
     /**
@@ -44,7 +64,11 @@ class BarangayAccountController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barangay = User::where('role', 'barangay_account')
+        ->where('id', $id)
+        ->firstOrFail();
+
+        return view('users.admin.barangay-accounts.edit', compact('barangay'));
     }
 
     /**
@@ -52,7 +76,33 @@ class BarangayAccountController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $barangay = User::where('role', 'barangay_account')
+        ->where('id', $id)
+        ->firstOrFail();
+
+        $validateArray = [
+            'barangay_name' => ['required', 'string', 'unique:users,name,'.$id],
+            'username' => ['required', 'string', 'unique:users,username,'.$id],
+            'psgc_barangay' => ['required', 'string', 'unique:users,psgc_barangay,'.$id],
+        ];
+        $updates = [];
+
+        if (!empty($request['new_password']) || !empty($request['new_password_confirmation'])) {
+            $validateArray['new_password'] = ['required', 'string', 'min:8', 'confirmed'];
+
+            $updates['password'] = Hash::make($request['new_password']);
+        }
+
+        // Validate the request
+        $request->validate($validateArray);
+
+        $updates['name'] = $request['barangay_name'];
+        $updates['username'] = $request['username'];
+        $updates['psgc_barangay'] = $request['psgc_barangay'];
+
+        $barangay->update($updates);
+
+        return redirect("/barangay-accounts/$id/edit")->with('status', 'Barangay account updated successfully');
     }
 
     /**
@@ -60,6 +110,12 @@ class BarangayAccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barangay = User::where('role', 'barangay_account')
+        ->where('id', $id)
+        ->firstOrFail();
+
+        $barangay->delete();
+
+        return redirect("/barangay-accounts")->with('status', 'Barangay account deleted successfully!');
     }
 }

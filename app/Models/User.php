@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'username',
         'role',
+        'psgc_barangay',
         'password',
     ];
 

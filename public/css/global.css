@@ -1,65 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-.search-title{
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 60px !important;
-}
-
 .bebas-font{
     font-family: 'Bebas Neue', sans-serif;
-}
-
-
-
-
-.invisible-text {
-    visibility: hidden;
-}
-
-.custom-z-index-5 {
-    z-index: 5;
 }
 
 .btn{
     white-space: nowrap !important;
 }
-.btn-span {
-    white-space: nowrap !important;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.btn-span-disabled {
-    white-space: nowrap !important;
-    cursor: not-allowed;
-    font-size: 12px;
-}
-
-
-.dot{
-    background-color: grey;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: block;
-}
-
-.dot-success{
-    background-color: var(--button-primary-background-color);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: block;
-}
-
-
 
 .alert{
     border-color: #d3d9f2 !important;
-}
-
-.alert-light:hover{
-    background-color:#d3d9f2;
 }
 
 a {
@@ -78,13 +28,6 @@ a {
     }
 }
 
-.pulse-text {
-    animation: pulse 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#new-notification-detected{
-    display: none;
-}
 
 .hidden {
     visibility: hidden;
@@ -98,18 +41,11 @@ ul.dropdown-menu.dropdown-menu-end {
     overflow-y: scroll !important;
 }
 
-.vh-50{
-    height: 50vh !important;
-}
-
 .btn{
     border-radius: 2px !important;
     background-image: none !important;
 }
 
-.modal-content{
-    border-radius: 2px !important;
-}
 
 .btn-primary {
     background-color: var(--button-primary-background-color) !important;
@@ -123,7 +59,7 @@ ul.dropdown-menu.dropdown-menu-end {
 }
 
 
-.form-control {
+.form-control{
     border-radius: 2px !important;
 }
 
@@ -135,29 +71,10 @@ ul.dropdown-menu.dropdown-menu-end {
     border-radius: 5px !important;
 }
 
-.w-date-input-form{
-    width: 140px !important;
-}
-
-.small-sweetalert {
-    max-width: 300px; /* Adjust the max-width based on your preference */
-  }
-
-  .small-sweetalert-icon .swal2-icon {
-    width: 15px;
-    height: 15px;
-  }
-
-  .border-r-8px{
+.border-r-8px{
     border-radius: 8px;
-  }
+}
 
-.h-170px{
-    height: 150px;
-}
-.w-200px{
-    width:280px;
-}
 
 .border-r-15px{
     border-radius: 15px;
@@ -179,9 +96,6 @@ ul.dropdown-menu.dropdown-menu-end {
     background-color: white;
 }
   @media (max-width: 768px) {
-    .bg-md-primary {
-      background-color: var(--nav-background-color) !important;
-    }
     .shadow-background{
         box-shadow: none !important;
     }
@@ -204,116 +118,12 @@ ul.dropdown-menu.dropdown-menu-end {
     /* Add more styles as needed */
   }
 
-.text-primary {
-    color: var(--button-primary-background-color) !important;
-}
 
 input::-ms-clear, input::-ms-reveal {
     display: none;
 }
 
-.text-yellow{
-    color: rgb(194, 194, 125) !important;
+
+.invalid-feedback{
+    display: block !important;
 }
-
-@media (min-width: 400px){
-    .col-xs-6 {
-        flex: 0 0 auto;
-        width: 50%;
-    }
-}
-
-
-
-  /* Small devices (landscape phones, 576px and up) */
-  @media (min-width: 576px) {
-    .w-sm-15 {
-      width: 15% !important;
-    }
-
-    .w-sm-25 {
-      width: 25% !important;
-    }
-    .w-sm-50 {
-      width: 50% !important;
-    }
-    .w-sm-75 {
-      width: 75% !important;
-    }
-    .w-sm-100 {
-      width: 100% !important;
-    }
-  }
-
-  /* Medium devices (tablets, 768px and up) */
-  @media (min-width: 768px) {
-    .w-md-15 {
-        width: 15% !important;
-    }
-
-    .w-md-25 {
-      width: 25% !important;
-    }
-    .w-md-50 {
-      width: 50% !important;
-    }
-    .w-md-75 {
-      width: 75% !important;
-    }
-    .w-md-100 {
-      width: 100% !important;
-    }
-  }
-
-  /* Large devices (desktops, 992px and up) */
-  @media (min-width: 992px) {
-    .w-lg-15 {
-        width: 15% !important;
-    }
-    .w-lg-25 {
-      width: 25% !important;
-    }
-    .w-lg-50 {
-      width: 50% !important;
-    }
-    .w-lg-75 {
-      width: 75% !important;
-    }
-    .w-lg-100 {
-      width: 100% !important;
-    }
-  }
-  @media (min-width: 1200px) {
-    .w-xl-15 {
-        width: 15% !important;
-    }
-    .w-xl-25 {
-      width: 25% !important;
-    }
-    .w-xl-50 {
-      width: 50% !important;
-    }
-    .w-xl-75 {
-      width: 75% !important;
-    }
-    .w-xl-100 {
-      width: 100% !important;
-    }
-  }
-  @media (min-width: 1400px) {
-    .w-xxl-15 {
-        width: 15% !important;
-    }
-    .w-xxl-25 {
-      width: 25% !important;
-    }
-    .w-xxl-50 {
-      width: 50% !important;
-    }
-    .w-xxl-75 {
-      width: 75% !important;
-    }
-    .w-xxl-100 {
-      width: 100% !important;
-    }
-  }

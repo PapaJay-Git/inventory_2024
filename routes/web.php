@@ -12,6 +12,6 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::middleware('CheckUserRole:admin')->group( function (){
+Route::middleware('auth', 'CheckUserRole:admin')->group( function (){
     Route::resource('barangay-accounts', BarangayAccountController::class);
 });
