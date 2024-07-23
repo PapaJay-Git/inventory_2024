@@ -8,22 +8,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckUserRoleMiddleware
+class CheckDefaultPasswordMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
+        $defaultPassword = config('app.default_password');
 
-        if (in_array($user->role, $roles)) {
-            return $next($request);
+        if(Hash::check($defaultPassword, $user->password)){
+            return redirect("/password")
+                ->with('default', 'Please Change Your Default Password');
         }
 
-        return abort(403, 'Unauthorized');
+        return $next($request);
     }
-
 }

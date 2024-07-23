@@ -24,19 +24,19 @@
                         <small>FORMS</small>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-primary px-2" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/daycare">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/daycares">
                             Daycare
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/Kabataan">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/Kabataans">
                             Kababaihan
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/solo-parent">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/solo-parents">
                             Solo - Parent
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/pwd">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/pwds">
                             Person with Disability (Pwd)
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/dafac">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/dafacs">
                             Disaster Assistance Family Car (DAFAC)
                         </a>
                     </div>

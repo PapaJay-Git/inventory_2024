@@ -2,16 +2,114 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Daycare;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DaycareController extends Controller
 {
+    private function arrayValidation()
+    {
+        $arrayValidation = [
+            'eccdfid' => 'required|string|max:255',
+
+            // Facility Location
+            'facility_region' => 'required|string|max:255',
+            'facility_province' => 'required|string|max:255',
+            'facility_city_municipality' => 'required|string|max:255',
+            'facility_barangay' => 'required|string|max:255',
+            'facility_street_address' => 'required|string|max:255',
+            'facility_name' => 'required|string|max:255',
+            'service_provider' => 'required|string|max:255',
+
+            // Child Information
+            'last_name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'ext' => 'nullable|string|max:10', // Extension (Jr., Sr.)
+            'nickname' => 'nullable|string|max:50',
+            'sex' => 'required|in:Male,Female',
+            'birth_order' => 'required|integer|min:1',
+            'no_of_siblings' => 'required|integer|min:0',
+            'date_of_birth' => 'required|date',
+            'birthplace' => 'required|string|max:255',
+            'birth_registered' => 'required|date',
+
+            // Home Address
+            'home_region' => 'required|string|max:255',
+            'home_province' => 'required|string|max:255',
+            'home_city_municipality' => 'required|string|max:255',
+            'home_barangay' => 'required|string|max:255',
+            'home_street_address' => 'required|string|max:255',
+
+            'religion' => 'nullable|string|max:255',
+            'ethnicity' => 'nullable|string|max:255',
+
+            // Nutrition and Services
+            'breastfeeding' => 'boolean|in:1',
+            'kind_of_breastfeeding' => 'required_if:breastfeeding,true|nullable|in:Exclusive,Mixed',
+            'breastfed_for_months' => 'required_if:breastfeeding,true|nullable|integer|min:0',
+            'supplementary_feeding' => 'boolean|in:1',
+            'supplementary_feeding_for_days' => 'required_if:supplementary_feeding,true|nullable|integer|min:0',
+
+            // Disability Information
+            'has_disability' => 'boolean|in:1',
+            'referred_for_assistance' => 'required_if:has_disability,true|string|in:Yes,No',
+
+            // Additional Information
+            'listahanan_identified' => 'boolean|in:1',
+            'pantawid_beneficiary' => 'boolean|in:1',
+            'household_id' => 'required_if:pantawid_beneficiary,true|nullable|string|max:255',
+
+            // Participation Fee
+            'participation_fee_paid' => 'boolean|in:1',
+            'participation_fee_amount' => 'required_if:participation_fee_paid,true|nullable|numeric|min:0',
+
+            // Session Information
+            'scheduled_session' => 'required|in:Morning,Afternoon',
+
+            // Parent's Counterpart
+            'parents_counterpart' => 'required|in:Cash,In Kind,None',
+
+            // Attendance Status
+            'attendance_status' => 'required|in:Continuing,Dropped Out,Graduated',
+            'school_year' => 'required|string|max:20',
+            'dropout_reason' => 'required|in:Illness,Transfer of Residence,Others',
+            'dropout_reason_others' => 'required_if:dropout_reason,Others|nullable|string|max:255',
+
+            // Accomplished By
+            'accomplished_by' => 'required|string|max:255',
+            'date_accomplished' => 'required|date',
+            'name_of_eccd_service_provider' => 'required|string|max:255',
+            'encoder_id' => 'required|string|max:255',
+
+
+            // Validate disabilities array
+            'disabilities' => 'array',
+            'disabilities.*.disability' => 'nullable|string',
+            'disabilities.*.cause' => 'nullable|string',
+
+            // Validate ECCD experiences array
+            'eccdExperiences' => 'array',
+            'eccdExperiences.*.service_type' => 'nullable|string',
+            'eccdExperiences.*.service' => 'nullable|string',
+            'eccdExperiences.*.from_date' => 'nullable|date',
+            'eccdExperiences.*.to_date' => 'nullable|date',
+        ];
+
+        return $arrayValidation;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $daycares = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->get();
+
+        return view('users.admin.barangay-forms.daycares.index', compact('daycares'));
     }
 
     /**
@@ -19,7 +117,7 @@ class DaycareController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.admin.barangay-forms.daycares.create');
     }
 
     /**
@@ -27,38 +125,211 @@ class DaycareController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        $validator = Validator::make($request->all(), $this->arrayValidation());
+
+        // Custom validation logic
+        $validator->after(function ($validator) use ($request) {
+            // Check disabilities array
+            if ($request->has('disabilities')) {
+                foreach ($request->input('disabilities') as $disability) {
+                    if (!empty($disability['disability']) && (empty($disability['cause']))) {
+                        $validator->errors()->add('disabilities', 'All disability fields must be filled if any disability field is provided.');
+                        break;
+                    }
+                }
+            }
+
+            // Check ECCD experiences array
+            if ($request->has('eccdExperiences')) {
+                foreach ($request->input('eccdExperiences') as $experience) {
+                    if (!empty($experience['service_type']) &&
+                       (empty($experience['service']) || empty($experience['from_date']) || empty($experience['to_date']))) {
+                        $validator->errors()->add('eccdExperiences', 'All ECCD experience fields must be filled if any experience field is provided.');
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        $validator->validate();
+
+        if (!isset($data['breastfeeding'])) {
+            $data['kind_of_breastfeeding'] = null;
+            $data['breastfed_for_months'] = null;
+        }
+        if (!isset($data['supplementary_feeding'])) {
+            $data['supplementary_feeding_for_days'] = null;
+        }
+        if (!isset($data['has_disability'])) {
+            $data['referred_for_assistance'] = null;
+        }
+        if (!isset($data['pantawid_beneficiary'])) {
+            $data['household_id'] = null;
+        }
+        if (!isset($data['participation_fee_paid'])) {
+            $data['participation_fee_amount'] = null;
+        }
+        if ($data['dropout_reason'] != 'Others') {
+            $data['dropout_reason_others'] = null;
+        }
+
+
+        // Create a new daycare and save it to the database
+        $daycare = Daycare::create($data);
+
+        $daycare->disabilities()->delete();
+        if ($request->has('disabilities')) {
+            foreach ($request->disabilities as $disability) {
+
+                if(!empty($disability['disability']) && !empty($disability['cause'])){
+                    $daycare->disabilities()->create($disability);
+                }
+            }
+        }
+
+        $daycare->eccdExperiences()->delete();
+        if ($request->has('eccdExperiences')) {
+            foreach ($request->eccdExperiences as $experience) {
+                if(!empty($experience['service_type']) && !empty($experience['service'])
+                && !empty($experience['from_date']) && !empty($experience['to_date'])){
+                    $daycare->eccdExperiences()->create($experience);
+                }
+            }
+        }
+
+        return redirect()->route('daycares.create')->with('status', 'Daycare record created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // $daycare = Daycare::with(['disabilities', 'eccdExperiences'])->findOrFail($id);
+        // return view('users.admin.barangay-forms.daycares.show', compact('daycare'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->where('daycares.id', $id)
+        ->firstOrFail();
+
+        return view('users.admin.barangay-forms.daycares.edit', compact('daycare'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->where('daycares.id', $id)
+        ->firstOrFail();
+
+        $data = $request->all();
+
+        $validator = Validator::make($request->all(), $this->arrayValidation());
+
+        // Custom validation logic
+        $validator->after(function ($validator) use ($request) {
+            // Check disabilities array
+            if ($request->has('disabilities')) {
+                foreach ($request->input('disabilities') as $disability) {
+                    if (!empty($disability['disability']) && (empty($disability['cause']))) {
+                        $validator->errors()->add('disabilities', 'All disability fields must be filled if any disability field is provided.');
+                        break;
+                    }
+                }
+            }
+
+            // Check ECCD experiences array
+            if ($request->has('eccdExperiences')) {
+                foreach ($request->input('eccdExperiences') as $experience) {
+                    if (!empty($experience['service_type']) &&
+                       (empty($experience['service']) || empty($experience['from_date']) || empty($experience['to_date']))) {
+                        $validator->errors()->add('eccdExperiences', 'All ECCD experience fields must be filled if any experience field is provided.');
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        $validator->validate();
+
+        if (!isset($data['breastfeeding'])) {
+            $data['breastfeeding'] = false;
+            $data['kind_of_breastfeeding'] = null;
+            $data['breastfed_for_months'] = null;
+        }
+        if (!isset($data['supplementary_feeding'])) {
+            $data['supplementary_feeding'] = false;
+            $data['supplementary_feeding_for_days'] = null;
+        }
+        if (!isset($data['has_disability'])) {
+            $data['has_disability'] = false;
+            $data['referred_for_assistance'] = null;
+        }
+        if (!isset($data['pantawid_beneficiary'])) {
+            $data['pantawid_beneficiary'] = false;
+            $data['household_id'] = null;
+        }
+        if (!isset($data['participation_fee_paid'])) {
+            $data['participation_fee_paid'] = false;
+            $data['participation_fee_amount'] = null;
+        }
+        if ($data['dropout_reason'] != 'Others') {
+            $data['dropout_reason_others'] = null;
+        }
+
+
+        // Create a new daycare and save it to the database
+        $daycare->update($data);
+
+        $daycare->disabilities()->delete();
+        if ($request->has('disabilities')) {
+            foreach ($request->disabilities as $disability) {
+
+                if(!empty($disability['disability']) && !empty($disability['cause'])){
+                    $daycare->disabilities()->create($disability);
+                }
+            }
+        }
+
+        $daycare->eccdExperiences()->delete();
+        if ($request->has('eccdExperiences')) {
+            foreach ($request->eccdExperiences as $experience) {
+                if(!empty($experience['service_type']) && !empty($experience['service'])
+                && !empty($experience['from_date']) && !empty($experience['to_date'])){
+                    $daycare->eccdExperiences()->create($experience);
+                }
+            }
+        }
+
+
+        return redirect()->route('daycares.edit', $id)->with('status', 'Daycare record updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $daycare = Daycare::findOrFail($id);
+        $daycare->disabilities()->delete();
+        $daycare->eccdExperiences()->delete();
+        $daycare->delete();
+
+        return redirect()->route('daycares.index')->with('status', 'Daycare record deleted successfully!');
     }
 }
