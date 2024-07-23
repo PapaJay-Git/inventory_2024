@@ -139,5 +139,142 @@ return [
     /**
      * Default password for all barangay accounts
      */
-    'default_password' => 'P@ssword123'
+    'default_password' => 'P@ssword123',
+
+    /**
+     * DAYCARES DATA
+     */
+
+    'kind_of_breastfeeding' => [
+        'Exclusive',
+        'Mixed'
+    ],
+
+    'scheduled_session' => [
+        'Morning',
+        'Afternoon'
+    ],
+
+    'parents_counterpart' => [
+        'Cash',
+        'In Kind',
+        'None'
+    ],
+
+    'attendance_status' => [
+        'Continuing',
+        'Dropped Out',
+        'Graduated'
+    ],
+
+    'dropout_reason' => [
+        'Illness',
+        'Transfer of Residence',
+        'Others'
+    ],
+
+    'facility_address' => [
+        'facility_street_address',
+        'facility_barangay',
+        'facility_city_municipality',
+        'facility_province',
+        'facility_region'
+    ],
+
+    'child_name' => ['first_name', 'middle_name', 'last_name', 'ext', 'nickname'],
+
+    'home_address' => ['home_street_address', 'home_barangay', 'home_city_municipality', 'home_province', 'home_region'],
+
+    /**
+     * PWDS DATA
+     */
+
+    'type_of_disability' => [
+        'Deaf or Hard of Hearing',
+        'Intellectual Disability',
+        'Learning Disability',
+        'Mental Disability',
+        'Physical Disability/Orthopedic',
+        'Psychosocial Disability',
+        'Speech and Language Impairment',
+        'Visual Disability',
+        'Cancer (RA 11215)',
+        'Rare Disease (RA 10747)'
+    ],
+
+    'cause_of_disability' => [
+        'Chronic Illness (Acquired)',
+        'Cerebral Palsy (Acquired)',
+        'Injury (Acquired)',
+        'Others (Acquired)',
+
+        'Cerebral Palsy (Congenital/Inborn)',
+        'Down Syndrome (Congenital/Inborn)',
+        'ADHD (Congenital/Inborn)',
+        'Others (Congenital/Inborn)'
+    ],
+
+    'civil_status' => [
+        'Single',
+        'Married',
+        'Separated',
+        'Cohabitation',
+        'Widow/er'
+    ],
+
+    'sex' => ['Male', 'Female'],
+
+    'educational_attainment' => [
+        'None',
+        'Kindergarten',
+        'Elementary',
+        'Junior High School',
+        'Senior High School',
+        'College',
+        'Vocational',
+        'Post Graduate'
+    ],
+
+    'employment_status' => [
+        'Employed',
+        'Unemployed',
+        'Self-Employed'
+    ],
+
+    'types_of_employment' => [
+        'Permanent/Regular',
+        'Seasonal',
+        'Casual',
+        'Emergency'
+    ],
+
+    'category_of_employment' => [
+        'Government',
+        'Private'
+    ],
+
+    'occupation' => [
+        'Managers',
+        'Professionals',
+        'Technicians and Associate Professionals',
+        'Clerical Support Workers',
+        'Service and Sales Workers',
+        'Skilled Agricultural Forestry and Fishery',
+        'Craft and Related Trade Workers',
+        'Plant and Machine Operators and Assemblers',
+        'Elementary Occupations',
+        'Armed Forces Occupations',
+        'Others'
+    ],
+
+    'accomplished_by' => [
+        'Applicant',
+        'Guardian',
+        'Representative'
+    ],
+
+    'application_type' => [
+        'New',
+        'Renewal'
+    ],
 ];

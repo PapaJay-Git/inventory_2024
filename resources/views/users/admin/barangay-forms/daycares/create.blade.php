@@ -49,12 +49,10 @@
                         <div class="form-group row my-2">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('1. Facility Address') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
-                                <input id="facility_street_address" type="text" class="form-control @error('facility_street_address') is-invalid @enderror" name="facility_street_address" value="{{ old('facility_street_address') }}" placeholder="Street Address" required>
-                                <input id="facility_barangay" type="text" class="form-control mt-1 @error('facility_barangay') is-invalid @enderror" name="facility_barangay" value="{{ old('facility_barangay') }}" placeholder="Barangay" required>
-                                <input id="facility_city_municipality" type="text" class="form-control mt-1 @error('facility_city_municipality') is-invalid @enderror" name="facility_city_municipality" value="{{ old('facility_city_municipality') }}" placeholder="City/Municipality" required>
-                                <input id="facility_province" type="text" class="form-control mt-1 @error('facility_province') is-invalid @enderror" name="facility_province" value="{{ old('facility_province') }}" placeholder="Province" required>
-                                <input id="facility_region" type="text" class="form-control mt-1 @error('facility_region') is-invalid @enderror" name="facility_region" value="{{ old('facility_region') }}" placeholder="Region" required>
-                                @foreach (['facility_street_address', 'facility_barangay', 'facility_city_municipality', 'facility_province', 'facility_region'] as $field)
+                                @foreach (config('app.facility_address') as $facilityField)
+                                    <input id="{{ $facilityField }}" type="text" class="form-control mt-1 @error($facilityField) is-invalid @enderror" name="{{ $facilityField }}" value="{{ old($facilityField) }}" placeholder="{{ ucwords(str_replace('_',' ', $facilityField)) }}" required>
+                                @endforeach
+                                @foreach (config('app.facility_address') as $field)
                                     @error($field)
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -93,12 +91,10 @@
                         <div class="form-group row my-2">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('4. Child Name') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
-                                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required>
-                                <input id="middle_name" type="text" class="form-control mt-1 @error('middle_name') is-invalid @enderror" name="middle_name" value="{{ old('middle_name') }}" placeholder="Middle Name">
-                                <input id="last_name" type="text" class="form-control mt-1 @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required>
-                                <input id="ext" type="text" class="form-control mt-1 @error('ext') is-invalid @enderror" name="ext" value="{{ old('ext') }}" placeholder="Extension (e.g., Jr., Sr.)" maxlength="10">
-                                <input id="nickname" type="text" class="form-control mt-1 @error('nickname') is-invalid @enderror" name="nickname" value="{{ old('nickname') }}" placeholder="Nickname">
-                                @foreach (['first_name', 'middle_name', 'last_name', 'ext', 'nickname'] as $field)
+                                @foreach (config('app.child_name') as $child_nameField)
+                                    <input id="{{ $child_nameField }}" type="text" class="form-control mt-1 @error($child_nameField) is-invalid @enderror" name="{{ $child_nameField }}" value="{{ old($child_nameField) }}" placeholder="{{ ucwords(str_replace('_',' ', $child_nameField)) }}" required>
+                                @endforeach
+                                @foreach (config('app.child_name') as $field)
                                     @error($field)
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -112,8 +108,9 @@
                             <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('5. Sex') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
                                 <select id="sex" class="form-control @error('sex') is-invalid @enderror" name="sex" required>
-                                    <option value="Male" {{ old('sex') == 'Male' ? 'selected' : '' }}>Male</option>
-                                    <option value="Female" {{ old('sex') == 'Female' ? 'selected' : '' }}>Female</option>
+                                    @foreach (config('app.sex') as $sex)
+                                        <option value="{{ $sex }}" {{ old('sex') == $sex ? 'selected' : '' }}>{{ $sex }}</option>
+                                    @endforeach
                                 </select>
                                 @error('sex')
                                     <span class="invalid-feedback" role="alert">
@@ -184,16 +181,16 @@
                         <div class="form-group row my-2">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('9. Home Address') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
-                                <input id="home_street_address" type="text" class="form-control @error('home_street_address') is-invalid @enderror" name="home_street_address" value="{{ old('home_street_address') }}" placeholder="Street Address" required>
-                                <input id="home_barangay" type="text" class="form-control mt-1 @error('home_barangay') is-invalid @enderror" name="home_barangay" value="{{ old('home_barangay') }}" placeholder="Barangay" required>
-                                <input id="home_city_municipality" type="text" class="form-control mt-1 @error('home_city_municipality') is-invalid @enderror" name="home_city_municipality" value="{{ old('home_city_municipality') }}" placeholder="City/Municipality" required>
-                                <input id="home_province" type="text" class="form-control mt-1 @error('home_province') is-invalid @enderror" name="home_province" value="{{ old('home_province') }}" placeholder="Province" required>
-                                <input id="home_region" type="text" class="form-control mt-1 @error('home_region') is-invalid @enderror" name="home_region" value="{{ old('home_region') }}" placeholder="Region" required>
-                                @error('home_street_address', 'home_barangay', 'home_city_municipality', 'home_province', 'home_region')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                @foreach (config('app.home_address') as $home_addressField)
+                                    <input id="{{ $home_addressField }}" type="text" class="form-control mt-1 @error($home_addressField) is-invalid @enderror" name="{{ $home_addressField }}" value="{{ old($home_addressField) }}" placeholder="{{ ucwords(str_replace('_',' ', $home_addressField)) }}" required>
+                                @endforeach
+                                @foreach (config('app.home_address') as $field)
+                                    @error($field)
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                @endforeach
                             </div>
                         </div>
 
@@ -246,8 +243,9 @@
                                         <label for="kind_of_breastfeeding" >{{ __('Kind of Breastfeeding') }}</label>
 
                                         <select id="kind_of_breastfeeding" class="form-control @error('kind_of_breastfeeding') is-invalid @enderror" name="kind_of_breastfeeding" required>
-                                            <option value="Exclusive" {{ old('kind_of_breastfeeding') == 'Exclusive' ? 'selected' : '' }}>Exclusive</option>
-                                            <option value="Mixed" {{ old('kind_of_breastfeeding') == 'Mixed' ? 'selected' : '' }}>Mixed</option>
+                                            @foreach (config('app.kind_of_breastfeeding') as $kind_of_breastfeeding)
+                                                <option value="{{ $kind_of_breastfeeding }}" {{ old('kind_of_breastfeeding') == $kind_of_breastfeeding ? 'selected' : '' }}>{{ $kind_of_breastfeeding }}</option>
+                                            @endforeach>
                                         </select>
                                     </div>
                                     @error('kind_of_breastfeeding')
@@ -559,9 +557,9 @@
                                     <div>
                                         <label for="parents_counterpart">{{ __('Parents counterpart') }}</label>
                                         <select id="parents_counterpart" class="form-control @error('parents_counterpart') is-invalid @enderror" name="parents_counterpart" required>
-                                            <option value="Cash" {{ old('parents_counterpart') == 'Cash' ? 'selected' : '' }}>Cash</option>
-                                            <option value="In Kind" {{ old('parents_counterpart') == 'In Kind' ? 'selected' : '' }}>In Kind</option>
-                                            <option value="None" {{ old('parents_counterpart') == 'None' ? 'selected' : '' }}>None</option>
+                                            @foreach (config('app.parents_counterpart') as $parents_counterpart)
+                                                <option value="{{ $parents_counterpart }}" {{ old('parents_counterpart') == $parents_counterpart ? 'selected' : '' }}>{{ $parents_counterpart }}</option>
+                                            @endforeach>
                                         </select>
                                     </div>
 
@@ -592,8 +590,9 @@
                             <label for="scheduled_session" class="col-md-4 col-form-label text-md-right">{{ __('17. Scheduled session') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
                                 <select id="scheduled_session" class="form-control @error('scheduled_session') is-invalid @enderror" name="scheduled_session" required>
-                                    <option value="Morning" {{ old('scheduled_session') == 'Morning' ? 'selected' : '' }}>Morning</option>
-                                    <option value="Afternoon" {{ old('scheduled_session') == 'Afternoon' ? 'selected' : '' }}>Afternoon</option>
+                                    @foreach (config('app.scheduled_session') as $scheduled_session)
+                                        <option value="{{ $scheduled_session }}" {{ old('scheduled_session') == $scheduled_session ? 'selected' : '' }}>{{ $scheduled_session }}</option>
+                                    @endforeach>
                                 </select>
                                 @error('scheduled_session')
                                     <span class="invalid-feedback" role="alert">
@@ -609,9 +608,9 @@
                             <label for="attendance_status" class="col-md-4 col-form-label text-md-right">{{ __('18. Attendance status') }} <span class="text-danger fw-bold">*</span></label>
                             <div class="col-md-6">
                                 <select id="attendance_status" class="form-control @error('attendance_status') is-invalid @enderror" name="attendance_status" required>
-                                    <option value="Continuing" {{ old('attendance_status') == 'Continuing' ? 'selected' : '' }}>Continuing</option>
-                                    <option value="Dropped Out" {{ old('attendance_status') == 'Dropped Out' ? 'selected' : '' }}>Dropped Out</option>
-                                    <option value="Graduated" {{ old('attendance_status') == 'Graduated' ? 'selected' : '' }}>Graduated</option>
+                                    @foreach (config('app.attendance_status') as $attendance_status)
+                                        <option value="{{ $attendance_status }}" {{ old('attendance_status') == $attendance_status ? 'selected' : '' }}>{{ $attendance_status }}</option>
+                                    @endforeach>
                                 </select>
                                 @error('attendance_status')
                                     <span class="invalid-feedback" role="alert">
@@ -623,10 +622,9 @@
                                     <div>
                                         <label for="dropout_reason" >{{ __('If drop out, reason: ') }}</label>
                                         <select id="dropout_reason" class="form-control @error('dropout_reason') is-invalid @enderror" name="dropout_reason" required>
-                                            <option selected disabled>Select</option>
-                                            <option value="Illness" {{ old('dropout_reason') == 'Illness' ? 'selected' : '' }}>Illness</option>
-                                            <option value="Transfer of Residence" {{ old('dropout_reason') == 'Transfer of Residence' ? 'selected' : '' }}>Transfer of Residence</option>
-                                            <option value="Others" {{ old('dropout_reason') == 'Others' ? 'selected' : '' }}>Others</option>
+                                            @foreach (config('app.dropout_reason') as $dropout_reason)
+                                                <option value="{{ $dropout_reason }}" {{ old('dropout_reason') == $dropout_reason ? 'selected' : '' }}>{{ $dropout_reason }}</option>
+                                            @endforeach>
                                         </select>
                                     </div>
                                     @error('dropout_reason')

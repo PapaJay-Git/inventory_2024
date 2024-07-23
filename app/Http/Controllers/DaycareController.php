@@ -11,6 +11,7 @@ class DaycareController extends Controller
 {
     private function arrayValidation()
     {
+
         $arrayValidation = [
             'eccdfid' => 'required|string|max:255',
 
@@ -29,7 +30,7 @@ class DaycareController extends Controller
             'middle_name' => 'nullable|string|max:255',
             'ext' => 'nullable|string|max:10', // Extension (Jr., Sr.)
             'nickname' => 'nullable|string|max:50',
-            'sex' => 'required|in:Male,Female',
+            'sex' => 'required|in:'.implode(',', config('app.sex')),
             'birth_order' => 'required|integer|min:1',
             'no_of_siblings' => 'required|integer|min:0',
             'date_of_birth' => 'required|date',
@@ -48,7 +49,7 @@ class DaycareController extends Controller
 
             // Nutrition and Services
             'breastfeeding' => 'boolean|in:1',
-            'kind_of_breastfeeding' => 'required_if:breastfeeding,true|nullable|in:Exclusive,Mixed',
+            'kind_of_breastfeeding' => 'required_if:breastfeeding,true|nullable|in:'.implode(',', config('app.kind_of_breastfeeding')),
             'breastfed_for_months' => 'required_if:breastfeeding,true|nullable|integer|min:0',
             'supplementary_feeding' => 'boolean|in:1',
             'supplementary_feeding_for_days' => 'required_if:supplementary_feeding,true|nullable|integer|min:0',
@@ -67,15 +68,15 @@ class DaycareController extends Controller
             'participation_fee_amount' => 'required_if:participation_fee_paid,true|nullable|numeric|min:0',
 
             // Session Information
-            'scheduled_session' => 'required|in:Morning,Afternoon',
+            'scheduled_session' => 'required|in:'.implode(',', config('app.scheduled_session')),
 
             // Parent's Counterpart
             'parents_counterpart' => 'required|in:Cash,In Kind,None',
 
             // Attendance Status
-            'attendance_status' => 'required|in:Continuing,Dropped Out,Graduated',
+            'attendance_status' => 'required|in:'.implode(',', config('app.attendance_status')),
             'school_year' => 'required|string|max:20',
-            'dropout_reason' => 'required|in:Illness,Transfer of Residence,Others',
+            'dropout_reason' => 'required|in:'.implode(',', config('app.dropout_reason')),
             'dropout_reason_others' => 'required_if:dropout_reason,Others|nullable|string|max:255',
 
             // Accomplished By

@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('ext')->nullable(); // Extension (Jr., Sr.)
             $table->string('nickname')->nullable();
-            $table->enum('sex', ['Male', 'Female']);
+            $table->enum('sex', config('app.sex'));
             $table->integer('birth_order')->nullable();
             $table->integer('no_of_siblings')->nullable();
             $table->date('date_of_birth');
@@ -51,7 +51,7 @@ return new class extends Migration
 
             // Nutrition and Services
             $table->boolean('breastfeeding')->default(false);
-            $table->enum('kind_of_breastfeeding', ['Exclusive', 'Mixed'])->nullable();
+            $table->enum('kind_of_breastfeeding', config('app.kind_of_breastfeeding'))->nullable();
             $table->integer('breastfed_for_months')->nullable();
             $table->boolean('supplementary_feeding')->default(false);
             $table->integer('supplementary_feeding_for_days')->nullable();
@@ -70,15 +70,15 @@ return new class extends Migration
             $table->decimal('participation_fee_amount', 8, 2)->nullable();
 
             // Session Information
-            $table->enum('scheduled_session', ['Morning', 'Afternoon'])->nullable();
+            $table->enum('scheduled_session', config('app.scheduled_session'))->nullable();
 
             // Parent's Counterpart
-            $table->enum('parents_counterpart', ['Cash', 'In Kind', 'None'])->nullable();
+            $table->enum('parents_counterpart', config('app.parents_counterpart'))->nullable();
 
             // Attendance Status
-            $table->enum('attendance_status', ['Continuing', 'Dropped Out', 'Graduated'])->nullable();
+            $table->enum('attendance_status', config('app.attendance_status'))->nullable();
             $table->string('school_year')->nullable();
-            $table->enum('dropout_reason', ['Illness', 'Transfer of Residence', 'Others'])->nullable();
+            $table->enum('dropout_reason', config('app.dropout_reason'))->nullable();
             $table->string('dropout_reason_others')->nullable();
 
             // Accomplished By
