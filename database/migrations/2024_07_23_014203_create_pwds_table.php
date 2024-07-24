@@ -17,8 +17,8 @@ return new class extends Migration
 
             // Application Details
             $table->enum('application_type', config('app.application_type'));
-            $table->string('disability_number')->unique();
-            $table->string('photo_path');
+            $table->string('disability_number');
+            $table->string('pwd_photo');
             $table->date('date_applied');
 
             // Personal Information
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->enum('sex', config('app.sex'));
             $table->enum('civil_status', config('app.civil_status'));
-            $table->enum('type_of_disability', config('app.type_of_disability'));
-            $table->enum('cause_of_disability', config('app.cause_of_disability'))->nullable();
+            $table->json('type_of_disabilities');
+            $table->enum('cause_of_disability', config('app.cause_of_disability'));
             $table->string('cause_of_disability_others')->nullable();
 
             // Address Information
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->enum('status_of_employment', config('app.status_of_employment'));
             $table->enum('types_of_employment', config('app.types_of_employment'));
             $table->enum('category_of_employment', config('app.category_of_employment'));
-            $table->enum('occupation', config('app.occupation'))->nullable();
+            $table->enum('occupation', config('app.occupation'));
             $table->string('occupation_others')->nullable();
 
             // Organization Information
@@ -79,9 +79,9 @@ return new class extends Migration
 
             // Form Fill-up Information
             $table->enum('accomplished_by', config('app.accomplished_by'));
-            $table->string('accomplished_by_last_name')->nullable();
-            $table->string('accomplished_by_first_name')->nullable();
-            $table->string('accomplished_by_middle_name')->nullable();
+            $table->string('accomplished_by_last_name');
+            $table->string('accomplished_by_first_name');
+            $table->string('accomplished_by_middle_name');
 
             // Certification Information
             $table->string('name_of_certifying_physician')->nullable();

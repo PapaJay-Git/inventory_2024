@@ -189,7 +189,7 @@ return [
      * PWDS DATA
      */
 
-    'type_of_disability' => [
+    'type_of_disabilities' => [
         'Deaf or Hard of Hearing',
         'Intellectual Disability',
         'Learning Disability',
@@ -206,12 +206,12 @@ return [
         'Chronic Illness (Acquired)',
         'Cerebral Palsy (Acquired)',
         'Injury (Acquired)',
-        'Others (Acquired)',
 
         'Cerebral Palsy (Congenital/Inborn)',
         'Down Syndrome (Congenital/Inborn)',
         'ADHD (Congenital/Inborn)',
-        'Others (Congenital/Inborn)'
+
+        'Others'
     ],
 
     'civil_status' => [
@@ -235,7 +235,7 @@ return [
         'Post Graduate'
     ],
 
-    'employment_status' => [
+    'status_of_employment' => [
         'Employed',
         'Unemployed',
         'Self-Employed'
@@ -267,14 +267,72 @@ return [
         'Others'
     ],
 
+    'organizational_information' => [
+        'organization_affiliated',
+        'contact_person',
+        'office_address',
+        'office_tel_no',
+    ],
+
     'accomplished_by' => [
         'Applicant',
         'Guardian',
         'Representative'
     ],
 
+    'accomplished_by_name' => [
+        'accomplished_by_last_name',
+        'accomplished_by_first_name',
+        'accomplished_by_middle_name',
+    ],
+
     'application_type' => [
         'New',
         'Renewal'
     ],
+
+    'residence_address' => [
+        'house_no_street',
+        'barangay',
+        'municipality',
+        'province',
+        'region',
+    ],
+
+    'id_reference_no' => [
+        'sss_no',
+        'gsis_no',
+        'pagibig_no',
+        'psn_no',
+        'philhealth_no',
+    ],
+
+    'contail_details' => [
+        'landline_no',
+        'mobile_no',
+        'email_address',
+    ],
+
+    'family_background' => [
+        'father_last_name',
+        'father_first_name',
+        'father_middle_name',
+        'mother_last_name',
+        'mother_first_name',
+        'mother_middle_name',
+        'guardian_last_name',
+        'guardian_first_name',
+        'guardian_middle_name',
+    ],
+
+    'personal_information' => ['first_name', 'middle_name', 'last_name', 'suffix'],
+
+    'pwd_images_path' => '/images/pwd_images/',
+
+    'spo_status' => [
+        'New',
+        'Renewal',
+        'Terminated',
+        'Disapproved'
+    ]
 ];

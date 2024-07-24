@@ -15,8 +15,9 @@ class Pwd extends Model
             // Application Details
             'application_type',
             'disability_number',
-            'photo_path',
+            'filename',
             'date_applied',
+            'pwd_photo',
 
             // Personal Information
             'last_name',
@@ -26,7 +27,7 @@ class Pwd extends Model
             'date_of_birth',
             'sex',
             'civil_status',
-            'type_of_disability',
+            'type_of_disabilities',
             'cause_of_disability',
             'cause_of_disability_others',
 

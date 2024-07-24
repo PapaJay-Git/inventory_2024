@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BarangayAccountController;
 use App\Http\Controllers\DaycareController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PwdController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,6 +29,7 @@ Route::middleware('auth', 'CheckDefaultPassword')->group( function (){
     // FOR BARANGAY ACCOUNTS
     Route::middleware('CheckUserRole:barangay_account')->group( function (){
         Route::resource('daycares', DaycareController::class);
+        Route::resource('pwds', PwdController::class);
     });
 
 

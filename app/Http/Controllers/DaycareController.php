@@ -9,6 +9,236 @@ use Illuminate\Support\Facades\Validator;
 
 class DaycareController extends Controller
 {
+    const DEFAULTS = [
+        'breastfeeding' => [
+            'kind_of_breastfeeding' => null,
+            'breastfed_for_months' => null,
+        ],
+        'supplementary_feeding' => [
+            'supplementary_feeding_for_days' => null,
+        ],
+        'has_disability' => [
+            'referred_for_assistance' => null,
+        ],
+        'pantawid_beneficiary' => [
+            'household_id' => null,
+        ],
+        'participation_fee_paid' => [
+            'participation_fee_amount' => null,
+        ],
+        'dropout_reason' => [
+            'dropout_reason_others' => null,
+        ],
+    ];
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $daycares = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->get();
+
+        return view('users.forms.daycares.index', compact('daycares'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('users.forms.daycares.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        $validator = $this->validateCustomData($request);
+        $validator->validate();
+
+        foreach (self::DEFAULTS as $key => $fields) {
+            if (!isset($data[$key])) {
+                $data = array_merge($data, $fields);
+            }
+        }
+
+        if ($data['dropout_reason'] != 'Others') {
+            $data['dropout_reason_others'] = null;
+        }
+
+
+        // Create a new daycare and save it to the database
+        $daycare = Daycare::create($data);
+
+        $daycare->disabilities()->delete();
+        $this->handleDisabilities($daycare, $request->input('disabilities'));
+
+        $daycare->eccdExperiences()->delete();
+        $this->handleEccdExperiences($daycare, $request->input('eccdExperiences'));
+
+        return redirect()->route('daycares.create')->with('status', 'Daycare record created successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        // $daycare = Daycare::with(['disabilities', 'eccdExperiences'])->findOrFail($id);
+        // return view('users.forms.daycares.show', compact('daycare'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->where('daycares.id', $id)
+        ->firstOrFail();
+
+        return view('users.forms.daycares.edit', compact('daycare'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->where('daycares.id', $id)
+        ->firstOrFail();
+
+        $data = $request->all();
+
+        $validator = $this->validateCustomData($request);
+        $validator->validate();
+
+        foreach (self::DEFAULTS as $key => $fields) {
+            if (!isset($data[$key])) {
+                $data = array_merge($data, $fields);
+                $data[$key] = false;
+            }
+        }
+
+        if ($data['dropout_reason'] != 'Others') {
+            $data['dropout_reason_others'] = null;
+        }
+        if(!isset($data['listahanan_identified'])){
+            $data['listahanan_identified'] = false;
+        }
+
+        // Create a new daycare and save it to the database
+        $daycare->update($data);
+
+        $daycare->disabilities()->delete();
+        $this->handleDisabilities($daycare, $request->input('disabilities'));
+
+        $daycare->eccdExperiences()->delete();
+        $this->handleEccdExperiences($daycare, $request->input('eccdExperiences'));
+
+
+        return redirect()->route('daycares.edit', $id)->with('status', 'Daycare record updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $daycare = Daycare::findOrFail($id);
+        $daycare->disabilities()->delete();
+        $daycare->eccdExperiences()->delete();
+        $daycare->delete();
+
+        return redirect()->route('daycares.index')->with('status', 'Daycare record deleted successfully!');
+    }
+
+
+    /**
+     * CUSTOM FUNCTIONS
+     *
+     * @param [type] $daycare
+     * @param [type] $disabilities
+     * @return void
+     */
+    private function handleDisabilities($daycare, $disabilities)
+    {
+        if ($disabilities) {
+            foreach ($disabilities as $disability) {
+                if (!empty($disability['disability']) && !empty($disability['cause'])) {
+                    $daycare->disabilities()->create($disability);
+                }
+            }
+        }
+    }
+
+    private function handleEccdExperiences($daycare, $eccdExperiences)
+    {
+        if ($eccdExperiences) {
+            foreach ($eccdExperiences as $experience) {
+                if (!empty($experience['service_type']) && !empty($experience['service']) &&
+                    !empty($experience['from_date']) && !empty($experience['to_date'])) {
+                    $daycare->eccdExperiences()->create($experience);
+                }
+            }
+        }
+    }
+
+    private function validateCustomData($request)
+    {
+        $validator = Validator::make($request->all(), $this->arrayValidation());
+
+        // Custom validation logic
+        $validator->after(function ($validator) use ($request) {
+            // Check disabilities array
+            if ($request->has('disabilities')) {
+                foreach ($request->input('disabilities') as $disability) {
+                    if (empty($disability['disability']) xor empty($disability['cause'])) {
+                        $validator->errors()->add(
+                            'disabilities',
+                            'All disability fields must be filled if any disability field is provided.'
+                        );
+                        break;
+                    }
+                }
+            }
+
+            // Check ECCD experiences array
+            if ($request->has('eccdExperiences')) {
+                foreach ($request->input('eccdExperiences') as $experience) {
+                    if (!empty($experience['service_type']) ||
+                        !empty($experience['service']) ||
+                        !empty($experience['from_date']) ||
+                        !empty($experience['to_date'])) {
+
+                        if (empty($experience['service_type']) ||
+                            empty($experience['service']) ||
+                            empty($experience['from_date']) ||
+                            empty($experience['to_date'])) {
+                            $validator->errors()->add(
+                                'eccdExperiences',
+                                'All ECCD experience fields must be filled if any experience field is provided.'
+                            );
+                            break;
+                        }
+
+                    }
+                }
+            }
+        });
+
+        return $validator;
+    }
+
     private function arrayValidation()
     {
 
@@ -100,237 +330,5 @@ class DaycareController extends Controller
         ];
 
         return $arrayValidation;
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $daycares = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->get();
-
-        return view('users.admin.barangay-forms.daycares.index', compact('daycares'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('users.admin.barangay-forms.daycares.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-
-        $validator = Validator::make($request->all(), $this->arrayValidation());
-
-        // Custom validation logic
-        $validator->after(function ($validator) use ($request) {
-            // Check disabilities array
-            if ($request->has('disabilities')) {
-                foreach ($request->input('disabilities') as $disability) {
-                    if (!empty($disability['disability']) && (empty($disability['cause']))) {
-                        $validator->errors()->add('disabilities', 'All disability fields must be filled if any disability field is provided.');
-                        break;
-                    }
-                }
-            }
-
-            // Check ECCD experiences array
-            if ($request->has('eccdExperiences')) {
-                foreach ($request->input('eccdExperiences') as $experience) {
-                    if (!empty($experience['service_type']) &&
-                       (empty($experience['service']) || empty($experience['from_date']) || empty($experience['to_date']))) {
-                        $validator->errors()->add('eccdExperiences', 'All ECCD experience fields must be filled if any experience field is provided.');
-                        break;
-                    }
-                }
-            }
-        });
-
-
-        $validator->validate();
-
-        if (!isset($data['breastfeeding'])) {
-            $data['kind_of_breastfeeding'] = null;
-            $data['breastfed_for_months'] = null;
-        }
-        if (!isset($data['supplementary_feeding'])) {
-            $data['supplementary_feeding_for_days'] = null;
-        }
-        if (!isset($data['has_disability'])) {
-            $data['referred_for_assistance'] = null;
-        }
-        if (!isset($data['pantawid_beneficiary'])) {
-            $data['household_id'] = null;
-        }
-        if (!isset($data['participation_fee_paid'])) {
-            $data['participation_fee_amount'] = null;
-        }
-        if ($data['dropout_reason'] != 'Others') {
-            $data['dropout_reason_others'] = null;
-        }
-
-
-        // Create a new daycare and save it to the database
-        $daycare = Daycare::create($data);
-
-        $daycare->disabilities()->delete();
-        if ($request->has('disabilities')) {
-            foreach ($request->disabilities as $disability) {
-
-                if(!empty($disability['disability']) && !empty($disability['cause'])){
-                    $daycare->disabilities()->create($disability);
-                }
-            }
-        }
-
-        $daycare->eccdExperiences()->delete();
-        if ($request->has('eccdExperiences')) {
-            foreach ($request->eccdExperiences as $experience) {
-                if(!empty($experience['service_type']) && !empty($experience['service'])
-                && !empty($experience['from_date']) && !empty($experience['to_date'])){
-                    $daycare->eccdExperiences()->create($experience);
-                }
-            }
-        }
-
-        return redirect()->route('daycares.create')->with('status', 'Daycare record created successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        // $daycare = Daycare::with(['disabilities', 'eccdExperiences'])->findOrFail($id);
-        // return view('users.admin.barangay-forms.daycares.show', compact('daycare'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->where('daycares.id', $id)
-        ->firstOrFail();
-
-        return view('users.admin.barangay-forms.daycares.edit', compact('daycare'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->where('daycares.id', $id)
-        ->firstOrFail();
-
-        $data = $request->all();
-
-        $validator = Validator::make($request->all(), $this->arrayValidation());
-
-        // Custom validation logic
-        $validator->after(function ($validator) use ($request) {
-            // Check disabilities array
-            if ($request->has('disabilities')) {
-                foreach ($request->input('disabilities') as $disability) {
-                    if (!empty($disability['disability']) && (empty($disability['cause']))) {
-                        $validator->errors()->add('disabilities', 'All disability fields must be filled if any disability field is provided.');
-                        break;
-                    }
-                }
-            }
-
-            // Check ECCD experiences array
-            if ($request->has('eccdExperiences')) {
-                foreach ($request->input('eccdExperiences') as $experience) {
-                    if (!empty($experience['service_type']) &&
-                       (empty($experience['service']) || empty($experience['from_date']) || empty($experience['to_date']))) {
-                        $validator->errors()->add('eccdExperiences', 'All ECCD experience fields must be filled if any experience field is provided.');
-                        break;
-                    }
-                }
-            }
-        });
-
-
-        $validator->validate();
-
-        if (!isset($data['breastfeeding'])) {
-            $data['breastfeeding'] = false;
-            $data['kind_of_breastfeeding'] = null;
-            $data['breastfed_for_months'] = null;
-        }
-        if (!isset($data['supplementary_feeding'])) {
-            $data['supplementary_feeding'] = false;
-            $data['supplementary_feeding_for_days'] = null;
-        }
-        if (!isset($data['has_disability'])) {
-            $data['has_disability'] = false;
-            $data['referred_for_assistance'] = null;
-        }
-        if (!isset($data['pantawid_beneficiary'])) {
-            $data['pantawid_beneficiary'] = false;
-            $data['household_id'] = null;
-        }
-        if (!isset($data['participation_fee_paid'])) {
-            $data['participation_fee_paid'] = false;
-            $data['participation_fee_amount'] = null;
-        }
-        if ($data['dropout_reason'] != 'Others') {
-            $data['dropout_reason_others'] = null;
-        }
-
-
-        // Create a new daycare and save it to the database
-        $daycare->update($data);
-
-        $daycare->disabilities()->delete();
-        if ($request->has('disabilities')) {
-            foreach ($request->disabilities as $disability) {
-
-                if(!empty($disability['disability']) && !empty($disability['cause'])){
-                    $daycare->disabilities()->create($disability);
-                }
-            }
-        }
-
-        $daycare->eccdExperiences()->delete();
-        if ($request->has('eccdExperiences')) {
-            foreach ($request->eccdExperiences as $experience) {
-                if(!empty($experience['service_type']) && !empty($experience['service'])
-                && !empty($experience['from_date']) && !empty($experience['to_date'])){
-                    $daycare->eccdExperiences()->create($experience);
-                }
-            }
-        }
-
-
-        return redirect()->route('daycares.edit', $id)->with('status', 'Daycare record updated successfully');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $daycare = Daycare::findOrFail($id);
-        $daycare->disabilities()->delete();
-        $daycare->eccdExperiences()->delete();
-        $daycare->delete();
-
-        return redirect()->route('daycares.index')->with('status', 'Daycare record deleted successfully!');
     }
 }

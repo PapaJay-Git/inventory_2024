@@ -1,5 +1,10 @@
 
-
+document.addEventListener("DOMContentLoaded", function () {
+    const firstInvalidElement = document.querySelector(".is-invalid");
+    if (firstInvalidElement) {
+        firstInvalidElement.focus();
+    }
+});
 //lBfrtip
 const tbConfig = {
         scrollX: true,

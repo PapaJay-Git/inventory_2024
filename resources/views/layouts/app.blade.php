@@ -1,7 +1,5 @@
-
-
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -17,6 +15,7 @@
     @include('layouts.includes.css_links')
 
 </head>
+
 <body class='bg-lg-primary'>
 
     <div id="app">
@@ -28,11 +27,13 @@
             @endif
         @endauth
 
-        <main class="@guest d-flex justify-content-center align-items-center vh-100 vw-100 @endguest @auth auth-main @endauth " >
+        <main
+            class="@guest d-flex justify-content-center align-items-center vh-100 vw-100 @endguest @auth auth-main @endauth ">
             @yield('content')
         </main>
     </div>
 
     @include('layouts.includes.js_links')
 </body>
+
 </html>
