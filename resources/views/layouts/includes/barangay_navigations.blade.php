@@ -31,19 +31,22 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-primary px-2" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item fw-bold text-white bg-primary" href="/daycares">
-                            Daycare
+                            Daycares
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/Kabataans">
-                            Kababaihan
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/kabataans">
+                            Kabataans
                         </a>
-                        <a class="dropdown-item fw-bold text-white bg-primary" href="/solo-parents">
-                            Solo - Parent
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/kababaihans">
+                            Kababaihans
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/solo_parents">
+                            Solo - Parents
                         </a>
                         <a class="dropdown-item fw-bold text-white bg-primary" href="/pwds">
-                            Person with Disability (Pwd)
+                            Person with Disabilit (PWDs)
                         </a>
                         <a class="dropdown-item fw-bold text-white bg-primary" href="/dafacs">
-                            Disaster Assistance Family Car (DAFAC)
+                            Disaster Assistance Family Cards (DAFAC)
                         </a>
                     </div>
                 </li>

@@ -18,15 +18,15 @@ return new class extends Migration
             // Basic Information
             $table->string('name');
             $table->string('nickname')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->integer('age')->nullable();
+            $table->date('date_of_birth');
+            $table->integer('age');
             $table->string('position')->nullable();
-            $table->string('barangay')->nullable();
-            $table->text('home_address')->nullable();
-            $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->string('religion')->nullable();
-            $table->string('mobile_phone')->nullable();
-            $table->string('city_municipality')->nullable();
+            $table->string('barangay');
+            $table->text('home_address');
+            $table->enum('gender', ['Male', 'Female']);
+            $table->string('religion');
+            $table->string('mobile_phone');
+            $table->string('city_municipality');
 
             // Educational Background
             $table->string('post_graduate_course')->nullable();
@@ -41,10 +41,10 @@ return new class extends Migration
             $table->year('other_education_year')->nullable();
 
             // Emergency Contact Information
-            $table->string('emergency_contact_name')->nullable();
-            $table->text('emergency_contact_address')->nullable();
-            $table->string('emergency_contact_relationship')->nullable();
-            $table->string('emergency_contact_phone')->nullable();
+            $table->string('emergency_contact_name');
+            $table->text('emergency_contact_address');
+            $table->string('emergency_contact_relationship');
+            $table->string('emergency_contact_phone');
 
             $table->timestamps();
         });

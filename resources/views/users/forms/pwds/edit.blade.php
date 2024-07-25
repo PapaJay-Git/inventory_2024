@@ -22,11 +22,15 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        @error('error')
-                            <div class="alert alert-danger" role="alert">
-                                {{ $message }}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        @enderror
+                        @endif
                         <form action="/pwds/{{ $pwd->id }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to update this record?')"
                             enctype="multipart/form-data">
@@ -65,7 +69,7 @@
                                             name="application_type" required>
                                             @foreach (config('app.application_type') as $application_typeField)
                                                 <option value="{{ $application_typeField }}"
-                                                    {{ old('application_type') ?? $pwd->application_type == $application_typeField ? 'selected' : '' }}>
+                                                    {{ (old('application_type') ?? $pwd->application_type) == $application_typeField ? 'selected' : '' }}>
                                                     {{ $application_typeField }}</option>
                                             @endforeach
                                         </select>
@@ -160,7 +164,7 @@
                                             name="sex" required>
                                             @foreach (config('app.sex') as $sexField)
                                                 <option value="{{ $sexField }}"
-                                                    {{ old('sex') ?? $pwd->sex == $sexField ? 'selected' : '' }}>
+                                                    {{ (old('sex') ?? $pwd->sex) == $sexField ? 'selected' : '' }}>
                                                     {{ $sexField }}
                                                 </option>
                                             @endforeach
@@ -173,7 +177,7 @@
                                     </div>
                                 </div>
 
-                                {{-- Civil Status --}}
+                                {{-- Civil Status  --}}
                                 <div class="col-12 col-md-4 col-lg-2 my-2">
                                     <label for="civil_status">{{ __('7. Civil Status') }}
                                         <span class="text-danger fw-bold">*</span></label>
@@ -183,7 +187,7 @@
                                             name="civil_status" required>
                                             @foreach (config('app.civil_status') as $civil_statusField)
                                                 <option value="{{ $civil_statusField }}"
-                                                    {{ old('civil_status') ?? $pwd->civil_status == $civil_statusField ? 'selected' : '' }}>
+                                                    {{ (old('civil_status') ?? $pwd->civil_status) == $civil_statusField ? 'selected' : '' }}>
                                                     {{ $civil_statusField }}</option>
                                             @endforeach
                                         </select>
@@ -238,7 +242,7 @@
                                                 name="cause_of_disability" required>
                                                 @foreach (config('app.cause_of_disability') as $cause_of_disabilityField)
                                                     <option value="{{ $cause_of_disabilityField }}"
-                                                        {{ old('cause_of_disability') ?? $pwd->cause_of_disability == $cause_of_disabilityField ? 'selected' : '' }}>
+                                                        {{ (old('cause_of_disability') ?? $pwd->cause_of_disability) == $cause_of_disabilityField ? 'selected' : '' }}>
                                                         {{ $cause_of_disabilityField }}</option>
                                                 @endforeach
                                             </select>
@@ -324,7 +328,7 @@
                                             name="educational_attainment" required>
                                             @foreach (config('app.educational_attainment') as $educational_attainmentField)
                                                 <option value="{{ $educational_attainmentField }}"
-                                                    {{ old('educational_attainment') ?? $pwd->educational_attainment == $educational_attainmentField ? 'selected' : '' }}>
+                                                    {{ (old('educational_attainment') ?? $pwd->educational_attainment) == $educational_attainmentField ? 'selected' : '' }}>
                                                     {{ $educational_attainmentField }}</option>
                                             @endforeach
                                         </select>
@@ -351,7 +355,7 @@
                                                 name="status_of_employment" required>
                                                 @foreach (config('app.status_of_employment') as $status_of_employmentField)
                                                     <option value="{{ $status_of_employmentField }}"
-                                                        {{ old('status_of_employment') ?? $pwd->status_of_employment == $status_of_employmentField ? 'selected' : '' }}>
+                                                        {{ (old('status_of_employment') ?? $pwd->status_of_employment) == $status_of_employmentField ? 'selected' : '' }}>
                                                         {{ $status_of_employmentField }}</option>
                                                 @endforeach
                                             </select>
@@ -371,7 +375,7 @@
                                                 name="category_of_employment" required>
                                                 @foreach (config('app.category_of_employment') as $category_of_employmentField)
                                                     <option value="{{ $category_of_employmentField }}"
-                                                        {{ old('category_of_employment') ?? $pwd->category_of_employment == $category_of_employmentField ? 'selected' : '' }}>
+                                                        {{ (old('category_of_employment') ?? $pwd->category_of_employment) == $category_of_employmentField ? 'selected' : '' }}>
                                                         {{ $category_of_employmentField }}</option>
                                                 @endforeach
                                             </select>
@@ -391,7 +395,7 @@
                                                 name="types_of_employment" required>
                                                 @foreach (config('app.types_of_employment') as $types_of_employmentField)
                                                     <option value="{{ $types_of_employmentField }}"
-                                                        {{ old('types_of_employment') ?? $pwd->types_of_employment == $types_of_employmentField ? 'selected' : '' }}>
+                                                        {{ (old('types_of_employment') ?? $pwd->types_of_employment) == $types_of_employmentField ? 'selected' : '' }}>
                                                         {{ $types_of_employmentField }}</option>
                                                 @endforeach
                                             </select>
@@ -414,7 +418,7 @@
                                             name="occupation" required>
                                             @foreach (config('app.occupation') as $occupationField)
                                                 <option value="{{ $occupationField }}"
-                                                    {{ old('occupation') ?? $pwd->occupation == $occupationField ? 'selected' : '' }}>
+                                                    {{ (old('occupation') ?? $pwd->occupation) == $occupationField ? 'selected' : '' }}>
                                                     {{ $occupationField }}</option>
                                             @endforeach
                                         </select>
@@ -536,7 +540,7 @@
                                                 name="accomplished_by" required>
                                                 @foreach (config('app.accomplished_by') as $accomplished_byField)
                                                     <option value="{{ $accomplished_byField }}"
-                                                        {{ old('accomplished_by') ?? $pwd->accomplished_by == $accomplished_byField ? 'selected' : '' }}>
+                                                        {{ (old('accomplished_by') ?? $pwd->accomplished_by) == $accomplished_byField ? 'selected' : '' }}>
                                                         {{ $accomplished_byField }}</option>
                                                 @endforeach
                                             </select>

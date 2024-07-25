@@ -22,11 +22,15 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        @error('error')
-                            <div class="alert alert-danger" role="alert">
-                                {{ $message }}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        @enderror
+                        @endif
 
                         <form action="/daycares/{{ $daycare->id }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to update this record?')">
@@ -327,7 +331,7 @@
                                                         name="kind_of_breastfeeding" required>
                                                         @foreach (config('app.kind_of_breastfeeding') as $kind_of_breastfeeding)
                                                             <option value="{{ $kind_of_breastfeeding }}"
-                                                                {{ old('kind_of_breastfeeding') ?? $daycare->kind_of_breastfeeding == $kind_of_breastfeeding ? 'selected' : '' }}>
+                                                                {{ (old('kind_of_breastfeeding') ?? $daycare->kind_of_breastfeeding) == $kind_of_breastfeeding ? 'selected' : '' }}>
                                                                 {{ $kind_of_breastfeeding }}</option>
                                                         @endforeach>
                                                     </select>
@@ -442,7 +446,7 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <input type="checkbox" value="1" id="supplementary_feeding"
                                                         name="supplementary_feeding"
-                                                        {{ old('supplementary_feeding') ? 'checked' : '' }}>
+                                                        {{ old('supplementary_feeding') ?? $daycare->supplementary_feeding ? 'checked' : '' }}>
                                                     <label
                                                         for="supplementary_feeding">{{ __('Supplementary Feeding') }}</label>
                                                 </div>
@@ -482,106 +486,47 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                        @if (old('disabilities'))
-                                            @foreach (old('disabilities') as $index => $disability)
-                                                <div id="disability_div_{{ $index }}">
-                                                    <div class="form-group row my-2">
-                                                        <label for="disability_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Disability/Impairment
-                                                            (e.g. hearing, speech, visual)
-                                                        </label>
-                                                        <div class="col-md-6">
-                                                            <input id="disability_{{ $index }}" type="text"
-                                                                class="form-control @error('disabilities.' . $index . '.disability') is-invalid @enderror"
-                                                                name="disabilities[{{ $index }}][disability]"
-                                                                value="{{ old('disabilities.' . $index . '.disability') }}">
-                                                            @error('disabilities.' . $index . '.disability')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="cause_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Cause (e.g.
-                                                            inborn,
-                                                            illness)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="cause_{{ $index }}" type="text"
-                                                                class="form-control  @error('disabilities.' . $index . '.cause') is-invalid @enderror"
-                                                                name="disabilities[{{ $index }}][cause]"
-                                                                value="{{ old('disabilities.' . $index . '.cause') }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
-                                                                onclick="removeElement('disability_div_{{ $index }}')">Remove</button>
-                                                            @error('disabilities.' . $index . '.cause')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            @endforeach
-                                        @elseif (count($daycare->disabilities->toArray() ?? []) > 0)
-                                            @foreach ($daycare->disabilities as $index => $disability)
-                                                <div id="disability_div_{{ $index }}">
-                                                    <div class="form-group row my-2">
-                                                        <label for="disability_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Disability/Impairment
-                                                            (e.g. hearing, speech, visual)
-                                                        </label>
-                                                        <div class="col-md-6">
-                                                            <input id="disability_{{ $index }}" type="text"
-                                                                class="form-control"
-                                                                name="disabilities[{{ $index }}][disability]"
-                                                                value="{{ $disability->disability }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="cause_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Cause (e.g.
-                                                            inborn,
-                                                            illness)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="cause_{{ $index }}" type="text"
-                                                                class="form-control"
-                                                                name="disabilities[{{ $index }}][cause]"
-                                                                value="{{ $disability->cause }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
-                                                                onclick="removeElement('disability_div_{{ $index }}')">Remove</button>
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div id="disability_div_0">
+                                        @foreach (old('disabilities') ?? ($daycare->disabilities ?? []) as $index => $disability)
+                                            <div id="disability_div_{{ $index }}">
                                                 <div class="form-group row my-2">
-                                                    <label for="disability_0"
+                                                    <label for="disability_{{ $index }}"
                                                         class="col-md-4 col-form-label text-md-right">Disability/Impairment
-                                                        (e.g.
-                                                        hearing, speech, visual)</label>
+                                                        (e.g. hearing, speech, visual)
+                                                    </label>
                                                     <div class="col-md-6">
-                                                        <input id="disability_0" type="text" class="form-control "
-                                                            name="disabilities[0][disability]">
+                                                        <input id="disability_{{ $index }}" type="text"
+                                                            class="form-control @error('disabilities.' . $index . '.disability') is-invalid @enderror"
+                                                            name="disabilities[{{ $index }}][disability]"
+                                                            value="{{ old('disabilities.' . $index . '.disability') ?? ($disability->disability ?? '') }}">
+                                                        @error('disabilities.' . $index . '.disability')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row my-2">
-                                                    <label for="cause_0"
-                                                        class="col-md-4 col-form-label text-md-right">Cause
-                                                        (e.g. inborn, illness)</label>
+                                                    <label for="cause_{{ $index }}"
+                                                        class="col-md-4 col-form-label text-md-right">Cause (e.g.
+                                                        inborn,
+                                                        illness)</label>
                                                     <div class="col-md-6">
-                                                        <input id="cause_0" type="text" class="form-control "
-                                                            name="disabilities[0][cause]">
-                                                        <button class="btn btn-sm btn-danger mt-1"
-                                                            onclick="removeElement('disability_div_0')">Remove</button>
+                                                        <input id="cause_{{ $index }}" type="text"
+                                                            class="form-control  @error('disabilities.' . $index . '.cause') is-invalid @enderror"
+                                                            name="disabilities[{{ $index }}][cause]"
+                                                            value="{{ old('disabilities.' . $index . '.cause') ?? ($disability->cause ?? '') }}">
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                            onclick="removeElement('disability_div_{{ $index }}')">Remove</button>
+                                                        @error('disabilities.' . $index . '.cause')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <hr>
                                             </div>
-                                        @endif
+                                        @endforeach
                                     </div>
                                     <button type="button" class="btn btn-primary btn-sm" onclick="addDisability()">Add
                                         Another
@@ -599,200 +544,80 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                        @if (old('eccdExperiences'))
-                                            @foreach (old('eccdExperiences') as $index => $experience)
-                                                <div id="eccdExperiences_div_{{ $index }}">
-                                                    <div class="form-group row my-2">
-                                                        <label for="service_type_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Service Type
-                                                            (e.g.
-                                                            Center, Community)
-                                                        </label>
-                                                        <div class="col-md-6">
-                                                            <input id="service_type_{{ $index }}" type="text"
-                                                                class="form-control  @error('eccdExperiences.' . $index . '.service_type') is-invalid @enderror"
-                                                                name="eccdExperiences[{{ $index }}][service_type]"
-                                                                value="{{ old('eccdExperiences.' . $index . '.service_type') }}">
-                                                            @error('eccdExperiences.' . $index . '.service_type')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="service_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Service (e.g
-                                                            Child
-                                                            Minding, Day Care Mother)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="service_{{ $index }}" type="text"
-                                                                class="form-control  @error('eccdExperiences.' . $index . '.service') is-invalid @enderror"
-                                                                name="eccdExperiences[{{ $index }}][service]"
-                                                                value="{{ old('eccdExperiences.' . $index . '.service') }}">
-                                                            @error('eccdExperiences.' . $index . '.service')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="from_date_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">From (Start
-                                                            Date)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="from_date_{{ $index }}" type="date"
-                                                                class="form-control  @error('eccdExperiences.' . $index . '.from_date') is-invalid @enderror"
-                                                                name="eccdExperiences[{{ $index }}][from_date]"
-                                                                value="{{ old('eccdExperiences.' . $index . '.from_date') }}">
-                                                            @error('eccdExperiences.' . $index . '.from_date')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="to_date_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">To (End
-                                                            Date)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="to_date_{{ $index }}" type="date"
-                                                                class="form-control  @error('eccdExperiences.' . $index . '.to_date') is-invalid @enderror"
-                                                                name="eccdExperiences[{{ $index }}][to_date]"
-                                                                value="{{ old('eccdExperiences.' . $index . '.to_date') }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
-                                                                onclick="removeElement('eccdExperiences_div_{{ $index }}')">Remove</button>
-                                                            @error('eccdExperiences.' . $index . '.to_date')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            @endforeach
-                                        @elseif (count($daycare->eccdExperiences->toArray() ?? []) > 0)
-                                            @foreach ($daycare->eccdExperiences as $index => $experience)
-                                                <div id="eccdExperiences_div_{{ $index }}">
-                                                    <div class="form-group row my-2">
-                                                        <label for="service_type_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Service Type
-                                                            (e.g.
-                                                            Center, Community)
-                                                        </label>
-                                                        <div class="col-md-6">
-                                                            <input id="service_type_{{ $index }}" type="text"
-                                                                class="form-control"
-                                                                name="eccdExperiences[{{ $index }}][service_type]"
-                                                                value="{{ $experience->service_type }}">
-                                                            @error('eccdExperiences.' . $index . '.service_type')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="service_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">Service (e.g
-                                                            Child
-                                                            Minding, Day Care Mother)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="service_{{ $index }}" type="text"
-                                                                class="form-control"
-                                                                name="eccdExperiences[{{ $index }}][service]"
-                                                                value="{{ $experience->service }}">
-                                                            @error('eccdExperiences.' . $index . '.service')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="from_date_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">From (Start
-                                                            Date)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="from_date_{{ $index }}" type="date"
-                                                                class="form-control"
-                                                                name="eccdExperiences[{{ $index }}][from_date]"
-                                                                value="{{ $experience->from_date }}">
-                                                            @error('eccdExperiences.' . $index . '.from_date')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row my-2">
-                                                        <label for="to_date_{{ $index }}"
-                                                            class="col-md-4 col-form-label text-md-right">To (End
-                                                            Date)</label>
-                                                        <div class="col-md-6">
-                                                            <input id="to_date_{{ $index }}" type="date"
-                                                                class="form-control"
-                                                                name="eccdExperiences[{{ $index }}][to_date]"
-                                                                value="{{ $experience->to_date }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
-                                                                onclick="removeElement('eccdExperiences_div_{{ $index }}')">Remove</button>
-                                                            @error('eccdExperiences.' . $index . '.to_date')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div id="eccdExperiences_div_0">
+                                        @foreach (old('eccdExperiences') ?? ($daycare->eccdExperiences ?? []) as $index => $experience)
+                                            <div id="eccdExperiences_div_{{ $index }}">
                                                 <div class="form-group row my-2">
-                                                    <label for="service_type_0"
-                                                        class="col-md-4 col-form-label text-md-right">Service Type (e.g.
-                                                        Center,
-                                                        Community)</label>
+                                                    <label for="service_type_{{ $index }}"
+                                                        class="col-md-4 col-form-label text-md-right">Service Type
+                                                        (e.g.
+                                                        Center, Community)
+                                                    </label>
                                                     <div class="col-md-6">
-                                                        <input id="service_type_0" type="text" class="form-control "
-                                                            name="eccdExperiences[0][service_type]">
+                                                        <input id="service_type_{{ $index }}" type="text"
+                                                            class="form-control  @error('eccdExperiences.' . $index . '.service_type') is-invalid @enderror"
+                                                            name="eccdExperiences[{{ $index }}][service_type]"
+                                                            value="{{ old('eccdExperiences.' . $index . '.service_type') ?? ($disability->service_type ?? '') }}">
+                                                        @error('eccdExperiences.' . $index . '.service_type')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row my-2">
-                                                    <label for="service_0"
-                                                        class="col-md-4 col-form-label text-md-right">Service
-                                                        (e.g Child Minding, Day Care Mother)</label>
+                                                    <label for="service_{{ $index }}"
+                                                        class="col-md-4 col-form-label text-md-right">Service (e.g
+                                                        Child
+                                                        Minding, Day Care Mother)</label>
                                                     <div class="col-md-6">
-                                                        <input id="service_0" type="text" class="form-control "
-                                                            name="eccdExperiences[0][service]">
+                                                        <input id="service_{{ $index }}" type="text"
+                                                            class="form-control  @error('eccdExperiences.' . $index . '.service') is-invalid @enderror"
+                                                            name="eccdExperiences[{{ $index }}][service]"
+                                                            value="{{ old('eccdExperiences.' . $index . '.service') ?? ($experience->service ?? '') }}">
+                                                        @error('eccdExperiences.' . $index . '.service')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row my-2">
-                                                    <label for="from_date_0"
-                                                        class="col-md-4 col-form-label text-md-right">From
-                                                        (Start Date)</label>
+                                                    <label for="from_date_{{ $index }}"
+                                                        class="col-md-4 col-form-label text-md-right">From (Start
+                                                        Date)</label>
                                                     <div class="col-md-6">
-                                                        <input id="from_date_0" type="date" class="form-control "
-                                                            name="eccdExperiences[0][from_date]">
+                                                        <input id="from_date_{{ $index }}" type="date"
+                                                            class="form-control  @error('eccdExperiences.' . $index . '.from_date') is-invalid @enderror"
+                                                            name="eccdExperiences[{{ $index }}][from_date]"
+                                                            value="{{ old('eccdExperiences.' . $index . '.from_date') ?? ($experience->from_date ?? '') }}">
+                                                        @error('eccdExperiences.' . $index . '.from_date')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="form-group row my-2">
-                                                    <label for="to_date_0"
+                                                    <label for="to_date_{{ $index }}"
                                                         class="col-md-4 col-form-label text-md-right">To (End
                                                         Date)</label>
                                                     <div class="col-md-6">
-                                                        <input id="to_date_0" type="date" class="form-control "
-                                                            name="eccdExperiences[0][to_date]">
-                                                        <button class="btn btn-sm btn-danger mt-1"
-                                                            onclick="removeElement('eccdExperiences_div_0')">Remove</button>
+                                                        <input id="to_date_{{ $index }}" type="date"
+                                                            class="form-control  @error('eccdExperiences.' . $index . '.to_date') is-invalid @enderror"
+                                                            name="eccdExperiences[{{ $index }}][to_date]"
+                                                            value="{{ old('eccdExperiences.' . $index . '.to_date') ?? ($experience->to_date ?? '') }}">
+                                                        <button type="button" class="btn btn-sm btn-danger mt-1"
+                                                            onclick="removeElement('eccdExperiences_div_{{ $index }}')">Remove</button>
+                                                        @error('eccdExperiences.' . $index . '.to_date')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <hr>
                                             </div>
-                                        @endif
+                                        @endforeach
                                     </div>
                                     <button type="button" class="btn btn-primary btn-sm"
                                         onclick="addEccdExperience()">Add
@@ -844,7 +669,7 @@
                                                     name="parents_counterpart" required>
                                                     @foreach (config('app.parents_counterpart') as $parents_counterpart)
                                                         <option value="{{ $parents_counterpart }}"
-                                                            {{ old('parents_counterpart') ?? $daycare->parents_counterpart == $parents_counterpart ? 'selected' : '' }}>
+                                                            {{ (old('parents_counterpart') ?? $daycare->parents_counterpart) == $parents_counterpart ? 'selected' : '' }}>
                                                             {{ $parents_counterpart }}</option>
                                                     @endforeach>
                                                 </select>
@@ -883,7 +708,7 @@
                                             name="scheduled_session" required>
                                             @foreach (config('app.scheduled_session') as $scheduled_session)
                                                 <option value="{{ $scheduled_session }}"
-                                                    {{ old('scheduled_session') ?? $daycare->scheduled_session == $scheduled_session ? 'selected' : '' }}>
+                                                    {{ (old('scheduled_session') ?? $daycare->scheduled_session) == $scheduled_session ? 'selected' : '' }}>
                                                     {{ $scheduled_session }}</option>
                                             @endforeach>
                                         </select>
@@ -907,7 +732,7 @@
                                             name="attendance_status" required>
                                             @foreach (config('app.attendance_status') as $attendance_status)
                                                 <option value="{{ $attendance_status }}"
-                                                    {{ old('attendance_status') ?? $daycare->attendance_status == $attendance_status ? 'selected' : '' }}>
+                                                    {{ (old('attendance_status') ?? $daycare->attendance_status) == $attendance_status ? 'selected' : '' }}>
                                                     {{ $attendance_status }}</option>
                                             @endforeach>
                                         </select>
@@ -925,7 +750,7 @@
                                                     name="dropout_reason" required>
                                                     @foreach (config('app.dropout_reason') as $dropout_reason)
                                                         <option value="{{ $dropout_reason }}"
-                                                            {{ old('dropout_reason') ?? $daycare->dropout_reason == $dropout_reason ? 'selected' : '' }}>
+                                                            {{ (old('dropout_reason') ?? $daycare->dropout_reason) == $dropout_reason ? 'selected' : '' }}>
                                                             {{ $dropout_reason }}</option>
                                                     @endforeach>
                                                 </select>
@@ -1046,8 +871,8 @@
         var activeLink = document.getElementById('forms-svg');
         activeLink.classList.add('active-svg');
 
-        let disabilityIndex = {{ count(old('disabilities') ?? ($daycare->disabilityIndex ?? [1])) }};
-        let eccdExperienceIndex = {{ count(old('disabilities') ?? ($daycare->eccdExperienceIndex ?? [1])) }};
+        let disabilityIndex = {{ count(old('disabilities') ?? ($daycare->disabilityIndex ?? [])) }};
+        let eccdExperienceIndex = {{ count(old('disabilities') ?? ($daycare->eccdExperienceIndex ?? [])) }};
 
         function addDisability() {
             var disabilitiesDiv = document.getElementById('disabilities');
@@ -1063,7 +888,7 @@
                     <label for="cause_${disabilityIndex}" class="col-md-4 col-form-label text-md-right">Cause (e.g. inborn, illness)</label>
                     <div class="col-md-6">
                         <input id="cause_${disabilityIndex}" type="text" class="form-control" name="disabilities[${disabilityIndex}][cause]">
-                        <button class="btn btn-sm btn-danger mt-1" onclick="removeElement('disabilities_div_{${disabilityIndex}')">Remove</button>
+                        <button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeElement('disabilities_div_{${disabilityIndex}')">Remove</button>
                     </div>
                 </div>
                 <hr>
@@ -1098,7 +923,7 @@
                     <label for="to_date_${eccdExperienceIndex}" class="col-md-4 col-form-label text-md-right">To (End Date)</label>
                     <div class="col-md-6">
                         <input id="to_date_${eccdExperienceIndex}" type="date" class="form-control" name="eccdExperiences[${eccdExperienceIndex}][to_date]">
-                        <button class="btn btn-sm btn-danger mt-1" onclick="removeElement('eccdExperiences_div_{${eccdExperienceIndex}')">Remove</button>
+                        <button  type="button" class="btn btn-sm btn-danger mt-1" onclick="removeElement('eccdExperiences_div_{${eccdExperienceIndex}')">Remove</button>
                     </div>
                 </div>
                 <hr>

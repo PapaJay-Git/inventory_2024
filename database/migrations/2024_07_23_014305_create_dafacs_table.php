@@ -15,51 +15,39 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
-            $table->string('region')->nullable();
-            $table->string('province_district')->nullable();
-            $table->string('city_municipality_barangay')->nullable();
-            $table->string('barangay_evacuation_center_site')->nullable();
-            $table->string('serial_no')->nullable();
+            $table->string('region');
+            $table->string('province_district');
+            $table->string('city_municipality_barangay');
+            $table->string('barangay_evacuation_center_site');
+            $table->string('serial_no');
             $table->string('head_of_family_surname');
             $table->string('head_of_family_first_name');
             $table->string('head_of_family_middle_name')->nullable();
-            $table->string('sex')->nullable();
-            $table->integer('age')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('occupation')->nullable();
-            $table->string('monthly_net_income')->nullable();
+            $table->enum('sex', config('app.sex'));
+            $table->integer('age');
+            $table->date('date_of_birth');
+            $table->enum('occupation', config('app.occupation'));
+            $table->decimal('monthly_net_income', 15, 2)->default(0);
             $table->boolean('is_4ps_beneficiary')->default(false);
-            $table->string('ip_type_of_ethnicity')->nullable();
+            $table->boolean('is_indigenous_people')->default(false);
+            $table->string('type_of_ethnicity')->nullable();
 
             // Housing Information
-            $table->boolean('house_lot_owner')->default(false);
-            $table->boolean('rented_house_lot')->default(false);
-            $table->boolean('house_with_rent_to_own')->default(false);
-            $table->boolean('house_lot_with_consent_of_owner')->default(false);
-            $table->boolean('house_rent_free_with_consent_of_owner')->default(false);
-            $table->boolean('rent_free_house_lot_without_consent')->default(false);
+            $table->enum('housing_type', config('app.housing_type'));
 
             // Codes
-            $table->boolean('is_cpwd')->default(false);
-            $table->boolean('is_lactating_mother')->default(false);
-            $table->boolean('is_pregnant')->default(false);
-            $table->boolean('is_senior_citizen')->default(false);
+            $table->enum('code', config('app.code'));
 
             // Housing Condition
-            $table->boolean('housing_condition_partially_damaged')->default(false);
-            $table->boolean('housing_condition_totally_damaged')->default(false);
+            $table->enum('housing_condition', config('app.housing_condition'));
 
             // Health Condition
-            $table->boolean('health_condition_dead')->default(false);
-            $table->boolean('health_condition_injured')->default(false);
-            $table->boolean('health_condition_missing')->default(false);
-            $table->boolean('health_condition_with_illness')->default(false);
+            $table->enum('health_condition', config('app.health_condition'));
 
             // Signatures and Dates
-            $table->string('signature_thumbmark_of_family_head')->nullable();
-            $table->string('signature_of_brg_captain')->nullable();
-            $table->date('date_registered')->nullable();
-            $table->string('name_signature_of_lswdo')->nullable();
+            $table->string('name_of_brg_captain')->nullable();
+            $table->date('date_registered');
+            $table->string('name_of_lswdo')->nullable();
 
             $table->timestamps();
         });

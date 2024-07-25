@@ -37,8 +37,8 @@ class DaycareController extends Controller
     public function index()
     {
         $daycares = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->get();
+            ->where('daycares.user_id', Auth::user()->id)
+            ->get();
 
         return view('users.forms.daycares.index', compact('daycares'));
     }
@@ -72,15 +72,18 @@ class DaycareController extends Controller
             $data['dropout_reason_others'] = null;
         }
 
-
         // Create a new daycare and save it to the database
         $daycare = Daycare::create($data);
+        $disabilities = $request->input('disabilities') ?? [];
+        $eccdExperiences = $request->input('eccdExperiences') ?? [];
 
-        $daycare->disabilities()->delete();
-        $this->handleDisabilities($daycare, $request->input('disabilities'));
+        foreach ($disabilities as $disability) {
+            $daycare->disabilities()->create($disability);
+        }
+        foreach ($eccdExperiences as $experience) {
+            $daycare->eccdExperiences()->create($experience);
+        }
 
-        $daycare->eccdExperiences()->delete();
-        $this->handleEccdExperiences($daycare, $request->input('eccdExperiences'));
 
         return redirect()->route('daycares.create')->with('status', 'Daycare record created successfully');
     }
@@ -100,9 +103,9 @@ class DaycareController extends Controller
     public function edit($id)
     {
         $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->where('daycares.id', $id)
-        ->firstOrFail();
+            ->where('daycares.user_id', Auth::user()->id)
+            ->where('daycares.id', $id)
+            ->firstOrFail();
 
         return view('users.forms.daycares.edit', compact('daycare'));
     }
@@ -113,9 +116,9 @@ class DaycareController extends Controller
     public function update(Request $request, $id)
     {
         $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
-        ->where('daycares.user_id', Auth::user()->id)
-        ->where('daycares.id', $id)
-        ->firstOrFail();
+            ->where('daycares.user_id', Auth::user()->id)
+            ->where('daycares.id', $id)
+            ->firstOrFail();
 
         $data = $request->all();
 
@@ -132,18 +135,23 @@ class DaycareController extends Controller
         if ($data['dropout_reason'] != 'Others') {
             $data['dropout_reason_others'] = null;
         }
-        if(!isset($data['listahanan_identified'])){
+        if (!isset($data['listahanan_identified'])) {
             $data['listahanan_identified'] = false;
         }
 
         // Create a new daycare and save it to the database
         $daycare->update($data);
+        $disabilities = $request->input('disabilities') ?? [];
+        $eccdExperiences = $request->input('eccdExperiences') ?? [];
 
         $daycare->disabilities()->delete();
-        $this->handleDisabilities($daycare, $request->input('disabilities'));
-
+        foreach ($disabilities as $disability) {
+            $daycare->disabilities()->create($disability);
+        }
         $daycare->eccdExperiences()->delete();
-        $this->handleEccdExperiences($daycare, $request->input('eccdExperiences'));
+        foreach ($eccdExperiences as $experience) {
+            $daycare->eccdExperiences()->create($experience);
+        }
 
 
         return redirect()->route('daycares.edit', $id)->with('status', 'Daycare record updated successfully');
@@ -154,7 +162,9 @@ class DaycareController extends Controller
      */
     public function destroy($id)
     {
-        $daycare = Daycare::findOrFail($id);
+        $daycare = Daycare::where('daycares.user_id', Auth::user()->id)
+            ->where('daycares.id', $id)
+            ->firstOrFail();
         $daycare->disabilities()->delete();
         $daycare->eccdExperiences()->delete();
         $daycare->delete();
@@ -166,32 +176,10 @@ class DaycareController extends Controller
     /**
      * CUSTOM FUNCTIONS
      *
-     * @param [type] $daycare
-     * @param [type] $disabilities
+     * @param [type]
+     * @param [type]
      * @return void
      */
-    private function handleDisabilities($daycare, $disabilities)
-    {
-        if ($disabilities) {
-            foreach ($disabilities as $disability) {
-                if (!empty($disability['disability']) && !empty($disability['cause'])) {
-                    $daycare->disabilities()->create($disability);
-                }
-            }
-        }
-    }
-
-    private function handleEccdExperiences($daycare, $eccdExperiences)
-    {
-        if ($eccdExperiences) {
-            foreach ($eccdExperiences as $experience) {
-                if (!empty($experience['service_type']) && !empty($experience['service']) &&
-                    !empty($experience['from_date']) && !empty($experience['to_date'])) {
-                    $daycare->eccdExperiences()->create($experience);
-                }
-            }
-        }
-    }
 
     private function validateCustomData($request)
     {
@@ -202,10 +190,10 @@ class DaycareController extends Controller
             // Check disabilities array
             if ($request->has('disabilities')) {
                 foreach ($request->input('disabilities') as $disability) {
-                    if (empty($disability['disability']) xor empty($disability['cause'])) {
+                    if (empty($disability['disability']) || empty($disability['cause'])) {
                         $validator->errors()->add(
                             'disabilities',
-                            'All disability fields must be filled if any disability field is provided.'
+                            'All disability fields must be filled.'
                         );
                         break;
                     }
@@ -215,22 +203,17 @@ class DaycareController extends Controller
             // Check ECCD experiences array
             if ($request->has('eccdExperiences')) {
                 foreach ($request->input('eccdExperiences') as $experience) {
-                    if (!empty($experience['service_type']) ||
-                        !empty($experience['service']) ||
-                        !empty($experience['from_date']) ||
-                        !empty($experience['to_date'])) {
-
-                        if (empty($experience['service_type']) ||
-                            empty($experience['service']) ||
-                            empty($experience['from_date']) ||
-                            empty($experience['to_date'])) {
-                            $validator->errors()->add(
-                                'eccdExperiences',
-                                'All ECCD experience fields must be filled if any experience field is provided.'
-                            );
-                            break;
-                        }
-
+                    if (
+                        empty($experience['service_type']) ||
+                        empty($experience['service']) ||
+                        empty($experience['from_date']) ||
+                        empty($experience['to_date'])
+                    ) {
+                        $validator->errors()->add(
+                            'eccdExperiences',
+                            'All ECCD experience fields must be filled.'
+                        );
+                        break;
                     }
                 }
             }
@@ -260,7 +243,7 @@ class DaycareController extends Controller
             'middle_name' => 'nullable|string|max:255',
             'ext' => 'nullable|string|max:10', // Extension (Jr., Sr.)
             'nickname' => 'nullable|string|max:50',
-            'sex' => 'required|in:'.implode(',', config('app.sex')),
+            'sex' => 'required|in:' . implode(',', config('app.sex')),
             'birth_order' => 'required|integer|min:1',
             'no_of_siblings' => 'required|integer|min:0',
             'date_of_birth' => 'required|date',
@@ -279,7 +262,7 @@ class DaycareController extends Controller
 
             // Nutrition and Services
             'breastfeeding' => 'boolean|in:1',
-            'kind_of_breastfeeding' => 'required_if:breastfeeding,true|nullable|in:'.implode(',', config('app.kind_of_breastfeeding')),
+            'kind_of_breastfeeding' => 'required_if:breastfeeding,true|nullable|in:' . implode(',', config('app.kind_of_breastfeeding')),
             'breastfed_for_months' => 'required_if:breastfeeding,true|nullable|integer|min:0',
             'supplementary_feeding' => 'boolean|in:1',
             'supplementary_feeding_for_days' => 'required_if:supplementary_feeding,true|nullable|integer|min:0',
@@ -298,15 +281,15 @@ class DaycareController extends Controller
             'participation_fee_amount' => 'required_if:participation_fee_paid,true|nullable|numeric|min:0',
 
             // Session Information
-            'scheduled_session' => 'required|in:'.implode(',', config('app.scheduled_session')),
+            'scheduled_session' => 'required|in:' . implode(',', config('app.scheduled_session')),
 
             // Parent's Counterpart
             'parents_counterpart' => 'required|in:Cash,In Kind,None',
 
             // Attendance Status
-            'attendance_status' => 'required|in:'.implode(',', config('app.attendance_status')),
+            'attendance_status' => 'required|in:' . implode(',', config('app.attendance_status')),
             'school_year' => 'required|string|max:20',
-            'dropout_reason' => 'required|in:'.implode(',', config('app.dropout_reason')),
+            'dropout_reason' => 'required|in:' . implode(',', config('app.dropout_reason')),
             'dropout_reason_others' => 'required_if:dropout_reason,Others|nullable|string|max:255',
 
             // Accomplished By

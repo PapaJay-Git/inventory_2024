@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('suffix')->nullable();
-            $table->string('philys_card_number')->nullable();
+            $table->string('philsys_card_number')->nullable();
             $table->enum('sex', ['Male', 'Female']);
             $table->date('date_of_birth');
             $table->integer('age');
@@ -37,17 +37,17 @@ return new class extends Migration
             // Additional Information
             $table->enum('educational_attainment', config('app.educational_attainment'));
             $table->enum('civil_status', config('app.civil_status'));
-            $table->string('occupation')->default('None');
+            $table->enum('occupation', config('app.occupation'));
             $table->string('religion')->nullable();
-            $table->string('company_agency')->default('None');
+            $table->string('company_agency');
             $table->enum('status_of_employment', config('app.status_of_employment'));
-            $table->decimal('monthly_income', 15, 2)->nullable();
+            $table->decimal('monthly_income', 15, 2)->default(0);
             $table->string('contact_numbers');
             $table->string('email_address')->nullable();
             $table->boolean('pantawid_beneficiary')->default(false);
             $table->string('household_id')->nullable();
             $table->boolean('indigenous_person')->default(false);
-            $table->string('affilation')->nullable();
+            $table->string('affiliation')->nullable();
             $table->boolean('lgbtq')->default(false);
             $table->boolean('pwd')->default(false);
             $table->text('classification_circumstances')->nullable();

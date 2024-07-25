@@ -22,11 +22,15 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        @error('error')
-                            <div class="alert alert-danger" role="alert">
-                                {{ $message }}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        @enderror
+                        @endif
 
                         <form action="{{ route('daycares.store') }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to create this record?')">
@@ -501,7 +505,7 @@
                                                                 class="form-control  @error('disabilities.' . $index . '.cause') is-invalid @enderror"
                                                                 name="disabilities[{{ $index }}][cause]"
                                                                 value="{{ old('disabilities.' . $index . '.cause') }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
                                                                 onclick="removeElement('disability_div_{{ $index }}')">Remove</button>
                                                             @error('disabilities.' . $index . '.cause')
                                                                 <span class="invalid-feedback" role="alert">
@@ -513,36 +517,11 @@
                                                     <hr>
                                                 </div>
                                             @endforeach
-                                        @else
-                                            <div id="disability_div_0">
-                                                <div class="form-group row my-2">
-                                                    <label for="disability_0"
-                                                        class="col-md-4 col-form-label text-md-right">Disability/Impairment
-                                                        (e.g.
-                                                        hearing, speech, visual)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="disability_0" type="text" class="form-control "
-                                                            name="disabilities[0][disability]">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row my-2">
-                                                    <label for="cause_0"
-                                                        class="col-md-4 col-form-label text-md-right">Cause
-                                                        (e.g. inborn, illness)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="cause_0" type="text" class="form-control "
-                                                            name="disabilities[0][cause]">
-                                                        <button class="btn btn-sm btn-danger mt-1"
-                                                            onclick="removeElement('disability_div_0')">Remove</button>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                            </div>
                                         @endif
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="addDisability()">Add
-                                        Another
-                                        Disability</button>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="addDisability()">
+                                        Add Disability
+                                    </button>
 
                                     <hr>
 
@@ -619,7 +598,7 @@
                                                                 class="form-control  @error('eccdExperiences.' . $index . '.to_date') is-invalid @enderror"
                                                                 name="eccdExperiences[{{ $index }}][to_date]"
                                                                 value="{{ old('eccdExperiences.' . $index . '.to_date') }}">
-                                                            <button class="btn btn-sm btn-danger mt-1"
+                                                            <button type="button" class="btn btn-sm btn-danger mt-1"
                                                                 onclick="removeElement('eccdExperiences_div_{{ $index }}')">Remove</button>
                                                             @error('eccdExperiences.' . $index . '.to_date')
                                                                 <span class="invalid-feedback" role="alert">
@@ -631,49 +610,6 @@
                                                     <hr>
                                                 </div>
                                             @endforeach
-                                        @else
-                                            <div id="eccdExperiences_div_0">
-                                                <div class="form-group row my-2">
-                                                    <label for="service_type_0"
-                                                        class="col-md-4 col-form-label text-md-right">Service Type (e.g.
-                                                        Center,
-                                                        Community)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="service_type_0" type="text" class="form-control "
-                                                            name="eccdExperiences[0][service_type]">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row my-2">
-                                                    <label for="service_0"
-                                                        class="col-md-4 col-form-label text-md-right">Service
-                                                        (e.g Child Minding, Day Care Mother)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="service_0" type="text" class="form-control "
-                                                            name="eccdExperiences[0][service]">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row my-2">
-                                                    <label for="from_date_0"
-                                                        class="col-md-4 col-form-label text-md-right">From
-                                                        (Start Date)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="from_date_0" type="date" class="form-control "
-                                                            name="eccdExperiences[0][from_date]">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row my-2">
-                                                    <label for="to_date_0"
-                                                        class="col-md-4 col-form-label text-md-right">To (End
-                                                        Date)</label>
-                                                    <div class="col-md-6">
-                                                        <input id="to_date_0" type="date" class="form-control "
-                                                            name="eccdExperiences[0][to_date]">
-                                                        <button class="btn btn-sm btn-danger mt-1"
-                                                            onclick="removeElement('eccdExperiences_div_0')">Remove</button>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                            </div>
                                         @endif
                                     </div>
                                     <button type="button" class="btn btn-primary btn-sm"
@@ -925,8 +861,8 @@
         var activeLink = document.getElementById('forms-svg');
         activeLink.classList.add('active-svg');
 
-        let disabilityIndex = {{ old('disabilities') ? count(old('disabilities')) : 1 }};
-        let eccdExperienceIndex = {{ old('eccdExperiences') ? count(old('eccdExperiences')) : 1 }};
+        let disabilityIndex = {{ old('disabilities') ? count(old('disabilities')) : 0 }};
+        let eccdExperienceIndex = {{ old('eccdExperiences') ? count(old('eccdExperiences')) : 0 }};
 
         function addDisability() {
             var disabilitiesDiv = document.getElementById('disabilities');
@@ -942,7 +878,7 @@
                         <label for="cause_${disabilityIndex}" class="col-md-4 col-form-label text-md-right">Cause (e.g. inborn, illness)</label>
                         <div class="col-md-6">
                             <input id="cause_${disabilityIndex}" type="text" class="form-control " name="disabilities[${disabilityIndex}][cause]">
-                            <button class="btn btn-sm btn-danger mt-1" onclick="removeElement('disabilities_div_{${disabilityIndex}')">Remove</button>
+                            <button type="button" class="btn btn-sm btn-danger mt-1" onclick="removeElement('disabilities_div_${disabilityIndex}')">Remove</button>
                         </div>
                     </div>
                     <hr>
@@ -977,7 +913,7 @@
                         <label for="to_date_${eccdExperienceIndex}" class="col-md-4 col-form-label text-md-right">To (End Date)</label>
                         <div class="col-md-6">
                             <input id="to_date_${eccdExperienceIndex}" type="date" class="form-control " name="eccdExperiences[${eccdExperienceIndex}][to_date]">
-                            <button class="btn btn-sm btn-danger mt-1" onclick="removeElement('eccdExperiences_div_{${eccdExperienceIndex}')">Remove</button>
+                            <button  type="button" class="btn btn-sm btn-danger mt-1" onclick="removeElement('eccdExperiences_div_${eccdExperienceIndex}')">Remove</button>
                         </div>
                     </div>
                     <hr>

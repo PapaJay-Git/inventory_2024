@@ -185,6 +185,8 @@ return [
 
     'home_address' => ['home_street_address', 'home_barangay', 'home_city_municipality', 'home_province', 'home_region'],
 
+
+
     /**
      * PWDS DATA
      */
@@ -334,5 +336,54 @@ return [
         'Renewal',
         'Terminated',
         'Disapproved'
-    ]
+    ],
+
+    // SOLO PARENTS
+
+    'address' => ['street_address', 'barangay', 'city_municipality', 'province', 'region'],
+
+
+    // DAFAQ
+
+    'housing_type' => [
+        'House and lot owner',
+        'Rented house and lot',
+        'House with rent-to-own',
+        'House on lot with consent of owner',
+        'Rent-free house with consent of owner',
+        'Rent-free house and lot without consent of owner'
+    ],
+
+
+    'code' => [
+        'C - PWD',
+        'B - Lactating Mother',
+        'A - Older Person',
+    ],
+
+    'housing_condition' => [
+        'Partially Damaged',
+        'Totally Damaged',
+    ],
+
+    'health_condition' => [
+        'Dead',
+        'Injured',
+        'Missing',
+        'With Illness',
+    ],
+
+    'dafac_address' => [
+        'region',
+        'province_district',
+        'city_municipality_barangay',
+        'barangay_evacuation_center_site',
+    ],
+
+    'head_of_the_family' => [
+        'head_of_family_surname',
+        'head_of_family_first_name',
+        'head_of_family_middle_name',
+    ],
+
 ];

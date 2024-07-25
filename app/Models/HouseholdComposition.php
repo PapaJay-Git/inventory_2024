@@ -11,7 +11,7 @@ class HouseholdComposition extends Model
 
     protected $fillable = [
         'solo_parent_id',
-        'name',
+        'full_name',
         'sex',
         'relationship',
         'birthdate',

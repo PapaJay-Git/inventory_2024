@@ -26,11 +26,15 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            @error('error')
-                                <div class="alert alert-danger" role="alert">
-                                    {{ $message }}
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            @enderror
+                            @endif
 
                             <table id='myTable' class='stripe'>
                                 <thead>
@@ -94,117 +98,151 @@
                                                     No Photo
                                                 @endif
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($pwd->date_applied)->format('Y-m-d') }}
-                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($pwd->date_applied)->format('Y-m-d') }}</td>
 
                                             <!-- Personal Information -->
                                             <td>
-                                                {{ $pwd->last_name }}, {{ $pwd->first_name }}
-                                                {{ $pwd->middle_name }} {{ $pwd->suffix }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Full Name:</strong> {{ $pwd->last_name }},
+                                                    {{ $pwd->first_name }} {{ $pwd->middle_name }} {{ $pwd->suffix }}
+                                                </div>
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($pwd->date_of_birth)->format('Y-m-d') }}
-                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($pwd->date_of_birth)->format('Y-m-d') }}</td>
                                             <td>{{ $pwd->sex }}</td>
                                             <td>{{ $pwd->civil_status }}</td>
                                             <td>
-                                                @foreach (json_decode($pwd->type_of_disabilities, true) as $disability)
-                                                    {{ $disability }}<br>
-                                                @endforeach
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Type of Disability:</strong><br>
+                                                    @foreach (json_decode($pwd->type_of_disabilities, true) as $disability)
+                                                        {{ $disability }}<br>
+                                                    @endforeach
+                                                </div>
                                             </td>
-                                            <td>{{ $pwd->cause_of_disability == 'Others' ? $pwd->cause_of_disability_others : $pwd->cause_of_disability }}
+                                            <td>
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Cause of Disability:</strong><br>
+                                                    {{ $pwd->cause_of_disability == 'Others' ? $pwd->cause_of_disability_others : $pwd->cause_of_disability }}
+                                                </div>
                                             </td>
 
                                             <!-- Address Information -->
                                             <td>
-                                                {{ $pwd->house_no_street }}, {{ $pwd->barangay }},<br>
-                                                {{ $pwd->municipality }}, {{ $pwd->province }},<br>
-                                                {{ $pwd->region }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Address:</strong><br>
+                                                    {{ $pwd->house_no_street }}, {{ $pwd->barangay }},<br>
+                                                    {{ $pwd->municipality }}, {{ $pwd->province }},<br>
+                                                    {{ $pwd->region }}
+                                                </div>
                                             </td>
 
                                             <!-- Contact Information -->
                                             <td>
-                                                Landline: {{ $pwd->landline_no }}<br>
-                                                Mobile: {{ $pwd->mobile_no }}<br>
-                                                Email: {{ $pwd->email_address }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Landline:</strong> {{ $pwd->landline_no }}<br>
+                                                    <strong>Mobile:</strong> {{ $pwd->mobile_no }}<br>
+                                                    <strong>Email:</strong> {{ $pwd->email_address }}
+                                                </div>
                                             </td>
 
                                             <!-- Educational and Employment Information -->
                                             <td>
-                                                {{ $pwd->educational_attainment }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Educational Attainment:</strong>
+                                                    {{ $pwd->educational_attainment }}
+                                                </div>
                                             </td>
                                             <td>
-                                                Status: {{ $pwd->status_of_employment }} <br>
-                                                Type: {{ $pwd->types_of_employment }} <br>
-                                                Category: {{ $pwd->category_of_employment }} <br>
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Status:</strong> {{ $pwd->status_of_employment }}<br>
+                                                    <strong>Type:</strong> {{ $pwd->types_of_employment }}<br>
+                                                    <strong>Category:</strong> {{ $pwd->category_of_employment }}
+                                                </div>
                                             </td>
-                                            <td>{{ $pwd->occupation == 'Others' ? $pwd->occupation_others : $pwd->occupation }}
+                                            <td>
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Occupation:</strong>
+                                                    {{ $pwd->occupation == 'Others' ? $pwd->occupation_others : $pwd->occupation }}
+                                                </div>
                                             </td>
 
                                             <!-- Organization Information -->
                                             <td>
-                                                Org: {{ $pwd->organization_affiliated }}<br>
-                                                Contact: {{ $pwd->contact_person }}<br>
-                                                Office: {{ $pwd->office_address }}<br>
-                                                Tel No: {{ $pwd->office_tel_no }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Organization:</strong> {{ $pwd->organization_affiliated }}<br>
+                                                    <strong>Contact Person:</strong> {{ $pwd->contact_person }}<br>
+                                                    <strong>Office Address:</strong> {{ $pwd->office_address }}<br>
+                                                    <strong>Tel No:</strong> {{ $pwd->office_tel_no }}
+                                                </div>
                                             </td>
 
                                             <!-- Identification Numbers -->
                                             <td>
-                                                SSS No: {{ $pwd->sss_no }}<br>
-                                                GSIS No: {{ $pwd->gsis_no }}<br>
-                                                PAGIBIG No: {{ $pwd->pagibig_no }}<br>
-                                                PSN No: {{ $pwd->psn_no }}<br>
-                                                PhilHealth No: {{ $pwd->philhealth_no }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>SSS No:</strong> {{ $pwd->sss_no }}<br>
+                                                    <strong>GSIS No:</strong> {{ $pwd->gsis_no }}<br>
+                                                    <strong>PAGIBIG No:</strong> {{ $pwd->pagibig_no }}<br>
+                                                    <strong>PSN No:</strong> {{ $pwd->psn_no }}<br>
+                                                    <strong>PhilHealth No:</strong> {{ $pwd->philhealth_no }}
+                                                </div>
                                             </td>
 
                                             <!-- Family Information -->
                                             <td>
-                                                Father: {{ $pwd->father_last_name }},
-                                                {{ $pwd->father_first_name }}
-                                                {{ $pwd->father_middle_name }}<br>
-                                                Mother: {{ $pwd->mother_last_name }},
-                                                {{ $pwd->mother_first_name }}
-                                                {{ $pwd->mother_middle_name }}<br>
-                                                Guardian: {{ $pwd->guardian_last_name }},
-                                                {{ $pwd->guardian_first_name }}
-                                                {{ $pwd->guardian_middle_name }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Father:</strong> {{ $pwd->father_last_name }},
+                                                    {{ $pwd->father_first_name }} {{ $pwd->father_middle_name }}<br>
+                                                    <strong>Mother:</strong> {{ $pwd->mother_last_name }},
+                                                    {{ $pwd->mother_first_name }} {{ $pwd->mother_middle_name }}<br>
+                                                    <strong>Guardian:</strong> {{ $pwd->guardian_last_name }},
+                                                    {{ $pwd->guardian_first_name }} {{ $pwd->guardian_middle_name }}
+                                                </div>
                                             </td>
 
                                             <!-- Form Fill-up Information -->
                                             <td>
-                                                Accomplished By: {{ $pwd->accomplished_by }}<br>
-                                                Last Name: {{ $pwd->accomplished_by_last_name }}<br>
-                                                First Name: {{ $pwd->accomplished_by_first_name }}<br>
-                                                Middle Name: {{ $pwd->accomplished_by_middle_name }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Accomplished By:</strong> {{ $pwd->accomplished_by }}<br>
+                                                    <strong>Last Name:</strong> {{ $pwd->accomplished_by_last_name }}<br>
+                                                    <strong>First Name:</strong> {{ $pwd->accomplished_by_first_name }}<br>
+                                                    <strong>Middle Name:</strong> {{ $pwd->accomplished_by_middle_name }}
+                                                </div>
                                             </td>
 
                                             <!-- Certification Information -->
                                             <td>
-                                                Certifying Physician: {{ $pwd->name_of_certifying_physician }}<br>
-                                                License No: {{ $pwd->license_no }}<br>
-                                                Processing Officer: {{ $pwd->processing_officer }}<br>
-                                                Approving Officer: {{ $pwd->approving_officer }}<br>
-                                                Encoder: {{ $pwd->encoder }}<br>
-                                                Reporting Unit/Office Section:
-                                                {{ $pwd->name_of_reporting_unit_office_section }}<br>
-                                                Control No: {{ $pwd->control_no }}
+                                                <div class="border p-2 mb-2">
+                                                    <strong>Certifying Physician:</strong>
+                                                    {{ $pwd->name_of_certifying_physician }}<br>
+                                                    <strong>License No:</strong> {{ $pwd->license_no }}<br>
+                                                    <strong>Processing Officer:</strong> {{ $pwd->processing_officer }}<br>
+                                                    <strong>Approving Officer:</strong> {{ $pwd->approving_officer }}<br>
+                                                    <strong>Encoder:</strong> {{ $pwd->encoder }}<br>
+                                                    <strong>Reporting Unit/Office Section:</strong>
+                                                    {{ $pwd->name_of_reporting_unit_office_section }}<br>
+                                                    <strong>Control No:</strong> {{ $pwd->control_no }}
+                                                </div>
                                             </td>
 
                                             <!-- Actions -->
                                             <td>
                                                 <a href="{{ route('pwds.edit', $pwd->id) }}"
-                                                    class="btn btn-primary">Edit</a>
+                                                    class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-pencil me-1"></i>Edit
+                                                </a>
                                                 <form action="{{ route('pwds.destroy', $pwd->id) }}" method="POST"
                                                     style="display:inline;"
                                                     onsubmit="return confirm('Are you sure you want to delete this data?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash me-1"></i>Delete
+                                                    </button>
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
 
                         </div>

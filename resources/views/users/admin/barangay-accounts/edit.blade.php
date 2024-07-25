@@ -22,11 +22,15 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        @error('error')
-                            <div class="alert alert-danger" role="alert">
-                                {{ $message }}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
-                        @enderror
+                        @endif
 
                         <form action="/barangay-accounts/{{ $barangay->id }}" method="POST"
                             onsubmit="return confirm('Are you sure you want to update this account?')">
