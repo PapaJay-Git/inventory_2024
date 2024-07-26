@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangayAccountController;
 use App\Http\Controllers\DafacController;
 use App\Http\Controllers\DaycareController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KabataanController;
 use App\Http\Controllers\PwdController;
 use App\Http\Controllers\SoloParentController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,6 @@ Route::middleware('auth', 'CheckDefaultPassword')->group(function () {
         Route::resource('pwds', PwdController::class);
         Route::resource('solo_parents', SoloParentController::class);
         Route::resource('dafacs', DafacController::class);
+        Route::resource('kabataans', KabataanController::class);
     });
 });

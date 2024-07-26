@@ -10,7 +10,11 @@ class Kabataan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+
+        'user_id',
+        'first_name',
+        'middle_name',
+        'last_name',
         'nickname',
         'date_of_birth',
         'age',

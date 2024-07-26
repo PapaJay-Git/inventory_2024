@@ -386,4 +386,41 @@ return [
         'head_of_family_middle_name',
     ],
 
+    'kabataan_names' => [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'nickname',
+    ],
+
+    'kabataan_in_case_of_emergency' => [
+        'emergency_contact_name',
+        'emergency_contact_address',
+        'emergency_contact_relationship',
+        'emergency_contact_phone',
+    ],
+
+    'kabataan_education_fields' => [
+        [
+            'post_graduate_course',
+            'post_graduate_year'
+        ],
+        [
+            'college_course',
+            'college_year'
+        ],
+        [
+            'high_school',
+            'high_school_year'
+        ],
+        [
+            'elementary',
+            'elementary_year'
+        ],
+        [
+            'other_education',
+            'other_education_year'
+        ],
+    ]
+
 ];
