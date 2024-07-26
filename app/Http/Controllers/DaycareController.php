@@ -300,12 +300,12 @@ class DaycareController extends Controller
 
 
             // Validate disabilities array
-            'disabilities' => 'array',
+            'disabilities' => 'array|max:5',
             'disabilities.*.disability' => 'nullable|string',
             'disabilities.*.cause' => 'nullable|string',
 
             // Validate ECCD experiences array
-            'eccdExperiences' => 'array',
+            'eccdExperiences' => 'array|max:12',
             'eccdExperiences.*.service_type' => 'nullable|string',
             'eccdExperiences.*.service' => 'nullable|string',
             'eccdExperiences.*.from_date' => 'nullable|date',

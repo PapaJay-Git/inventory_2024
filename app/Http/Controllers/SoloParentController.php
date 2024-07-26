@@ -223,7 +223,7 @@ class SoloParentController extends Controller
             'beneficiary_code' => ['nullable', 'string', 'max:255'],
 
             // Household Composition Details
-            'householdCompositions' => 'array',
+            'householdCompositions' => 'array|max:10',
             'householdCompositions.*.full_name' => ['nullable', 'string', 'max:255'],
             'householdCompositions.*.sex' => ['nullable', 'in:' . implode(',', config('app.sex'))],
             'householdCompositions.*.relationship' => ['nullable', 'string', 'max:255'],

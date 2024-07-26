@@ -556,7 +556,7 @@
                                                         <input id="service_type_{{ $index }}" type="text"
                                                             class="form-control  @error('eccdExperiences.' . $index . '.service_type') is-invalid @enderror"
                                                             name="eccdExperiences[{{ $index }}][service_type]"
-                                                            value="{{ old('eccdExperiences.' . $index . '.service_type') ?? ($disability->service_type ?? '') }}">
+                                                            value="{{ old('eccdExperiences.' . $index . '.service_type') ?? ($experience->service_type ?? '') }}">
                                                         @error('eccdExperiences.' . $index . '.service_type')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>

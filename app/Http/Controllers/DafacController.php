@@ -183,7 +183,7 @@ class DafacController extends Controller
             'name_of_lswdo' => ['nullable', 'string', 'max:255'],
 
             // Family Members Table
-            'family_members' => ['array'],
+            'family_members' => ['array', 'max:6'],
             'family_members.*.family_member_name' => ['nullable', 'string', 'max:255'],
             'family_members.*.relationship_to_head' => ['nullable', 'string', 'max:255'],
             'family_members.*.age' => ['nullable', 'integer', 'min:0'],
