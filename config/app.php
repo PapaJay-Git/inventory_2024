@@ -266,7 +266,7 @@ return [
         'Plant and Machine Operators and Assemblers',
         'Elementary Occupations',
         'Armed Forces Occupations',
-        'Others'
+        'Others',
     ],
 
     'organizational_information' => [
@@ -421,6 +421,14 @@ return [
             'other_education',
             'other_education_year'
         ],
-    ]
+    ],
+
+    'kababaihan_names' => [
+        'first_name',
+        'middle_name',
+        'last_name',
+    ],
+
+    'kababaihan_images_path' => '/images/kababaihan_images/',
 
 ];
