@@ -143,36 +143,36 @@
         }
 
         .text-2xl {
-            font-size: .90rem;
+            font-size: 1.05rem;
         }
 
         .text-xl {
-            font-size: .70rem;
+            font-size: .85rem;
         }
 
         .text-md {
-            font-size: .60rem;
+            font-size: .75rem;
         }
 
         .text-sm {
-            font-size: .50rem;
+            font-size: .65rem;
         }
 
         /* Font Size */
         .text-xs {
-            font-size: .40rem;
+            font-size: .55rem;
         }
 
         .text-xxs {
-            font-size: .30rem;
+            font-size: .45rem;
         }
 
         @page {
             size: 8.5in 11in;
-            margin-left: 20px;
-            margin-right: 20px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
         body {
@@ -186,8 +186,7 @@
         }
 
         .container td {
-            padding: 3px;
-            margin: 2px;
+            padding: 1px 3px;
             vertical-align: top;
         }
 
@@ -206,9 +205,10 @@
         }
 
         input[type="text"] {
-            height: .5rem;
-            width: auto;
-            font-size: 0.40rem;
+            height: .7rem;
+            width: 94%;
+            box-sizing: border-box;
+            font-size: 0.55rem;
             margin: auto;
             display: block;
             border: 0px;
@@ -220,7 +220,8 @@
         }
 
         td {
-            overflow: hidden;
+            overflow: hidden !important;
+            /* Hide overflow content */
         }
     </style>
 </head>
@@ -229,6 +230,35 @@
     <table class="font-mono whitespace-wrap">
         <table class="container border-black border-1">
             <thead class="pb-4">
+                <tr>
+                    {{-- 1 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 2 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 3 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 4 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 5 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 6 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 7 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 8 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 9 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 10 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 11 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 12 --}}
+                    <th colspan="1" style="min-width: 55px; max-width: 55px"></th>
+                    {{-- 13 --}}
+                    <th colspan="1" style="min-width: 5px; max-width: 5px"></th>
+
+                </tr>
                 <tr>
                     <th class="font-bold text-start" colspan="10">
                         <span class="text-xs">Rev.10.4.19</span>
@@ -242,7 +272,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="font-bold text-start" colspan="4" rowspan="2">
+                    <th class="font-bold text-start" colspan="5" rowspan="2">
                         <img src="{{ $base64Logo }}" alt="Logo" style="height: 40px; width: 40px" class="item">
 
                         <span class="text-xs item">
@@ -251,7 +281,7 @@
                             <span>Early Childhood Care and Development</span>
                         </span>
                     </th>
-                    <th class="font-bold text-start text-2xl" colspan="5" rowspan="2">
+                    <th class="font-bold text-start text-2xl" colspan="4" rowspan="2">
                         Child Information Sheet
                     </th>
                     <th colspan="1">
@@ -292,16 +322,16 @@
                         <input type="text" class="w-full">
                     </td>
 
-                    <td colspan="1" class="text-sm border-1 border-black">
-                        <input type="text">
-                    </td>
-                    <td colspan="3" class="text-sm border-1 border-black">
+                    <td colspan="2" class="text-sm border-1 border-black">
                         <input type="text">
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
                         <input type="text">
                     </td>
                     <td colspan="3" class="text-sm border-1 border-black">
+                        <input type="text">
+                    </td>
+                    <td colspan="2" class="text-sm border-1 border-black">
                         <input type="text">
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
@@ -315,16 +345,16 @@
                     <td colspan="1" class="font-bold text-sm">
                     </td>
 
-                    <td colspan="1" class="text-sm">
+                    <td colspan="2" class="text-sm">
                         Region
                     </td>
-                    <td colspan="3" class="text-sm">
+                    <td colspan="2" class="text-sm">
                         Province
                     </td>
-                    <td colspan="2" class="text-sm">
+                    <td colspan="3" class="text-sm">
                         City/Municipality
                     </td>
-                    <td colspan="3" class="text-sm">
+                    <td colspan="2" class="text-sm">
                         Barangay
                     </td>
                     <td colspan="2" class="text-sm">
@@ -363,13 +393,13 @@
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
                     <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
                     <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
 
                     <td colspan="1" class="font-bold text-sm">
                         <label>4b. Nickname</label>
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black">
+                    <td colspan="2" class="text-sm border-1 border-black">
                         <input type="text">
                     </td>
                     <td colspan="1">
@@ -382,9 +412,9 @@
                     </td>
                     <td colspan="2" class="text-sm">Last Name*</td>
                     <td colspan="3" class="text-sm">First Name*</td>
-                    <td colspan="1" class="text-sm">Middle Name*</td>
+                    <td colspan="2" class="text-sm">Middle Name*</td>
                     <td colspan="1" class="text-sm">Ext.(Jr.Sr.)</td>
-                    <td colspan="5">
+                    <td colspan="4">
 
                     </td>
                 </tr>
@@ -407,15 +437,13 @@
                     <td colspan="2" class="font-bold text-sm border-1 border-black">
                         <input type="text">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1" class="font-bold text-sm">
+                    <td colspan="2" class="font-bold text-sm">
                         <label>6b. No. of siblings*</label>
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
                         <input type="text">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1" class="font-bold text-sm">
+                    <td colspan="2" class="font-bold text-sm">
                         <label>7. Date of Birth*</label>
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
@@ -434,10 +462,9 @@
                         <input type="text">
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="1" class="font-bold text-sm">
+                    <td colspan="2" class="font-bold text-sm">
                         <label>7a. Birth Registered</label>
                     </td>
-                    <td colspan="1"></td>
                     <td colspan="2" class="font-bold text-sm border-1 border-black">
                         <input type="text">
                     </td>

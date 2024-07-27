@@ -208,12 +208,12 @@ return [
         'Chronic Illness (Acquired)',
         'Cerebral Palsy (Acquired)',
         'Injury (Acquired)',
+        'Others (Acquired)',
 
         'Cerebral Palsy (Congenital/Inborn)',
         'Down Syndrome (Congenital/Inborn)',
         'ADHD (Congenital/Inborn)',
-
-        'Others'
+        'Others (Congenital/Inborn)',
     ],
 
     'civil_status' => [

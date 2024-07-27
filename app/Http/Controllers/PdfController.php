@@ -27,7 +27,11 @@ class PdfController extends Controller
         $daycare = 'logos/dswd.png';
         $currentBlade = 'pdf.kababaihan';
 
-        $base64Logo = $this->getImageBased64($daycare);
+        $path = public_path($daycare);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64Logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
         $pdf = Pdf::loadView($currentBlade, compact('base64Logo'));
 
         return $pdf->stream('document.pdf');

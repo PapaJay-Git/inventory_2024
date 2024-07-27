@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\Daycare;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -93,8 +95,18 @@ class DaycareController extends Controller
      */
     public function show($id)
     {
-        // $daycare = Daycare::with(['disabilities', 'eccdExperiences'])->findOrFail($id);
-        // return view('users.forms.daycares.show', compact('daycare'));
+        $daycare = Daycare::with(['disabilities', 'eccdExperiences'])
+        ->where('daycares.user_id', Auth::user()->id)
+        ->where('daycares.id', $id)
+        ->firstOrFail();
+
+        $base64Logo = ImageGeneratorHelper::getImageBased64('logos/dswd.png');
+
+        $pdf = Pdf::loadView('pdf.daycare', compact('base64Logo', 'daycare'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**

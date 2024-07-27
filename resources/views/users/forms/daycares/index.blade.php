@@ -176,6 +176,10 @@
                                                     class="btn btn-primary btn-sm">
                                                     <i class="bi bi-pencil me-1"></i>Edit
                                                 </a>
+                                                <a href="{{ route('daycares.show', $daycare->id) }}"
+                                                    class="btn btn-primary btn-sm" target="_blank">
+                                                    <i class="bi bi-pencil me-1"></i>PDF
+                                                </a>
                                                 <form action="{{ route('daycares.destroy', $daycare->id) }}" method="POST"
                                                     style="display:inline;"
                                                     onsubmit="return confirm('Are you sure you want to delete this data?')">

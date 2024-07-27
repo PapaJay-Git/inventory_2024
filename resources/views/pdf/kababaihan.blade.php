@@ -266,185 +266,125 @@
 
                 </tr>
                 <tr>
-                    <th colspan="12" class="text-center font-bold text-3xl ">
-                        <span class="border-bottom-black">REGISTRATION FORM</span>
-                    </th>
+                    <th colspan="12" class="text-start font-bold text-3xl ">MEMBERSHIP FORM</th>
                 </tr>
-
             </thead>
-            <tbody class="text-xl ">
+            <tbody class="text-xl">
                 <tr>
-                    <td colspan="12" class="text-start font-bold text-2xl ">PERSONAL
-                        INFORMATION
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Name:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                        First Name
-                    </td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                        M.I.
-                    </td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black" value="22">
-                        Surname
-                    </td>
-                    <td colspan="1">Nickname:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2">Date of Birth:</td>
+                    <td colspan="2">LAST NAME:</td>
                     <td colspan="5">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Gender:</td>
-                    <td colspan="2">
+                    <td colspan="1">DATE:</td>
+                    <td colspan="3">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td></td>
+                    <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Age:</td>
+                    <td colspan="2">FIRST NAME:</td>
                     <td colspan="5">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Religion:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
+                    <td colspan="5"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Position:</td>
+                    <td colspan="2">MIDDLE NAME:</td>
                     <td colspan="5">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Mobile Phone:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
+                    <td colspan="5"></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Barangay:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">City/Municipality:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2">Home Address:</td>
+                    <td colspan="2">CITY ADDRESS:</td>
                     <td colspan="9">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td></td>
+                    <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="12"><br></td>
-                </tr>
-                <tr>
-                    <td colspan="12" class="text-start font-bold text-2xl ">
-                        EDUCATIONAL ATTAINMENT
+                    <td colspan="3">PROVINCIAL ADDRESS:</td>
+                    <td colspan="8">
+                        <input type="text" class="border-bottom-black">
                     </td>
+                    <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="3">Post Graduate Degree/ Course:</td>
+                    <td colspan="2">DATE OF BIRTH:</td>
                     <td colspan="5">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td colspan="1">Year Taken:</td>
+                    <td colspan="2">BIRTH PLACE:</td>
                     <td colspan="2">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td></td>
+                    <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="3">College Degree/Course:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">High School:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">Elementary:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">Others:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="12"><br></td>
-                </tr>
-                <tr>
-                    <td colspan="12" class="text-start font-bold text-xl ">
-                        <span class="border-bottom-black">In case of emergency, please notify:</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Name:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
-                    </td>
-                    <td colspan="1">Relationship:</td>
+                    <td colspan="2">CIVIL STATUS:</td>
                     <td colspan="3">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="2">Address:</td>
-                    <td colspan="5">
+                    <td colspan="1">CITIZENSHIP:</td>
+                    <td colspan="2">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td colspan="1">Phone No:</td>
+                    <td colspan="1">RELIGION:</td>
+                    <td colspan="2">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">MOBILE NO.:</td>
                     <td colspan="3">
                         <input type="text" class="border-bottom-black">
                     </td>
-                    <td></td>
+                    <td colspan="1">OCCUPATION:</td>
+                    <td colspan="5">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">NAME OF COMPANY:</td>
+                    <td colspan="3">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="2">COMPANY ADDRESS:</td>
+                    <td colspan="4">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">EDUCATIONAL ATTAINMENT:</td>
+                    <td colspan="9">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">NAME OF SPOUSE:</td>
+                    <td colspan="3">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1">OCCUPATION:</td>
+                    <td colspan="5">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">NUMBER OF CHILDREN:</td>
+                    <td colspan="1">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="4">OTHER ORGANIZATION'S MEMBERSHIP:</td>
+                    <td colspan="4">
+                        <input type="text" class="border-bottom-black">
+                    </td>
+                    <td colspan="1"></td>
                 </tr>
             </tbody>
         </table>

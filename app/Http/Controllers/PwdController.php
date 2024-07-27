@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\Pwd;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -55,7 +57,7 @@ class PwdController extends Controller
             $data['occupation_others'] = null;
         }
 
-        if ($data['cause_of_disability'] != 'Others') {
+        if (!str_contains($data['cause_of_disability'], 'Others')) {
             $data['cause_of_disability_others'] = null;
         }
 
@@ -72,7 +74,19 @@ class PwdController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pwd = Pwd::where('pwds.user_id', Auth::user()->id)
+            ->where('pwds.id', $id)
+            ->firstOrFail();
+
+        $pwd_photo = config('app.pwd_images_path')."".$pwd->pwd_photo;
+        $base64Logo = ImageGeneratorHelper::getImageBased64('logos/DOH.png');
+        $pwd_photo = ImageGeneratorHelper::getImageBased64($pwd_photo);
+
+        $pdf = Pdf::loadView('pdf.pwd', compact('base64Logo', 'pwd', 'pwd_photo'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**
@@ -124,7 +138,7 @@ class PwdController extends Controller
             $data['occupation_others'] = null;
         }
 
-        if ($data['cause_of_disability'] != 'Others') {
+        if (!str_contains($data['cause_of_disability'], 'Others')) {
             $data['cause_of_disability_others'] = null;
         }
 
@@ -173,7 +187,7 @@ class PwdController extends Controller
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
-            'suffix' => 'nullable|string|max:50',
+            'suffix' => 'nullable|string|max:10',
             'date_of_birth' => 'required|date',
             'sex' => 'required|in:' . implode(',', config('app.sex')),
             'civil_status' => 'required|in:' . implode(',', config('app.civil_status')),
@@ -181,8 +195,13 @@ class PwdController extends Controller
             'type_of_disabilities' => 'required|array|min:1',
 
             'cause_of_disability' => 'required|in:' . implode(',', config('app.cause_of_disability')),
-            'cause_of_disability_others' => 'required_if:cause_of_disability,Others|max:255',
+            'cause_of_disability_others' => [
+                'required_if:cause_of_disability,Others (Acquired)',
+                'required_if:cause_of_disability,Others (Congenital/Inborn)',
+                'max:255',
+            ],
             // Address Information
+
             'house_no_street' => 'required|string|max:255',
             'barangay' => 'required|string|max:255',
             'municipality' => 'required|string|max:255',
