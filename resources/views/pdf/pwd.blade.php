@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF</title>
+    <title>PWD PDF</title>
     <style>
         /* .min-w-full {
                 min-width: 100%;
@@ -12,54 +13,63 @@
 
         table {
             width: 100%;
-            max-width: 8.5in; /* Set the maximum width to 8.5 inches for letter size paper */
+            max-width: 8.5in;
+            /* Set the maximum width to 8.5 inches for letter size paper */
             border-collapse: collapse;
         }
+
         .font-mono {
             font-family: monospace;
         }
 
-        .whitespace-nowrap {
-            white-space: nowrap;
+        .mt-1 {
+            margin-top: 3px;
         }
 
-        .mt-1{
-        margin-top: 3px;
-    }
-    .mt-2{
-        margin-top: 6px;
-    }
-    .mt-3{
-        margin-top: 9px;
-    }
-    .mt-4{
-        margin-top: 12px;
-    }
-    .mt-5{
-        margin-top: 15px;
-    }
-    .mt-20px{
-        margin-top: 20px;
-    }
-    .pb-1{
-        padding-bottom: 3px;
-    }
-    .pb-2{
-        padding-bottom: 6px;
-    }
+        .mt-2 {
+            margin-top: 6px;
+        }
 
-    .d-inline-block {
-        display: inline-block;
-    }
+        .mt-3 {
+            margin-top: 9px;
+        }
 
-    .px-3{
-        padding: 0 3px;
-    }
-    .item {
-        display: inline-block; /* Make items inline-block to respect text-align */
-        vertical-align: middle; /* Center items vertically */
-        line-height: normal; /* Reset line-height to avoid extra spacing */
-    }
+        .mt-4 {
+            margin-top: 12px;
+        }
+
+        .mt-5 {
+            margin-top: 15px;
+        }
+
+        .mt-20px {
+            margin-top: 20px;
+        }
+
+        .pb-1 {
+            padding-bottom: 3px;
+        }
+
+        .pb-2 {
+            padding-bottom: 6px;
+        }
+
+        .d-inline-block {
+            display: inline-block;
+        }
+
+        .px-3 {
+            padding: 0 3px;
+        }
+
+        .item {
+            display: inline-block;
+            /* Make items inline-block to respect text-align */
+            vertical-align: middle;
+            /* Center items vertically */
+            line-height: normal;
+            /* Reset line-height to avoid extra spacing */
+        }
 
 
         .inline-block {
@@ -93,13 +103,15 @@
             border-width: 2px;
             border-style: solid;
         }
+
         .border-1 {
             border-width: 1px;
             border-style: solid;
         }
 
         .border-black {
-            border-color: #000; /* black color */
+            border-color: #000;
+            /* black color */
         }
 
         /* Background Color */
@@ -119,23 +131,31 @@
             white-space: nowrap;
         }
 
+        .whitespace-wrap {
+            white-space: wrap;
+        }
+
         .text-2xl {
             font-size: 1.13rem;
         }
+
         .text-xl {
             font-size: .93rem;
         }
+
         .text-md {
             font-size: .83rem;
         }
+
         .text-sm {
             font-size: .73rem;
         }
 
-            /* Font Size */
+        /* Font Size */
         .text-xs {
             font-size: .63rem;
         }
+
         @page {
             size: 8.5in 11in;
             margin-left: 20px;
@@ -152,47 +172,54 @@
         .container {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 50px;
         }
+
         .container td {
             border: 1px solid black;
-            padding: 1px;
+            padding: 2px 1px 1.8px 1px;
             vertical-align: top;
         }
 
-        .text-end{
+        .text-end {
             text-align: right;
         }
-        .text-start{
+
+        .text-start {
             text-align: left;
         }
 
-        input[type="radio"], input[type="checkbox"] {
+        input[type="radio"],
+        input[type="checkbox"] {
             transform: scale(.5);
             height: .8rem;
         }
 
         input[type="text"] {
-            height:  .5rem;
+            height: .5rem;
             width: auto;
             font-size: 0.40rem;
             margin: auto;
             display: block;
+            border: 0px;
+            overflow: hidden;
         }
-        .pe-1{
+
+        .pe-1 {
             padding-left: 5px;
         }
-        td{
+
+        td {
             overflow: hidden;
         }
     </style>
 </head>
+
 <body>
-    <table class="min-w-full font-mono whitespace-nowrap" >
+    <table class="font-mono whitespace-wrap">
         <thead class="pb-4">
             <tr>
                 <th class="px-1 font-bold text-center" colspan="12">
-                    <img  src="{{ $base64Logo }}" style="height: 60px; width: 60px" class="inline-block">
+                    <img src="{{ $base64Logo }}" style="height: 60px; width: 60px" class="inline-block">
                     <div class="inline-block">
                         <span class="text-2xl">DEPARTMENT OF HEALTH</span><br>
                         <span class="text-xl">Philippine Registry for persons with Disabilities Version 4.0</span><br>
@@ -387,25 +414,25 @@
                     <input type="radio"> Vocational<br>
                     <input type="radio"> Post Graduate<br>
                 </td>
-                    <td colspan="5" rowspan="3" class="text-xs">
-                        <div><input type="radio"> Managers</div>
-                        <div><input type="radio"> Professionals</div>
-                        <div><input type="radio"> Technicians and Associate Professionals</div>
-                        <div><input type="radio"> Clerical Support Workers</div>
-                        <div><input type="radio"> Service and Sales Workers</div>
-                        <div><input type="radio"> Skilled Agricultural, Forestry and<br> Fishery Workers</div>
-                        <div><input type="radio"> Craft and Related Trade Workers</div>
-                        <div><input type="radio"> Plant and Machine Operators and Assemblers</div>
-                        <div><input type="radio"> Elementary Occupations</div>
-                        <div><input type="radio"> Armed Forces Occupations</div>
-                        <div><input type="radio"> Others, specify:</div>
-                        <div><input type="text"></div>
-                    </td>
+                <td colspan="5" rowspan="3" class="text-xs">
+                    <div><input type="radio"> Managers</div>
+                    <div><input type="radio"> Professionals</div>
+                    <div><input type="radio"> Technicians and Associate Professionals</div>
+                    <div><input type="radio"> Clerical Support Workers</div>
+                    <div><input type="radio"> Service and Sales Workers</div>
+                    <div><input type="radio"> Skilled Agricultural, Forestry and Fishery Workers</div>
+                    <div><input type="radio"> Craft and Related Trade Workers</div>
+                    <div><input type="radio"> Plant and Machine Operators and Assemblers</div>
+                    <div><input type="radio"> Elementary Occupations</div>
+                    <div><input type="radio"> Armed Forces Occupations</div>
+                    <div><input type="radio"> Others, specify:</div>
+                    <div><input type="text"></div>
+                </td>
             </tr>
             <tr>
                 <td colspan="3" class="text-xs">
                     <label class="font-bold">13. STATUS OF EMPLOYMENT:</label>
-                    <div >
+                    <div>
                         <div><input type="radio"> Employed</div>
                         <div><input type="radio"> Unemployed</div>
                         <div><input type="radio"> Self-employed</div>
@@ -423,7 +450,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3"  class="text-xs">
+                <td colspan="3" class="text-xs">
                     <label class="font-bold">13 a. CATEGORY OF EMPLOYMENT:</label>
                     <div>
                         <div><input type="radio"> Government</div>
@@ -649,6 +676,6 @@
 
         </tbody>
     </table>
-</td>
 </body>
+
 </html>

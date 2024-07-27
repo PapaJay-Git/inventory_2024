@@ -24,10 +24,11 @@ class PdfController extends Controller
     public function index()
     {
         $pwd = 'logos/DOH.png';
-        $dswd = 'logos/dswd.png';
+        $daycare = 'logos/dswd.png';
+        $currentBlade = 'pdf.kababaihan';
 
-        $base64Logo = $this->getImageBased64($dswd);
-        $pdf = Pdf::loadView('pdf.template', compact('base64Logo'));
+        $base64Logo = $this->getImageBased64($daycare);
+        $pdf = Pdf::loadView($currentBlade, compact('base64Logo'));
 
         return $pdf->stream('document.pdf');
 
