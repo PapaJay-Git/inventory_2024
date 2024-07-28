@@ -24,11 +24,39 @@
                 <li class="nav-item dropdown ">
                     <a class="nav-link fw-bold text-white d-flex justify-content-center align-items-center flex-column"
                         href="{{ url('/barangay-accounts') }}">
-                        <img src="{{ asset('svgs/accounts.svg') }}" alt="BARANGAY ACCOUNTS" class="svg-nav"
-                            id="barangay-svg" />
+                        <img src="{{ asset('svgs/accounts.svg') }}" alt="ACCOUNTS" class="svg-nav" id="barangay-svg" />
 
-                        <small>BRGY ACCOUNTS</small>
+                        <small>ACCOUNTS</small>
                     </a>
+                </li>
+                <li class="nav-item dropdown ">
+                    <a id="navbarDropdown"
+                        class="nav-link  fw-bold text-white d-flex justify-content-center align-items-center flex-column"
+                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" v-pre>
+                        <img src="{{ asset('svgs/forms.svg') }}" alt="FORMS" class="svg-nav" id="forms-svg" />
+                        <small>FORMS</small>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-primary px-2" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/daycares">
+                            Daycares
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/kabataans">
+                            Kabataans
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/kababaihans">
+                            Kababaihans
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/solo_parents">
+                            Solo - Parents
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/pwds">
+                            Person with Disabilit (PWDs)
+                        </a>
+                        <a class="dropdown-item fw-bold text-white bg-primary" href="/forms/dafacs">
+                            Disaster Assistance Family Cards (DAFAC)
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown ">
                     <a id="navbarDropdown"

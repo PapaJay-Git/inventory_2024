@@ -223,9 +223,9 @@
 
         input[type="text"] {
             height: .5rem;
-            width: auto;
+            width: 94%;
             font-size: 0.40rem;
-            margin: auto;
+            margin: 0px;
             display: block;
             border: 0px;
             overflow: hidden;
@@ -236,7 +236,7 @@
         }
 
         td {
-            overflow: hidden;
+            overflow: hidden !important;
         }
     </style>
 </head>
@@ -286,7 +286,7 @@
                     </th>
                     <th colspan="6" class="text-md text-start">
                         <span>Case Number:</span>
-                        <span>0306910000 -</span><br>
+                        <span>0306910000 - {{ $soloParent->case_number }}</span><br>
                     </th>
                 </tr>
                 <tr>
@@ -300,37 +300,52 @@
                 <tr>
                     <td colspan="7" class="text-md text-start border-black border-1">
                         Full Name:
-                        <input type="text">
+                        <input type="text" class="text-center"
+                            value="{{ $soloParent->last_name .
+                                ', ' .
+                                ($soloParent->first_name ?? '') .
+                                ' ' .
+                                ($soloParent->middle_name ? $soloParent->middle_name . ', ' : '') .
+                                ($soloParent->suffix ?? '') }}">
                         <div class="text-xs text-center">Last Name, First Name, Middle Name, Extension</div>
                     </td>
                     <td colspan="5" class="text-md text-start border-black border-1">
                         PhilSys Card Number:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->philsys_card_number }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Date of birth:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->date_of_birth }}">
                         <div class="text-xs text-center">MM/DD/YYYY</div>
                     </td>
                     <td colspan="2" class="text-md text-start border-black border-1">
-                        <input type="text">
                         Age:
+                        <input type="text" value="{{ $soloParent->age }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
-                        <input type="text">
                         Place of birth:
+                        <input type="text" value="{{ $soloParent->place_of_birth }}">
                     </td>
                     <td colspan="2" class="text-md text-start border-black border-1">
-                        <input type="text">
                         Sex:
+                        <input type="text" value="{{ $soloParent->sex }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="text-md text-start border-black border-1">
                         Address:
-                        <input type="text">
+                        <input type="text"
+                            value="{{ $soloParent->street_address .
+                                ', ' .
+                                $soloParent->barangay .
+                                ', ' .
+                                $soloParent->city_municipality .
+                                ', ' .
+                                $soloParent->province .
+                                ', ' .
+                                $soloParent->region }}">
                         <div class="text-xs text-center">
                             No., Street, Barangay, City/Municipal, Province
                         </div>
@@ -339,81 +354,127 @@
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Educational Attainment:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->educational_attainment }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Civil Status:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->civil_status }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Occupation:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->occupation }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Religion:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->religion }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Company/Agency:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->company_agency }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Monthly Income:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->monthly_income }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Employment Status:
-                        <label><input type="radio"> Employed</label>
-                        <label><input type="radio"> Self-employed</label>
-                        <label><input type="radio"> Not employed</label>
+                        <label>
+                            <input type="radio" name="status_of_employment" value="Employed"
+                                {{ $soloParent->status_of_employment == 'Employed' ? 'checked' : '' }}>
+                            Employed
+                        </label>
+                        <label>
+                            <input type="radio" name="status_of_employment" value="Self-employed"
+                                {{ $soloParent->status_of_employment == 'Self-employed' ? 'checked' : '' }}>
+                            Self-employed
+                        </label>
+                        <label>
+                            <input type="radio" name="status_of_employment" value="Not employed"
+                                {{ $soloParent->status_of_employment == 'Not employed' ? 'checked' : '' }}>
+                            Not employed
+                        </label>
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                     </td>
                 </tr>
+
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Contact Number:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->contact_numbers }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Email Address:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->email_address }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="5" rowspan="2" class="text-md text-start border-black border-1">
-                        Pantawid Benificiary?
-                        <label><input type="radio"> Yes</label>
-                        <label><input type="radio"> No</label><br>
+                        Pantawid Beneficiary?
+                        <label>
+                            <input type="radio" name="pantawid_beneficiary" value="Yes"
+                                {{ $soloParent->pantawid_beneficiary == true ? 'checked' : '' }}>
+                            Yes
+                        </label>
+                        <label>
+                            <input type="radio" name="pantawid_beneficiary" value="No"
+                                {{ $soloParent->pantawid_beneficiary == false ? 'checked' : '' }}>
+                            No
+                        </label><br>
                         <label>If Yes, Household ID #:</label>
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->household_id }}">
                     </td>
                     <td colspan="5" rowspan="2" class="text-md text-start border-black border-1">
                         Indigenous Person?
-                        <label><input type="radio"> Yes</label>
-                        <label><input type="radio"> No</label><br>
+                        <label>
+                            <input type="radio" name="indigenous_person" value="Yes"
+                                {{ $soloParent->indigenous_person == true ? 'checked' : '' }}>
+                            Yes
+                        </label>
+                        <label>
+                            <input type="radio" name="indigenous_person" value="No"
+                                {{ $soloParent->indigenous_person == false ? 'checked' : '' }}>
+                            No
+                        </label><br>
                         <label>If Yes, Name of Affiliation:</label>
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->affiliation }}">
                     </td>
                     <td colspan="2" class="text-md text-start border-black border-1">
                         LGBTQ+?
-                        <label><input type="radio"> Y</label>
-                        <label><input type="radio"> N</label>
+                        <label>
+                            <input type="radio" name="lgbtq" value="Y"
+                                {{ $soloParent->lgbtq == true ? 'checked' : '' }}>
+                            Y
+                        </label>
+                        <label>
+                            <input type="radio" name="lgbtq" value="N"
+                                {{ $soloParent->lgbtq == false ? 'checked' : '' }}>
+                            N
+                        </label>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-md text-start border-black border-1">
                         PWD?
-                        <label><input type="radio"> Y</label>
-                        <label><input type="radio"> N</label>
+                        <label>
+                            <input type="radio" name="pwd" value="Y"
+                                {{ $soloParent->pwd == true ? 'checked' : '' }}>
+                            Y
+                        </label>
+                        <label>
+                            <input type="radio" name="pwd" value="N"
+                                {{ $soloParent->pwd == false ? 'checked' : '' }}>
+                            N
+                        </label>
                     </td>
                 </tr>
+
                 <tr>
                     <th colspan="6" class="text-md text-start">
                         <span>I. HOUSEHOLD COMPOSITION</span>
@@ -433,17 +494,43 @@
                 </tr>
                 @for ($i = 0; $i < 10; $i++)
                     <tr class="text-md text-center">
-                        <td class="border-black border-1" colspan="3"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
-                        <td class="border-black border-1" colspan="2"><input type="text"></td>
-                        <td class="border-black border-1" colspan="1"><input type="text"></td>
+                        <td class="border-black border-1" colspan="3">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['full_name'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text" value="{{ $soloParent->householdCompositions[$i]['sex'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['relationship'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text" value="{{ $soloParent->householdCompositions[$i]['age'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['birthdate'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['civil_status'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['educational_attainment'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="2">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['occupation'] ?? '' }}">
+                        </td>
+                        <td class="border-black border-1" colspan="1">
+                            <input type="text"
+                                value="{{ $soloParent->householdCompositions[$i]['monthly_income'] ?? '' }}">
+                        </td>
                     </tr>
                 @endfor
+
                 <tr>
                     <td colspan="12" class="text-md text-center">
                         NOTE: Include family member and other members of the household especially minor children. Use
@@ -453,17 +540,13 @@
                 <tr>
                     <td colspan="12" class="text-md text-start">
                         Ill. Classification/Circumstances of being a solo parent (Dahilan bakit naging solo parent)?
-                        <textarea>
-
-                        </textarea>
+                        <textarea>{{ $soloParent->classification_circumstances }}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="12" class="text-md text-start">
                         IV. Needs/Problems of being a solo parent (Kinakailangan/Problema ng isang solo parent)?
-                        <textarea>
-
-                        </textarea>
+                        <textarea>{{ $soloParent->needs_problems }}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -474,23 +557,24 @@
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Name:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->emergency_name }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Relationship:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->emergency_relationship }}">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="8" class="text-md text-start border-black border-1">
                         Address:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->emergency_address }}">
                     </td>
                     <td colspan="4" class="text-md text-start border-black border-1">
                         Contact Number/s:
-                        <input type="text">
+                        <input type="text" value="{{ $soloParent->emergency_number }}">
                     </td>
                 </tr>
+
                 <tr>
                     <td colspan="12"></td>
                 </tr>
@@ -541,12 +625,14 @@
                         STATUS
                     </td>
                     <td colspan="2" class="text-md">
-                        <input type="checkbox"> New<br>
-                        <input type="checkbox"> Renewal
+                        <input type="checkbox" {{ $soloParent->spo_status == 'New' ? 'checked' : '' }}> New<br>
+                        <input type="checkbox" {{ $soloParent->spo_status == 'Renewal' ? 'checked' : '' }}> Renewal
                     </td>
                     <td colspan="8" class="text-md">
-                        <input type="checkbox"> Terminated<br>
-                        <input type="checkbox"> Disapproved
+                        <input type="checkbox" {{ $soloParent->spo_status == 'Terminated' ? 'checked' : '' }}>
+                        Terminated<br>
+                        <input type="checkbox" {{ $soloParent->spo_status == 'Disapproved' ? 'checked' : '' }}>
+                        Disapproved
                     </td>
                 </tr>
                 <tr>
@@ -555,25 +641,30 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="text-md">
+                    <td colspan="5" class="text-md text-start">
                         <div>
                             <label>Solo Parent Identification Card Number:</label>
-                            <input type="text" style="border: 1px solid black">
+                            <input type="text" value="{{ $soloParent->solo_parent_id_card_number }}"
+                                style="border: 1px solid black">
                         </div>
+
                         <div>
-                            <label>Date Issuance:</label>
-                            <input type="text" style="border: 1px solid black">
+                            <label>Solo Parent Category:</label>
+                            <input type="text" value="{{ $soloParent->solo_parent_category }}"
+                                style="border: 1px solid black">
                         </div>
                     </td>
                     <td colspan="3" class="text-md"></td>
-                    <td colspan="4" class="text-md">
+                    <td colspan="4" class="text-md text-start">
                         <div>
-                            <label>Solo parent category:</label>
-                            <input type="text" style="border: 1px solid black">
+                            <label>Date Issuance:</label>
+                            <input type="text" value="{{ $soloParent->date_issuance }}"
+                                style="border: 1px solid black">
                         </div>
                         <div>
                             <label>Beneficiary Code:</label>
-                            <input type="text" style="border: 1px solid black">
+                            <input type="text" value="{{ $soloParent->beneficiary_code }}"
+                                style="border: 1px solid black">
                         </div>
                     </td>
                 </tr>

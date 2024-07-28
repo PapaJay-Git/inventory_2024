@@ -1,20 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-    Solo Parents
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Solo Parents
 @endsection
 
 @section('content')
+    @php
+        $data_name = 'solo_parents';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">SOLO PARENTS</span>
-                            <a href="/solo_parents/create" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span
+                                class="mx-1 fw-bold">{{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}
+                                SOLO PARENTS</span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -181,8 +184,9 @@
 
                                             {{-- Household Compositions --}}
                                             <td>
-                                                @foreach ($soloParent->householdCompositions as $composition)
-                                                    <div class="border p-2 mb-2">
+                                                <div class="border p-2 mb-2">
+                                                    {{ count($soloParent->householdCompositions ?? []) }}
+                                                    {{-- @foreach ($soloParent->householdCompositions as $composition)
                                                         <strong>Full Name:</strong> {{ $composition->full_name }}<br>
                                                         <strong>Sex:</strong> {{ $composition->sex }}<br>
                                                         <strong>Relationship:</strong>
@@ -197,25 +201,16 @@
                                                         <strong>Occupation:</strong> {{ $composition->occupation }}<br>
                                                         <strong>Monthly Income:</strong>
                                                         {{ $composition->monthly_income }}
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach --}}
+                                                </div>
                                             </td>
 
                                             {{-- Actions --}}
                                             <td>
-                                                <a href="{{ route('solo_parents.edit', $soloParent->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <form action="{{ route('solo_parents.destroy', $soloParent->id) }}"
-                                                    method="POST" style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $soloParent->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach

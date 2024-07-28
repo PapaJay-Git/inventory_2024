@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Daycare;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class BarangayAccountController extends Controller
@@ -110,9 +112,21 @@ class BarangayAccountController extends Controller
      */
     public function destroy(string $id)
     {
+        $excludedIds = DB::table('daycares')->select('user_id')
+        ->union(DB::table('pwds')->select('user_id'))
+        ->union(DB::table('solo_parents')->select('user_id'))
+        ->union(DB::table('kabataans')->select('user_id'))
+        ->union(DB::table('kababaihans')->select('user_id'))
+        ->pluck('user_id');
+
         $barangay = User::where('role', 'barangay_account')
         ->where('id', $id)
-        ->firstOrFail();
+        ->whereNotIn('id', $excludedIds)
+        ->first();
+
+        if (!$barangay) {
+            return redirect("/barangay-accounts")->withErrors(['error' => 'Cannot delete a barangay account that already has Data.']);
+        }
 
         $barangay->delete();
 

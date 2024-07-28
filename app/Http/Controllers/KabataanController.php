@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\Kabataan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,7 @@ class KabataanController extends Controller
         $kabataans = Kabataan::where('kabataans.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.kabataans.index', compact('kabataans'));
+        return view('users.barangay.forms.kabataans.index', compact('kabataans'));
     }
 
     /**
@@ -24,7 +26,7 @@ class KabataanController extends Controller
      */
     public function create()
     {
-        return view('users.forms.kabataans.create');
+        return view('users.barangay.forms.kabataans.create');
     }
 
     /**
@@ -51,7 +53,15 @@ class KabataanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kabataan = Kabataan::where('kabataans.user_id', Auth::user()->id)
+            ->where('kabataans.id', $id)
+            ->firstOrFail();
+
+        $pdf = Pdf::loadView('pdf.kabataan', compact('kabataan'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**
@@ -63,7 +73,7 @@ class KabataanController extends Controller
             ->where('kabataans.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.kabataans.edit', compact('kabataan'));
+        return view('users.barangay.forms.kabataans.edit', compact('kabataan'));
     }
 
     /**

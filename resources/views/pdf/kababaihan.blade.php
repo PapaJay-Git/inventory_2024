@@ -216,7 +216,7 @@
 
         input[type="text"] {
             height: .5rem;
-            width: auto;
+            width: 96%;
             font-size: 0.5rem;
             margin: auto;
             display: block;
@@ -272,122 +272,131 @@
             <tbody class="text-xl">
                 <tr>
                     <td colspan="2">LAST NAME:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->last_name }}">
                     </td>
                     <td colspan="1">DATE:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->date }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">FIRST NAME:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->first_name }}">
                     </td>
                     <td colspan="5"></td>
                 </tr>
                 <tr>
                     <td colspan="2">MIDDLE NAME:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->middle_name }}">
                     </td>
                     <td colspan="5"></td>
                 </tr>
                 <tr>
                     <td colspan="2">CITY ADDRESS:</td>
-                    <td colspan="9">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="9" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->city_address }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="3">PROVINCIAL ADDRESS:</td>
-                    <td colspan="8">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="8" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->provincial_address }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">DATE OF BIRTH:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->date_of_birth }}">
                     </td>
                     <td colspan="2">BIRTH PLACE:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->birth_place }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">CIVIL STATUS:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->civil_status }}">
                     </td>
                     <td colspan="1">CITIZENSHIP:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->citizenship }}">
                     </td>
                     <td colspan="1">RELIGION:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->religion }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">MOBILE NO.:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->mobile_number }}">
                     </td>
                     <td colspan="1">OCCUPATION:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->occupation }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">NAME OF COMPANY:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->name_of_company }}">
                     </td>
                     <td colspan="2">COMPANY ADDRESS:</td>
-                    <td colspan="4">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="4" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->company_address }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">EDUCATIONAL ATTAINMENT:</td>
-                    <td colspan="9">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="9" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->educational_attainment }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">NAME OF SPOUSE:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->spouse_name }}">
                     </td>
                     <td colspan="1">OCCUPATION:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->spouse_occupation }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="2">NUMBER OF CHILDREN:</td>
-                    <td colspan="1">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->number_of_children }}">
                     </td>
                     <td colspan="4">OTHER ORGANIZATION'S MEMBERSHIP:</td>
-                    <td colspan="4">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="4" class="border-bottom-black">
+                        <input type="text" value="{{ $kababaihan->other_organizations_membership }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
             </tbody>
         </table>
+        <br><br>
+        <hr>
+        <h5>Submitted ID's</h5>
+        <div>
+            @foreach ($images_path as $image_path)
+                <img src="{{ $image_path }}" alt="image"
+                    style="width: 100%; max-width: 200px; margin-bottom: 10px;"><br>
+            @endforeach
+        </div>
     </div>
 </body>
 

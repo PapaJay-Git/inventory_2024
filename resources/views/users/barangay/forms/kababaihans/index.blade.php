@@ -1,20 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-    Kababaihan Records
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Kababaihan Records
 @endsection
 
 @section('content')
+    @php
+        $data_name = 'kababaihans';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">Kababaihan Records</span>
-                            <a href="/kababaihans/create" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span
+                                class="mx-1 fw-bold">{{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}Kababaihan
+                                Records</span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -98,19 +101,10 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('kababaihans.edit', $kababaihan->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <form action="{{ route('kababaihans.destroy', $kababaihan->id) }}"
-                                                    method="POST" style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $kababaihan->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach

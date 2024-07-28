@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\Kababaihan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -17,7 +19,7 @@ class KababaihanController extends Controller
         $kababaihans = Kababaihan::where('kababaihans.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.kababaihans.index', compact('kababaihans'));
+        return view('users.barangay.forms.kababaihans.index', compact('kababaihans'));
     }
 
     /**
@@ -25,7 +27,7 @@ class KababaihanController extends Controller
      */
     public function create()
     {
-        return view('users.forms.kababaihans.create');
+        return view('users.barangay.forms.kababaihans.create');
     }
 
     /**
@@ -64,7 +66,22 @@ class KababaihanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kababaihan = Kababaihan::where('kababaihans.user_id', Auth::user()->id)
+            ->where('kababaihans.id', $id)
+            ->firstOrFail();
+
+        $images_path = [];
+        foreach (json_decode($kababaihan->image_paths, true) as $file_name){
+            $path = config('app.kababaihan_images_path') . $file_name;
+
+            $images_path[] = ImageGeneratorHelper::getImageBased64($path);
+        }
+
+        $pdf = Pdf::loadView('pdf.kababaihan', compact('images_path', 'kababaihan'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**
@@ -76,7 +93,7 @@ class KababaihanController extends Controller
             ->where('kababaihans.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.kababaihans.edit', compact('kababaihan'));
+        return view('users.barangay.forms.kababaihans.edit', compact('kababaihan'));
     }
 
     /**

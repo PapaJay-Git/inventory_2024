@@ -21,7 +21,7 @@ class PwdController extends Controller
         $pwds = Pwd::where('pwds.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.pwds.index', compact('pwds'));
+        return view('users.barangay.forms.pwds.index', compact('pwds'));
     }
 
     /**
@@ -29,7 +29,7 @@ class PwdController extends Controller
      */
     public function create()
     {
-        return view('users.forms.pwds.create');
+        return view('users.barangay.forms.pwds.create');
     }
 
     /**
@@ -98,7 +98,7 @@ class PwdController extends Controller
             ->where('pwds.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.pwds.edit', compact('pwd'));
+        return view('users.barangay.forms.pwds.edit', compact('pwd'));
     }
 
     /**

@@ -152,29 +152,22 @@
         }
 
         .text-2xl {
-            font-size: .90rem;
+            font-size: .80rem;
         }
 
         .text-xl {
-            font-size: .70rem;
-        }
-
-        .text-md {
             font-size: .60rem;
         }
 
-        .text-sm {
+        .text-md {
             font-size: .50rem;
         }
 
-        /* Font Size */
-        .text-xs {
+        .text-sm {
             font-size: .40rem;
         }
 
-        .text-xxs {
-            font-size: .30rem;
-        }
+
 
         @page {
             size: 8.5in 11in;
@@ -216,9 +209,9 @@
 
         input[type="text"] {
             height: .5rem;
-            width: auto;
+            width: 94%;
             font-size: 0.5rem;
-            margin: auto;
+            margin: none;
             display: block;
             border: 0px;
             overflow: hidden;
@@ -226,6 +219,10 @@
 
         .pe-1 {
             padding-right: 15px !important;
+        }
+
+        .ps-1 {
+            padding-left: 10px !important;
         }
 
         td {
@@ -272,181 +269,183 @@
                 </tr>
 
             </thead>
-            <tbody class="text-xl ">
+            <tbody class="text-xl">
+                <!-- Personal Information Section -->
                 <tr>
-                    <td colspan="12" class="text-start font-bold text-2xl ">PERSONAL
-                        INFORMATION
-                    </td>
+                    <td colspan="12" class="text-start font-bold text-2xl">PERSONAL INFORMATION</td>
                 </tr>
                 <tr>
                     <td colspan="2">Name:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                        First Name
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->first_name }}">
                     </td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
-                        M.I.
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->middle_name }}">
                     </td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black" value="22">
-                        Surname
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->last_name }}">
                     </td>
-                    <td colspan="1">Nickname:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="text-center">Nickname:</td>
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->nickname }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">First Name</td>
+                    <td colspan="2">M.I.</td>
+                    <td colspan="2">Surname</td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
                     <td colspan="2">Date of Birth:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->date_of_birth }}">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Gender:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">Gender:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->gender }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">Age:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->age }}">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Religion:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">Religion:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->religion }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">Position:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->position }}">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">Mobile Phone:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">Mobile Phone:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->mobile_phone }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">Barangay:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->barangay }}">
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="1">City/Municipality:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">City/Municipality:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->city_municipality }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">Home Address:</td>
-                    <td colspan="9">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="9" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->home_address }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="12"><br></td>
                 </tr>
+
+                <!-- Educational Attainment Section -->
                 <tr>
-                    <td colspan="12" class="text-start font-bold text-2xl ">
-                        EDUCATIONAL ATTAINMENT
-                    </td>
+                    <td colspan="12" class="text-start font-bold text-2xl">EDUCATIONAL ATTAINMENT</td>
                 </tr>
                 <tr>
                     <td colspan="3">Post Graduate Degree/ Course:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->post_graduate_course }}">
                     </td>
                     <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->post_graduate_year }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="3">College Degree/Course:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->college_course }}">
                     </td>
                     <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->college_year }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="3">High School:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->high_school }}">
                     </td>
                     <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->high_school_year }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="3">Elementary:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->elementary }}">
                     </td>
                     <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->elementary_year }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="3">Others:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->other_education }}">
                     </td>
                     <td colspan="1">Year Taken:</td>
-                    <td colspan="2">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="2" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->other_education_year }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="12"><br></td>
                 </tr>
+
+                <!-- Emergency Contact Information Section -->
                 <tr>
-                    <td colspan="12" class="text-start font-bold text-xl ">
+                    <td colspan="12" class="text-start font-bold text-xl">
                         <span class="border-bottom-black">In case of emergency, please notify:</span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">Name:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->emergency_contact_name }}">
                     </td>
-                    <td colspan="1">Relationship:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">Relationship:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->emergency_contact_relationship }}">
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">Address:</td>
-                    <td colspan="5">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="5" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->emergency_contact_address }}">
                     </td>
-                    <td colspan="1">Phone No:</td>
-                    <td colspan="3">
-                        <input type="text" class="border-bottom-black">
+                    <td colspan="1" class="ps-1">Phone No:</td>
+                    <td colspan="3" class="border-bottom-black">
+                        <input type="text" value="{{ $kabataan->emergency_contact_phone }}">
                     </td>
                     <td></td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 </body>

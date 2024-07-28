@@ -346,12 +346,13 @@ return [
     // DAFAQ
 
     'housing_type' => [
-        'House and lot owner',
-        'Rented house and lot',
-        'House with rent-to-own',
-        'House on lot with consent of owner',
-        'Rent-free house with consent of owner',
-        'Rent-free house and lot without consent of owner'
+        'House & lot owner',
+        'Rented house & lot',
+        'House owner & lot renter',
+        'House owner - rent-free lot with owners consent',
+        'House owner - rent-free lot without consent of the owner',
+        'Rent-free house & lot with owners consent',
+        'Rent-free house & lot without owners consent'
     ],
 
 

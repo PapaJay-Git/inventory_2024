@@ -42,7 +42,7 @@ class DaycareController extends Controller
             ->where('daycares.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.daycares.index', compact('daycares'));
+        return view('users.barangay.forms.daycares.index', compact('daycares'));
     }
 
     /**
@@ -50,7 +50,7 @@ class DaycareController extends Controller
      */
     public function create()
     {
-        return view('users.forms.daycares.create');
+        return view('users.barangay.forms.daycares.create');
     }
 
     /**
@@ -119,7 +119,7 @@ class DaycareController extends Controller
             ->where('daycares.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.daycares.edit', compact('daycare'));
+        return view('users.barangay.forms.daycares.edit', compact('daycare'));
     }
 
     /**

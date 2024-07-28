@@ -1,20 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-    Daycares
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Daycares
 @endsection
 
 @section('content')
+    @php
+        $data_name = 'daycares';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">DAYCARES</span>
-                            <a href="/daycares/create" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span
+                                class="mx-1 fw-bold">{{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}
+                                DAYCARES</span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -123,17 +126,19 @@
                                             </td>
                                             <td>
                                                 <div class="border p-2 mb-2">
-                                                    @foreach ($daycare->disabilities as $disability)
+                                                    {{ count($daycare->disabilities ?? []) }}
+                                                    {{-- @foreach ($daycare->disabilities as $disability)
                                                         <div>
                                                             <strong>Disability:</strong> {{ $disability->disability }}<br>
                                                             <strong>Cause:</strong> {{ $disability->cause }}
                                                         </div>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="border p-2 mb-2">
-                                                    @foreach ($daycare->eccdExperiences as $experience)
+                                                    {{ count($daycare->eccdExperiences ?? []) }}
+                                                    {{-- @foreach ($daycare->eccdExperiences as $experience)
                                                         <div>
                                                             <strong>Service Type:</strong>
                                                             {{ $experience->service_type }}<br>
@@ -143,7 +148,7 @@
                                                             <strong>To:</strong>
                                                             {{ $experience->to_date ? \Carbon\Carbon::parse($experience->to_date)->format('Y-m-d') : 'N/A' }}
                                                         </div>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </div>
                                             </td>
                                             <td>
@@ -172,23 +177,10 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="{{ route('daycares.edit', $daycare->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <a href="{{ route('daycares.show', $daycare->id) }}"
-                                                    class="btn btn-primary btn-sm" target="_blank">
-                                                    <i class="bi bi-pencil me-1"></i>PDF
-                                                </a>
-                                                <form action="{{ route('daycares.destroy', $daycare->id) }}" method="POST"
-                                                    style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $daycare->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach

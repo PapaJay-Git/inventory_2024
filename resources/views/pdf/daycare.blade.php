@@ -209,7 +209,7 @@
             width: 94%;
             box-sizing: border-box;
             font-size: 0.55rem;
-            margin: auto;
+            margin: 0px;
             display: block;
             border: 0px;
             overflow: hidden;
@@ -288,7 +288,7 @@
 
                     </th>
                     <th class="font-bold text-center text-xs border-1 border-black" colspan="2" rowspan="1">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->eccdfid }}">
                     </th>
                     <th colspan="1">
 
@@ -319,23 +319,22 @@
                 <tr>
                     <td colspan="1" class="font-bold text-sm">
                         <label>1. Facility Location*</label>
-                        <input type="text" class="w-full">
                     </td>
 
                     <td colspan="2" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_region }}">
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_province }}">
                     </td>
                     <td colspan="3" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_city_municipality }}">
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_barangay }}">
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_street_address }}">
                     </td>
                     <td colspan="1">
 
@@ -372,13 +371,13 @@
                         <label>2. Name of Facility*</label>
                     </td>
                     <td colspan="5" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->facility_name }}">
                     </td>
                     <td colspan="1" class="font-bold text-sm">
                         <label>3. Service Provider*</label>
                     </td>
                     <td colspan="5" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->service_provider }}">
                     </td>
                     <td colspan="1">
 
@@ -391,16 +390,20 @@
                     <td colspan="1" class="font-bold text-sm">
                         <label>4a. Name*</label>
                     </td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->last_name }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->first_name }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->middle_name }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->ext }}"></td>
 
                     <td colspan="1" class="font-bold text-sm">
                         <label>4b. Nickname</label>
                     </td>
                     <td colspan="2" class="text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->nickname }}">
                     </td>
                     <td colspan="1">
 
@@ -425,29 +428,29 @@
                     <td colspan="1" class="text-sm">
                         <label class="font-bold">5. Sex*: </label>
                     </td>
-                    <td colspan="2" class="text-sm">
-                        <input type="radio"> Male
-                        <input type="radio"> Female
+                    <td colspan="2" class="text-xs">
+                        <input type="radio" {{ $daycare->sex == 'Male' ? 'checked' : '' }}> Male
+                        <input type="radio" {{ $daycare->sex == 'Female' ? 'checked' : '' }}> Female
                     </td>
-                    <td colspan="1" class="text-sm font-bold">
+                    <td colspan="2" class="text-sm font-bold">
                         <label class="font-bold">
                             6a. Birth Order*
                         </label>
                     </td>
-                    <td colspan="2" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                    <td colspan="1" class="font-bold text-sm border-1 border-black">
+                        <input type="text" value="{{ $daycare->birth_order }}">
                     </td>
                     <td colspan="2" class="font-bold text-sm">
                         <label>6b. No. of siblings*</label>
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->no_of_siblings }}">
                     </td>
                     <td colspan="2" class="font-bold text-sm">
                         <label>7. Date of Birth*</label>
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->date_of_birth }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
@@ -459,14 +462,14 @@
                         <label>8. Birthplace*</label>
                     </td>
                     <td colspan="6" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->birthplace }}">
                     </td>
                     <td colspan="1"></td>
                     <td colspan="2" class="font-bold text-sm">
                         <label>7a. Birth Registered</label>
                     </td>
                     <td colspan="2" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->birth_registered }}">
                     </td>
                     <td colspan="1"></td>
                 </tr>
@@ -477,11 +480,16 @@
                     <td colspan="1" class="font-bold text-sm">
                         <label>9. Home Address*</label>
                     </td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->home_region }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->home_province }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->home_city_municipality }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->home_barangay }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->home_street_address }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
@@ -500,12 +508,14 @@
                     <td colspan="1" class="font-bold text-sm">
                         <label>10. Religion</label>
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->religion }}"></td>
                     <td colspan="2"></td>
                     <td colspan="1" class="font-bold text-sm">
                         <label>11. Ethnicity</label>
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->ethnicity }}"></td>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
@@ -530,7 +540,7 @@
                 </tr>
                 <tr>
                     <td colspan="6" class="text-sm">
-                        <input type="checkbox"> Breastfeeding
+                        <input type="checkbox" {{ $daycare->breastfeeding == true ? 'checked' : '' }}> Breastfeeding
                     </td>
                     <td colspan="3" class="text-sm border-1 border-black">
                         a. Disability / Impairment (e.g. hearing, speech, visual)
@@ -544,11 +554,15 @@
                     <td colspan="1"></td>
                     <td colspan="5" class="text-sm">
                         Kind of Breastfeeding:<br>
-                        <input type="checkbox"> Exclusive
-                        <input type="checkbox"> Mixed
+                        <input type="checkbox" {{ $daycare->kind_of_breastfeeding == 'Exclusive' ? 'checked' : '' }}>
+                        Exclusive
+                        <input type="checkbox" {{ $daycare->kind_of_breastfeeding == 'Mixed' ? 'checked' : '' }}>
+                        Mixed
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black">1. <input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black">1. <input type="text"
+                            value="{{ $daycare->disabilities[0]['disability'] ?? '' }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->disabilities[0]['cause'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
@@ -556,47 +570,57 @@
                     <td colspan="5" class="text-sm">
                         Breastfed for
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black">2. <input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black">2. <input type="text"
+                            value="{{ $daycare->disabilities[1]['disability'] ?? '' }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->disabilities[1]['cause'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="3" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->breastfed_for_months }}">
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
                         months
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="3" class="text-sm border-1 border-black">3. <input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black">3. <input type="text"
+                            value="{{ $daycare->disabilities[2]['disability'] ?? '' }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->disabilities[2]['cause'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="6" class="text-sm">
-                        <input type="checkbox"> Supplementary Feeding - supplemented for
+                        <input type="checkbox" {{ $daycare->supplementary_feeding == true ? 'checked' : '' }}>
+                        Supplementary Feeding - supplemented for
                     </td>
-                    <td colspan="3" class="text-sm border-1 border-black">4. <input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black">4. <input type="text"
+                            value="{{ $daycare->disabilities[3]['disability'] ?? '' }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->disabilities[3]['cause'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="3" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->supplementary_feeding_for_days }}">
                     </td>
                     <td colspan="1" class="font-bold text-sm border-1 border-black">
                         days
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="3" class="text-sm border-1 border-black">5. <input type="text"></td>
-                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="3" class="text-sm border-1 border-black">5. <input type="text"
+                            value="{{ $daycare->disabilities[4]['disability'] ?? '' }}"></td>
+                    <td colspan="3" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->disabilities[4]['cause'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="6" class="text-sm">
-                        <input type="checkbox"> Child have Disability/Impairment
+                        <input type="checkbox" {{ $daycare->has_disability == true ? 'checked' : '' }}> Child have
+                        Disability/Impairment
                     </td>
                     <td colspan="7"></td>
                 </tr>
@@ -614,7 +638,7 @@
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="4" class="font-bold text-sm border-1 border-black">
-                        <input type="text">
+                        <input type="text" value="{{ $daycare->referred_for_assistance }}">
                     </td>
                     <td colspan="1"></td>
                     <td colspan="2" class="text-sm border-1 border-black">a. Service Type (e.g. Center, Communitiy)
@@ -626,64 +650,88 @@
                     <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="1"></td>
-                    <td colspan="4" class="text-sm">
-                        <input type="checkbox"> Listahanan Identified
+                    <td colspan="5" class="text-sm">
+                        <input type="checkbox" {{ $daycare->listahanan_identified == true ? 'checked' : '' }}>
+                        Listahanan Identified
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[0]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[0]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[0]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[0]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
-                    <td colspan="1"></td>
-                    <td colspan="4" class="text-sm">
-                        <input type="checkbox"> Pantawid Beneficiary
+                    <td colspan="5" class="text-sm">
+                        <input type="checkbox" {{ $daycare->pantawid_beneficiary == true ? 'checked' : '' }}> Pantawid
+                        Beneficiary
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[1]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[1]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[1]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[1]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="4" class="font-bold text-sm">
                         Household ID:<br>
-                        <input type="text" style="border: 1px solid black">
+                        <input type="text" style="border: 1px solid black" value="{{ $daycare->household_id }}">
                     </td>
                     <td colspan="1"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[2]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[2]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[2]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[2]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[3]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[3]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[3]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[3]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[4]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[4]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[4]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[4]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[5]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[5]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[5]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[5]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
@@ -693,26 +741,39 @@
                     <td colspan="3" class="font-bold text-sm">
                         17. Scheduled Session*
                     </td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[6]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[6]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[6]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[6]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="2" class="text-sm">
-                        <input type="checkbox"> Paid amount of:
-                        <input type="text" style="border: 1px solid black">
+                        <input type="checkbox" {{ $daycare->participation_fee_paid == true ? 'checked' : '' }}> Paid
+                        amount of:
+                        <input type="text" style="border: 1px solid black"
+                            value="{{ $daycare->participation_fee_amount }}">
                     </td>
                     <td colspan="3" class="text-sm">
-                        <input type="checkbox"> Morning Session<br>
-                        <input type="checkbox"> Afternoon Session
+                        <input type="checkbox" {{ $daycare->scheduled_session == 'Morning' ? 'checked' : '' }}>
+                        Morning
+                        Session<br>
+                        <input type="checkbox" {{ $daycare->scheduled_session == 'Afternoon' ? 'checked' : '' }}>
+                        Afternoon Session
                     </td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
-                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[7]['service_type'] ?? '' }}"></td>
+                    <td colspan="2" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[7]['service'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[7]['from_date'] ?? '' }}"></td>
+                    <td colspan="1" class="text-sm border-1 border-black"><input type="text"
+                            value="{{ $daycare->eccdExperiences[7]['to_date'] ?? '' }}"></td>
                     <td colspan="1"></td>
                 </tr>
                 <tr>
@@ -727,61 +788,74 @@
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="2" class="text-sm">
-                        <input type="checkbox"> Cash<br>
-                        <input type="checkbox"> In Kind<br>
-                        <input type="checkbox"> None<br>
+                        <input type="checkbox" {{ $daycare->parents_counterpart == 'Cash' ? 'checked' : '' }}>
+                        Cash<br>
+                        <input type="checkbox" {{ $daycare->parents_counterpart == 'In Kind' ? 'checked' : '' }}> In
+                        Kind<br>
+                        <input type="checkbox" {{ $daycare->parents_counterpart == 'None' ? 'checked' : '' }}>
+                        None<br>
                     </td>
                     <td colspan="2" class="text-sm">
-                        <input type="checkbox"> Continuing<br>
-                        <input type="checkbox"> Dropped Out<br>
-                        <input type="checkbox"> Graduated<br>
+                        <input type="checkbox" {{ $daycare->attendance_status == 'Continuing' ? 'checked' : '' }}>
+                        Continuing<br>
+                        <input type="checkbox" {{ $daycare->attendance_status == 'Dropped Out' ? 'checked' : '' }}>
+                        Dropped Out<br>
+                        <input type="checkbox" {{ $daycare->attendance_status == 'Graduated' ? 'checked' : '' }}>
+                        Graduated<br>
                     </td>
                     <td colspan="1"></td>
                     <td colspan="3" class="font-bold text-sm">
                         Accomplished By* <br>
-                        <input type="text" style="border: 1px solid black">
+                        <input type="text" style="border: 1px solid black"
+                            value="{{ $daycare->accomplished_by }}">
                     <td colspan="4"></td>
                 </tr>
                 <tr>
                     <td colspan="6"></td>
-                    <td colspan="3" class="font-bold text-sm">
-                        <input type="text">
+                    <td colspan="5" class="font-bold text-sm text-center">
+                        <input type="text" value="{{ $daycare->name_of_eccd_service_provider }}">
                         <hr>
                         Name and Signature of ECCD Service Provider
                         <br>
                         <br>
-                    <td colspan="4"></td>
+                    <td colspan="2"></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="font-bold text-sm">
                         16. School Year* <br>
-                        <input type="text" style="border: 1px solid black">
+                        <input type="text" style="border: 1px solid black" value="{{ $daycare->school_year }}">
 
                     </td>
                     <td colspan="3" class="text-sm">
                         If drop out, reason:<br>
-                        <input type="checkbox"> Illness<br>
-                        <input type="checkbox"> Transfer of Residence<br>
-                        <input type="checkbox"> Others (specify):<br>
-                        <input type="text" style="border: 1px solid black">
+                        <input type="checkbox" {{ $daycare->dropout_reason == 'Illness' ? 'checked' : '' }}>
+                        Illness<br>
+                        <input type="checkbox"
+                            {{ $daycare->dropout_reason == 'Transfer of Residence' ? 'checked' : '' }}> Transfer of
+                        Residence<br>
+                        <input type="checkbox" {{ $daycare->dropout_reason == 'Others' ? 'checked' : '' }}> Others
+                        (specify):<br>
+                        <input type="text" style="border: 1px solid black"
+                            value="{{ $daycare->dropout_reason_others }}">
                     </td>
-                    <td colspan="1" class="font-bold text-sm">
+                    <td colspan="2" class="font-bold text-sm">
                         Date Accomplished*
                     </td>
                     <td colspan="2" class="font-bold text-sm">
-                        <input type="text" style="border: 1px solid black">
+                        <input type="text" style="border: 1px solid black"
+                            value="{{ $daycare->date_accomplished }}">
                     </td>
-                    <td colspan="4"></td>
+                    <td colspan="3"></td>
                 </tr>
                 <tr>
                     <td colspan="6" class="font-bold text-sm"></td>
-                    <td colspan="1" class="font-bold text-sm">
+                    <td colspan="2" class="font-bold text-sm">
                         Encoder ID
                     </td>
                     <td colspan="2" class="font-bold text-sm">
-                        <input type="text" style="border: 1px solid black">
+                        <input type="text" style="border: 1px solid black" value="{{ $daycare->encoder_id }}">
                     </td>
-                    <td colspan="4"></td>
+                    <td colspan="3"></td>
                 </tr>
             </tbody>
         </table>

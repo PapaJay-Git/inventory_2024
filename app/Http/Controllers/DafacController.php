@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\Dafac;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +20,7 @@ class DafacController extends Controller
             ->where('dafacs.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.dafacs.index', compact('dafacs'));
+        return view('users.barangay.forms.dafacs.index', compact('dafacs'));
     }
 
     /**
@@ -26,7 +28,7 @@ class DafacController extends Controller
      */
     public function create()
     {
-        return view('users.forms.dafacs.create');
+        return view('users.barangay.forms.dafacs.create');
     }
 
     /**
@@ -60,7 +62,18 @@ class DafacController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $dafac = Dafac::with(['familyMembers'])
+        ->where('dafacs.user_id', Auth::user()->id)
+        ->where('dafacs.id', $id)
+        ->firstOrFail();
+
+        $base64Logo = ImageGeneratorHelper::getImageBased64('logos/dswd.png');
+
+        $pdf = Pdf::loadView('pdf.dafac', compact('base64Logo', 'dafac'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**
@@ -74,7 +87,7 @@ class DafacController extends Controller
             ->where('dafacs.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.dafacs.edit', compact('dafac'));
+        return view('users.barangay.forms.dafacs.edit', compact('dafac'));
     }
 
     /**

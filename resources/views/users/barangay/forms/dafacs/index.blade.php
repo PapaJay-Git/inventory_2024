@@ -1,20 +1,26 @@
 @extends('layouts.app')
 
 @section('title')
-    Dafac Records
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Dafac Records
 @endsection
 
 @section('content')
+
+    @php
+        $data_name = 'dafacs';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">DAFAC RECORDS</span>
-                            <a href="{{ route('dafacs.create') }}" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span class="mx-1 fw-bold">
+                                {{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}
+                                DAFAC
+                                RECORDS
+                            </span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -133,8 +139,9 @@
 
                                             {{-- Family Members --}}
                                             <td>
-                                                @foreach ($dafac->familyMembers as $member)
-                                                    <div class="border p-2 mb-2">
+                                                <div class="border p-2 mb-2">
+                                                    {{ count($dafac->familyMembers ?? []) }}
+                                                    {{-- @foreach ($dafac->familyMembers as $member)
                                                         <strong>Name:</strong> {{ $member->family_member_name }}<br>
                                                         <strong>Relationship:</strong>
                                                         {{ $member->relationship_to_head }}<br>
@@ -144,25 +151,16 @@
                                                         <strong>Occupational Skills:</strong>
                                                         {{ $member->occupational_skills }}<br>
                                                         <strong>Remarks:</strong> {{ $member->remarks }}
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach --}}
+                                                </div>
                                             </td>
 
                                             {{-- Actions --}}
                                             <td>
-                                                <a href="{{ route('dafacs.edit', $dafac->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <form action="{{ route('dafacs.destroy', $dafac->id) }}" method="POST"
-                                                    style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this record?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $dafac->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach

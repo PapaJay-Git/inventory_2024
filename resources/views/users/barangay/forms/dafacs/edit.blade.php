@@ -204,7 +204,7 @@
                                             YES
                                         </option>
                                         <option value="0"
-                                            {{ old('is_4ps_beneficiary') ?? $dafac->is_4ps_beneficiary ? 'selected' : '' }}>
+                                            {{ old('is_4ps_beneficiary') ?? $dafac->is_4ps_beneficiary ? '' : 'selected' }}>
                                             NO
                                         </option>
                                     </select>
@@ -226,7 +226,7 @@
                                             YES
                                         </option>
                                         <option value="0"
-                                            {{ old('is_indigenous_people') ?? $dafac->is_indigenous_people ? 'selected' : '' }}>
+                                            {{ old('is_indigenous_people') ?? $dafac->is_indigenous_people ? '' : 'selected' }}>
                                             NO
                                         </option>
                                     </select>

@@ -1,20 +1,23 @@
 @extends('layouts.app')
 
 @section('title')
-    Kabataans
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Kabataans
 @endsection
 
 @section('content')
+    @php
+        $data_name = 'kabataans';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">Kabataans</span>
-                            <a href="/kabataans/create" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span
+                                class="mx-1 fw-bold">{{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}
+                                Kabataans</span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -86,29 +89,39 @@
                                             <!-- Educational Background -->
                                             <td>
 
-                                                <div class="border p-2 mb-2">
+                                                <div class="border p-2 mb-2 d-inline-block">
                                                     @if ($kabataan->post_graduate_course)
-                                                        <strong>Post Graduate Course:</strong>
-                                                        {{ $kabataan->post_graduate_course }}<br>
-                                                        <strong>Year Taken:</strong>
-                                                        {{ $kabataan->post_graduate_year }}<br>
+                                                        <strong>Post Graduate
+                                                            Course:</strong>{{ $kabataan->post_graduate_course }}<br>
                                                     @endif
                                                     @if ($kabataan->college_course)
-                                                        <strong>College Course:</strong>
-                                                        {{ $kabataan->college_course }}<br>
-                                                        <strong>Year Taken:</strong> {{ $kabataan->college_year }}<br>
+                                                        <strong>College Course:</strong>{{ $kabataan->college_course }}<br>
                                                     @endif
                                                     @if ($kabataan->high_school)
                                                         <strong>High School:</strong> {{ $kabataan->high_school }}<br>
-                                                        <strong>Year Taken:</strong> {{ $kabataan->high_school_year }}<br>
                                                     @endif
                                                     @if ($kabataan->elementary)
                                                         <strong>Elementary:</strong> {{ $kabataan->elementary }}<br>
-                                                        <strong>Year Taken:</strong> {{ $kabataan->elementary_year }}<br>
                                                     @endif
                                                     @if ($kabataan->other_education)
                                                         <strong>Other Education:</strong>
                                                         {{ $kabataan->other_education }}<br>
+                                                    @endif
+                                                </div>
+                                                <div class="border p-2 mb-2 d-inline-block">
+                                                    @if ($kabataan->post_graduate_course)
+                                                        <strong>Year Taken:</strong>{{ $kabataan->post_graduate_year }}<br>
+                                                    @endif
+                                                    @if ($kabataan->college_course)
+                                                        <strong>Year Taken:</strong> {{ $kabataan->college_year }}<br>
+                                                    @endif
+                                                    @if ($kabataan->high_school)
+                                                        <strong>Year Taken:</strong> {{ $kabataan->high_school_year }}<br>
+                                                    @endif
+                                                    @if ($kabataan->elementary)
+                                                        <strong>Year Taken:</strong> {{ $kabataan->elementary_year }}<br>
+                                                    @endif
+                                                    @if ($kabataan->other_education)
                                                         <strong>Year Taken:</strong> {{ $kabataan->other_education_year }}
                                                     @endif
                                                 </div>
@@ -128,19 +141,10 @@
 
                                             <!-- Actions -->
                                             <td>
-                                                <a href="{{ route('kabataans.edit', $kabataan->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <form action="{{ route('kabataans.destroy', $kabataan->id) }}"
-                                                    method="POST" style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $kabataan->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach

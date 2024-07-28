@@ -211,7 +211,7 @@
         }
 
         .container td {
-            padding: 2px;
+            padding: 3px;
             margin: 2px;
             vertical-align: top;
         }
@@ -232,7 +232,7 @@
 
         input[type="text"] {
             height: 1rem;
-            width: auto;
+            width: 93%;
             font-size: 0.80rem;
             margin: auto;
             display: block;
@@ -304,13 +304,13 @@
                         Region:
                     </td>
                     <td colspan="5" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black" value="{{ $dafac->region }}">
                     </td>
                     <td colspan="1" class="text-md text-start">
                         <span>Serial No.</span>
                     </td>
                     <td colspan="3" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black" value="{{ $dafac->serial_no }}">
                     </td>
                 </tr>
                 <tr>
@@ -318,7 +318,8 @@
                         <span>Province/District:</span>
                     </td>
                     <td colspan="5" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->province_district }}">
                     </td>
                     <td colspan="4" class="text-md text-start font-bold">
                         <span>Social Worker's Copy</span>
@@ -329,7 +330,8 @@
                         <span>City/Mun/Brgy:</span>
                     </td>
                     <td colspan="5" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->city_municipality_barangay }}">
                     </td>
                     <td colspan="4" class="text-md text-start"></td>
                 </tr>
@@ -338,7 +340,8 @@
                         <span>Barangay/Evacuation Center/Site:</span>
                     </td>
                     <td colspan="4" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->barangay_evacuation_center_site }}">
                     </td>
                     <td colspan="4" class="text-md text-start"></td>
                 </tr>
@@ -352,23 +355,27 @@
                 </tr>
                 <tr>
                     <td colspan="3" rowspan="2" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->head_of_family_surname }}">
                         <span>Surname</span>
                     </td>
                     <td colspan="3" rowspan="2" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->head_of_family_first_name }}">
                         <span>First Name</span>
                     </td>
                     <td colspan="2" rowspan="2" class="text-md text-start">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->head_of_family_middle_name }}">
                         <span>Middle Name</span>
                     </td>
                     <td colspan="2" rowspan="1" class="text-md text-end">
-                        <input type="checkbox"> M
-                        <input type="checkbox"> F
+                        <input type="checkbox" {{ $dafac->sex == 'Male' ? 'checked' : '' }}> M
+                        <input type="checkbox" {{ $dafac->sex == 'Female' ? 'checked' : '' }}> F
                     </td>
                     <td colspan="1" rowspan="1" class="text-md text-start">
-                        <input type="text" style="border: 1px solid black;">
+                        <input type="text" style="border: 1px solid black; width: 50%"
+                            value="{{ $dafac->age }}">
                     </td>
                     <td colspan="1" rowspan="1" class="text-md text-start">
                         <span>Age</span>
@@ -384,15 +391,18 @@
                 </tr>
                 <tr>
                     <td colspan="4" class="text-md text-start ">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->date_of_birth }}">
                         <span>Date of Birth</span>
                     </td>
                     <td colspan="4" class="text-md text-start ">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->occupation }}">
                         <span>Occupation</span>
                     </td>
                     <td colspan="4" class="text-md text-start ">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->monthly_net_income }}">
                         <span>Monthly Net Income</span>
                     </td>
                 </tr>
@@ -401,17 +411,19 @@
                 </tr>
                 <tr>
                     <td colspan="5" class="text-md text-start ">
-                        <input type="checkbox">
+                        <input type="checkbox" {{ $dafac->is_4ps_beneficiary == true ? 'checked' : '' }}>
                         <span>4Ps Beneficiary</span>
                     </td>
                     <td colspan="4" class="text-md text-start ">
-                        <input type="checkbox">
+                        <input type="checkbox" {{ $dafac->is_indigenous_people == true ? 'checked' : '' }}>
                         <span>IP - Type of Ethnicity</span>
                     </td>
                     <td colspan="3" class="text-md text-start ">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->type_of_ethnicity }}">
                     </td>
                 </tr>
+
                 <tr>
                     <td colspan="12"><br></td>
                 </tr>
@@ -426,13 +438,30 @@
                 </tr>
                 @for ($i = 0; $i < 7; $i++)
                     <tr class="text-md text-center">
-                        <td colspan="2" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="2" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="1" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="1" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="2" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="2" class="border-1 border-black"><input type="text"></td>
-                        <td colspan="2" class="border-1 border-black"><input type="text"></td>
+                        <td colspan="2" class="border-1 border-black">
+                            <input type="text"
+                                value="{{ $dafac->familyMembers[$i]['family_member_name'] ?? '' }}">
+                        </td>
+                        <td colspan="2" class="border-1 border-black">
+                            <input type="text"
+                                value="{{ $dafac->familyMembers[$i]['relationship_to_head'] ?? '' }}">
+                        </td>
+                        <td colspan="1" class="border-1 border-black">
+                            <input type="text" value="{{ $dafac->familyMembers[$i]['age'] ?? '' }}">
+                        </td>
+                        <td colspan="1" class="border-1 border-black">
+                            <input type="text" value="{{ $dafac->familyMembers[$i]['gender'] ?? '' }}">
+                        </td>
+                        <td colspan="2" class="border-1 border-black">
+                            <input type="text" value="{{ $dafac->familyMembers[$i]['education'] ?? '' }}">
+                        </td>
+                        <td colspan="2" class="border-1 border-black">
+                            <input type="text"
+                                value="{{ $dafac->familyMembers[$i]['occupational_skills'] ?? '' }}">
+                        </td>
+                        <td colspan="2" class="border-1 border-black">
+                            <input type="text" value="{{ $dafac->familyMembers[$i]['remarks'] ?? '' }}">
+                        </td>
                     </tr>
                 @endfor
                 <tr>
@@ -441,26 +470,34 @@
                 <tr>
                     <td colspan="6" class="text-md text-start border-black border-1">
                         <div>
-                            <input type="checkbox" id="house_lot_owner">
+                            <input type="checkbox" id="house_lot_owner"
+                                {{ $dafac->housing_type == 'House & lot owner' ? 'checked' : '' }}>
                             <label for="house_lot_owner">House & lot owner</label><br>
-                            <input type="checkbox" id="rented_house_lot">
+                            <input type="checkbox" id="rented_house_lot"
+                                {{ $dafac->housing_type == 'Rented house & lot' ? 'checked' : '' }}>
                             <label for="rented_house_lot">Rented house & lot</label><br>
-                            <input type="checkbox" id="house_owner_lot_renter">
+                            <input type="checkbox" id="house_owner_lot_renter"
+                                {{ $dafac->housing_type == 'House owner & lot renter' ? 'checked' : '' }}>
                             <label for="house_owner_lot_renter">House owner & lot renter</label><br>
-                            <input type="checkbox" id="house_owner_rent_free_owner_consent">
+                            <input type="checkbox" id="house_owner_rent_free_owner_consent"
+                                {{ $dafac->housing_type == 'House owner - rent-free lot with owners consent' ? 'checked' : '' }}>
                             <label for="house_owner_rent_free_owner_consent">House owner, rent-free lot with owner's
                                 consent</label><br>
-                            <input type="checkbox" id="house_owner_rent_free_no_consent">
-                            <label for="house_owner_rent_free_no_consent">House owner, rent-free lot w/o consent of the
-                                owner</label><br>
-                            <input type="checkbox" id="rent_free_house_owner_consent">
+                            <input type="checkbox" id="house_owner_rent_free_no_consent"
+                                {{ $dafac->housing_type == 'House owner - rent-free lot without consent of the owner' ? 'checked' : '' }}>
+                            <label for="house_owner_rent_free_no_consent">House owner, rent-free lot without consent of
+                                the owner</label><br>
+                            <input type="checkbox" id="rent_free_house_owner_consent"
+                                {{ $dafac->housing_type == 'Rent-free house & lot with owners consent' ? 'checked' : '' }}>
                             <label for="rent_free_house_owner_consent">Rent-free house & lot with owner's
                                 consent</label><br>
-                            <input type="checkbox" id="rent_free_house_no_owner_consent">
-                            <label for="rent_free_house_no_owner_consent">Rent-free house & lot w/o owner's
+                            <input type="checkbox" id="rent_free_house_no_owner_consent"
+                                {{ $dafac->housing_type == 'Rent-free house & lot without owners consent' ? 'checked' : '' }}>
+                            <label for="rent_free_house_no_owner_consent">Rent-free house & lot without owner's
                                 consent</label>
                         </div>
                     </td>
+
                     <td colspan="6" class="text-md text-start border-black border-1">
                         <label for="code">Code:</label>
                         <span><b>A</b> - Older Person <b>B</b> - Lactating Mother <b>C</b> - PWD</span><br><br>
@@ -468,9 +505,11 @@
                         <hr>
 
                         <label for="housing_condition">Housing Condition:</label><br>
-                        <input type="checkbox" id="partially_damaged">
+                        <input type="checkbox" id="partially_damaged"
+                            {{ $dafac->housing_condition == 'Partially Damaged' ? 'checked' : '' }}>
                         <label for="partially_damaged">Partially Damaged</label><br>
-                        <input type="checkbox" id="totally_damaged">
+                        <input type="checkbox" id="totally_damaged"
+                            {{ $dafac->housing_condition == 'Totally Damaged' ? 'checked' : '' }}>
                         <label for="totally_damaged">Totally Damaged</label><br><br>
 
                         <hr>
@@ -498,7 +537,8 @@
                     </td>
                     <td colspan="1"></td>
                     <td colspan="4" class="text-md text-center">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->name_of_brg_captain }}">
                         <label for="signature_brg_captain">Name/Signature of Brgy. Captain</label>
                         <br>
                         <br>
@@ -507,14 +547,16 @@
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="4" class="text-md text-center">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->date_registered }}">
                         <label for="date_registered">Date Registered</label>
                         <br>
                         <br>
                     </td>
                     <td colspan="1"></td>
                     <td colspan="4" class="text-md text-center">
-                        <input type="text" style="border-bottom: 1px solid black">
+                        <input type="text" style="border-bottom: 1px solid black"
+                            value="{{ $dafac->name_of_lswdo }}">
                         <label for="signature_lswdo">Name/Signature of LSWDO</label>
                         <br>
                         <br>

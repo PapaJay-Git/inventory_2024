@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageGeneratorHelper;
 use App\Models\SoloParent;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +21,7 @@ class SoloParentController extends Controller
             ->where('solo_parents.user_id', Auth::user()->id)
             ->get();
 
-        return view('users.forms.soloParents.index', compact('soloParents'));
+        return view('users.barangay.forms.soloParents.index', compact('soloParents'));
     }
 
     /**
@@ -27,7 +29,7 @@ class SoloParentController extends Controller
      */
     public function create()
     {
-        return view('users.forms.soloParents.create');
+        return view('users.barangay.forms.soloParents.create');
     }
 
     /**
@@ -65,7 +67,18 @@ class SoloParentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $soloParent = SoloParent::with(['householdCompositions'])
+        ->where('solo_parents.user_id', Auth::user()->id)
+        ->where('solo_parents.id', $id)
+        ->firstOrFail();
+
+        // $base64Logo = ImageGeneratorHelper::getImageBased64('logos/dswd.png');
+
+        $pdf = Pdf::loadView('pdf.solo_parent', compact('soloParent'));
+
+        return $pdf->stream('document.pdf');
+
+        return $pdf->download('document.pdf');
     }
 
     /**
@@ -78,7 +91,7 @@ class SoloParentController extends Controller
             ->where('solo_parents.id', $id)
             ->firstOrFail();
 
-        return view('users.forms.soloParents.edit', compact('soloParent'));
+        return view('users.barangay.forms.soloParents.edit', compact('soloParent'));
     }
 
     /**

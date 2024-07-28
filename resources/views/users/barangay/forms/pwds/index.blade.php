@@ -1,20 +1,24 @@
 @extends('layouts.app')
 
 @section('title')
-    Person with Disability (Pwd)
+    {{ isset($barangay) ? ucwords(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }} Person with Disability (Pwd)
 @endsection
 
 @section('content')
+    @php
+        $data_name = 'pwds';
+    @endphp
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card shadow bg-white blurred-card">
                     <div class="card-header bg-light fw-bold">
                         <span class="d-flex justify-content-between">
-                            <span class="mx-1 fw-bold">Person with Disability (Pwd)</span>
-                            <a href="/pwds/create" class="btn btn-primary btn-sm fw-bold">
-                                CREATE DATA
-                            </a>
+                            <span
+                                class="mx-1 fw-bold">{{ isset($barangay) ? strtoupper(str_replace('_', ' ', "Barangay $barangay  - ")) : '' }}
+                                Person
+                                with Disability (Pwd)</span>
+                            @include('users.barangay.forms.includes.header_buttons')
                         </span>
                     </div>
 
@@ -225,23 +229,10 @@
 
                                             <!-- Actions -->
                                             <td>
-                                                <a href="{{ route('pwds.edit', $pwd->id) }}"
-                                                    class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil me-1"></i>Edit
-                                                </a>
-                                                <a href="{{ route('pwds.show', $pwd->id) }}" class="btn btn-primary btn-sm"
-                                                    target="_blank">
-                                                    <i class="bi bi-pencil me-1"></i>PDF
-                                                </a>
-                                                <form action="{{ route('pwds.destroy', $pwd->id) }}" method="POST"
-                                                    style="display:inline;"
-                                                    onsubmit="return confirm('Are you sure you want to delete this data?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="bi bi-trash me-1"></i>Delete
-                                                    </button>
-                                                </form>
+                                                @php
+                                                    $data_id = $pwd->id;
+                                                @endphp
+                                                @include('users.barangay.forms.includes.action_buttons')
                                             </td>
                                         </tr>
                                     @endforeach
