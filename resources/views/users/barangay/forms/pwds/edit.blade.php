@@ -116,19 +116,24 @@
                                 </div>
 
                                 <!-- Personal Information -->
-                                <div class="col-md-7 col-lg-5 my-2">
+                                <div class="col-12">
                                     <label>{{ __('4. Personal Information') }}
                                         <span class="text-danger fw-bold">*</span></label>
-                                    <div class="d-sm-flex justify-content-between">
-                                        @foreach (config('app.personal_information') as $facilityField)
-                                            <div>
-                                                <input id="{{ $facilityField }}" type="text"
-                                                    class="form-control mt-1 @error($facilityField) is-invalid @enderror"
-                                                    name="{{ $facilityField }}"
-                                                    value="{{ old($facilityField) ?? $pwd[$facilityField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $facilityField)) }}">
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.personal_information') as $field)
+                                            <div class="col-md-3">
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}" {!! $field == 'suffix' ? "maxlength='10'" : '' !!}>
+                                                </div>
 
-                                                @error($facilityField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -274,17 +279,23 @@
                                 <div class="col-md-6 col-lg-8 my-2">
                                     <label>{{ __('10. Residence address') }}
                                         <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
-                                        @foreach (config('app.residence_address') as $residence_addressField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.residence_address') as $field)
                                             <div class="col-12 col-md-6 col-lg-4 gap-2">
-                                                <input id="{{ $residence_addressField }}" type="text"
-                                                    name="{{ $residence_addressField }}"
-                                                    value="{{ old($residence_addressField) ?? $pwd[$residence_addressField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $residence_addressField)) }}"
-                                                    class="form-control mt-1 @error($residence_addressField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror"
+                                                        required>
+                                                </div>
 
-                                                @error($residence_addressField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -298,17 +309,23 @@
                                 <div class="col-md-6 col-lg-8 my-2">
                                     <label>{{ __('11. Contact details') }}
                                         <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
-                                        @foreach (config('app.contail_details') as $contail_detailsField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.contail_details') as $field)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $contail_detailsField }}"
-                                                    type="{{ $contail_detailsField == 'email_address' ? 'email' : 'text' }}"
-                                                    name="{{ $contail_detailsField }}"
-                                                    value="{{ old($contail_detailsField) ?? $pwd[$contail_detailsField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $contail_detailsField)) }}"
-                                                    class="form-control mt-1 @error($contail_detailsField) is-invalid @enderror">
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}"
+                                                        type="{{ $field == 'email_address' ? 'email' : 'text' }}"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror">
+                                                </div>
 
-                                                @error($contail_detailsField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -454,16 +471,22 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    <div class="row">
-                                        @foreach (config('app.organizational_information') as $organizational_informationField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.organizational_information') as $field)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $organizational_informationField }}" type="text"
-                                                    name="{{ $organizational_informationField }}"
-                                                    value="{{ old($organizational_informationField) ?? $pwd[$organizational_informationField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $organizational_informationField)) }}"
-                                                    class="form-control mt-1 @error($organizational_informationField) is-invalid @enderror">
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror">
+                                                </div>
 
-                                                @error($organizational_informationField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -482,17 +505,21 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    <div class="row">
-                                        @foreach (config('app.id_reference_no') as $id_reference_noField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.id_reference_no') as $field)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $id_reference_noField }}" type="text"
-                                                    name="{{ $id_reference_noField }}"
-                                                    value="{{ old($id_reference_noField) ?? $pwd[$id_reference_noField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $id_reference_noField)) }}"
-                                                    class="form-control mt-1 @error($id_reference_noField) is-invalid @enderror">
-
-
-                                                @error($id_reference_noField)
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ strtoupper(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror">
+                                                </div>
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -511,16 +538,22 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    <div class="row">
-                                        @foreach (config('app.family_background') as $family_backgroundField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.family_background') as $field)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $family_backgroundField }}" type="text"
-                                                    name="{{ $family_backgroundField }}"
-                                                    value="{{ old($family_backgroundField) ?? $pwd[$family_backgroundField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $family_backgroundField)) }}"
-                                                    class="form-control mt-1 @error($family_backgroundField) is-invalid @enderror">
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror">
+                                                </div>
 
-                                                @error($family_backgroundField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -533,7 +566,7 @@
                                 <div class="col-md-8 col-lg-6 my-2">
                                     <label for="accomplished_by">{{ __('18. Accomplished By') }}
                                         <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
+                                    <div class="row row-gap-2">
                                         <div class="col-10">
                                             <select id="accomplished_by"
                                                 class="form-control @error('accomplished_by') is-invalid @enderror"
@@ -551,17 +584,23 @@
                                             @enderror
                                         </div>
 
-                                        @foreach (config('app.accomplished_by_name') as $accomplished_by_nameField)
+                                        @foreach (config('app.accomplished_by_name') as $field)
                                             <div class="col-12 col-md-6 col-4">
-                                                <input id="{{ $accomplished_by_nameField }}" type="text"
-                                                    name="{{ $accomplished_by_nameField }}"
-                                                    value="{{ old($accomplished_by_nameField) ?? $pwd[$accomplished_by_nameField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $accomplished_by_nameField)) }}"
-                                                    class="form-control mt-1 @error($accomplished_by_nameField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}"
+                                                        value="{{ old($field) ?? $pwd[$field] }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror"
+                                                        required>
+                                                </div>
 
 
-                                                @error($accomplished_by_nameField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>

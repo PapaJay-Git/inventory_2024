@@ -54,21 +54,26 @@
                                     @enderror
                                 </div>
 
+
                                 <!-- Facility Location -->
                                 <div class="col-12 col-lg-9">
                                     <label>{{ __('1. Facility Address') }}
                                         <span class="text-danger fw-bold">*</span>
                                     </label>
-                                    <div class="row">
-
+                                    <div class="row row-gap-2">
                                         @foreach (config('app.facility_address') as $facilityField)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $facilityField }}" type="text"
-                                                    class="form-control  mt-1 @error($facilityField) is-invalid @enderror"
-                                                    name="{{ $facilityField }}"
-                                                    value="{{ old($facilityField) ?? $daycare[$facilityField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $facilityField)) }}"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $facilityField)) }}
+                                                    </span>
+                                                    <input id="{{ $facilityField }}" type="text"
+                                                        class="form-control p-2 mt-1 @error($facilityField) is-invalid @enderror"
+                                                        name="{{ $facilityField }}"
+                                                        value="{{ old($facilityField) ?? $daycare[$facilityField] }}"
+                                                        required>
+                                                </div>
 
                                                 @error($facilityField)
                                                     <span class="invalid-feedback" role="alert">
@@ -119,16 +124,21 @@
                                 <!-- Child Information -->
                                 <div class="col-12 col-md-8 col-lg-6">
                                     <label>{{ __('4. Child Name') }} <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
+                                    <div class="row row-gap-2">
                                         @foreach (config('app.child_name') as $child_nameField)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $child_nameField }}" type="text"
-                                                    name="{{ $child_nameField }}"
-                                                    value="{{ old($child_nameField) ?? $daycare[$child_nameField] }}"
-                                                    {!! $child_nameField == 'ext' ? "maxlength='10'" : '' !!}
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $child_nameField)) }}"
-                                                    class="form-control  mt-1 @error($child_nameField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $child_nameField)) }}
+                                                    </span>
+                                                    <input id="{{ $child_nameField }}" type="text"
+                                                        name="{{ $child_nameField }}"
+                                                        value="{{ old($child_nameField) ?? $daycare[$child_nameField] }}"
+                                                        {!! $child_nameField == 'ext' ? "maxlength='10'" : '' !!}
+                                                        class="form-control p-2 mt-1 @error($child_nameField) is-invalid @enderror"
+                                                        required>
+                                                </div>
 
                                                 @error($child_nameField)
                                                     <span class="invalid-feedback" role="alert">
@@ -245,15 +255,22 @@
                                 <!-- Home Address -->
                                 <div class="col-12 col-md-9 col-lg-8">
                                     <label>{{ __('9. Home Address') }} <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
+                                    <div class="row row-gap-2">
                                         @foreach (config('app.home_address') as $home_addressField)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $home_addressField }}" type="text"
-                                                    class="form-control  mt-1 @error($home_addressField) is-invalid @enderror"
-                                                    name="{{ $home_addressField }}"
-                                                    value="{{ old($home_addressField) ?? $daycare[$home_addressField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $home_addressField)) }}"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span
+                                                        style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $home_addressField)) }}
+                                                    </span>
+                                                    <input id="{{ $home_addressField }}" type="text"
+                                                        class="form-control p-2 mt-1 @error($home_addressField) is-invalid @enderror"
+                                                        name="{{ $home_addressField }}"
+                                                        value="{{ old($home_addressField) ?? $daycare[$home_addressField] }}"
+                                                        required>
+                                                </div>
+
 
                                                 @error($home_addressField)
                                                     <span class="invalid-feedback" role="alert">

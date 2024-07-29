@@ -64,16 +64,22 @@
 
                                 <div class="col-12 col-lg-6">
                                     <label>{{ __('Full Name') }} <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
+                                    <div class="row row-gap-2">
                                         @foreach (config('app.personal_information') as $personal_informationField)
                                             <div class="col-12 col-md-6 col-lg-3">
-                                                <input id="{{ $personal_informationField }}" type="text"
-                                                    name="{{ $personal_informationField }}"
-                                                    value="{{ old($personal_informationField) ?? $soloParent[$personal_informationField] }}"
-                                                    {!! $personal_informationField == 'ext' ? "maxlength='10'" : '' !!}
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $personal_informationField)) }}"
-                                                    class="form-control  mt-1 @error($personal_informationField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $personal_informationField)) }}
+                                                    </span>
+                                                    <input id="{{ $personal_informationField }}" type="text"
+                                                        name="{{ $personal_informationField }}"
+                                                        value="{{ old($personal_informationField) ?? $soloParent[$personal_informationField] }}"
+                                                        {!! $personal_informationField == 'suffix' ? "maxlength='10'" : '' !!}
+                                                        class="form-control p-2 mt-1 @error($personal_informationField) is-invalid @enderror"
+                                                        required>
+                                                </div>
+
 
                                                 @error($personal_informationField)
                                                     <span class="invalid-feedback" role="alert">
@@ -180,15 +186,20 @@
                                         <span class="text-danger fw-bold">*</span>
                                     </label>
                                     <div class="row row-gap-2">
-
                                         @foreach (config('app.address') as $addressField)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $addressField }}" type="text"
-                                                    class="form-control  mt-1 @error($addressField) is-invalid @enderror"
-                                                    name="{{ $addressField }}"
-                                                    value="{{ old($addressField) ?? $soloParent[$addressField] }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $addressField)) }}"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $addressField)) }}
+                                                    </span>
+
+                                                    <input id="{{ $addressField }}" type="text"
+                                                        class="form-control p-2 mt-1 @error($addressField) is-invalid @enderror"
+                                                        name="{{ $addressField }}"
+                                                        value="{{ old($addressField) ?? $soloParent[$addressField] }}"
+                                                        required>
+                                                </div>
 
                                                 @error($addressField)
                                                     <span class="invalid-feedback" role="alert">

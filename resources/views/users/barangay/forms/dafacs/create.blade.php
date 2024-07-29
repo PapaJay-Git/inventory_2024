@@ -62,16 +62,21 @@
 
                                 <div class="col-12">
                                     <label>{{ __('Address') }} <span class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
-                                        @foreach (config('app.dafac_address') as $dafac_addressField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.dafac_address') as $field)
                                             <div class="col-12 col-md-6 col-lg-3">
-                                                <input id="{{ $dafac_addressField }}" type="text"
-                                                    name="{{ $dafac_addressField }}" value="{{ old($dafac_addressField) }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $dafac_addressField)) }}"
-                                                    class="form-control  mt-1 @error($dafac_addressField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}" value="{{ old($field) }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror"
+                                                        required>
+                                                </div>
 
-                                                @error($dafac_addressField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -84,17 +89,21 @@
                                 <div class="col-9">
                                     <label>{{ __('Head of the Family') }} <span
                                             class="text-danger fw-bold">*</span></label>
-                                    <div class="row">
-                                        @foreach (config('app.head_of_the_family') as $head_of_the_familyField)
+                                    <div class="row row-gap-2">
+                                        @foreach (config('app.head_of_the_family') as $field)
                                             <div class="col-12 col-md-6 col-lg-4">
-                                                <input id="{{ $head_of_the_familyField }}" type="text"
-                                                    name="{{ $head_of_the_familyField }}"
-                                                    value="{{ old($head_of_the_familyField) }}"
-                                                    placeholder="{{ ucwords(str_replace('_', ' ', $head_of_the_familyField)) }}"
-                                                    class="form-control  mt-1 @error($head_of_the_familyField) is-invalid @enderror"
-                                                    required>
+                                                <div style="position: relative">
+                                                    <span style="position: absolute; top: -7px; left: 1px; font-size: 10px;"
+                                                        class="bg-light px-1">
+                                                        {{ ucwords(str_replace('_', ' ', $field)) }}
+                                                    </span>
+                                                    <input id="{{ $field }}" type="text"
+                                                        name="{{ $field }}" value="{{ old($field) }}"
+                                                        class="form-control p-2 mt-1 @error($field) is-invalid @enderror"
+                                                        required>
+                                                </div>
 
-                                                @error($head_of_the_familyField)
+                                                @error($field)
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -178,7 +187,8 @@
                                         <div>
                                             <input id="monthly_net_income" type="number"
                                                 class="form-control  @error('monthly_net_income') is-invalid @enderror"
-                                                name="monthly_net_income" value="{{ old('monthly_net_income') }}" required>
+                                                name="monthly_net_income" value="{{ old('monthly_net_income') }}"
+                                                required>
                                             @error('monthly_net_income')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
